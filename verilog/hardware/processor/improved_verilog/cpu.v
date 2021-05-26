@@ -41,7 +41,6 @@
  */
 
 
-
 module cpu(
 			clk,
 			inst_mem_in,
@@ -68,7 +67,9 @@ module cpu(
 	 *	Data Memory
 	 */
 	input [31:0]		data_mem_out;
-	output [31:0]		data_mem_addr;
+	// Reduction of bits to reflect changes in data_mem.v
+	//output [31:0]		data_mem_addr;
+	output [11:0]		data_mem_addr; 
 	output [31:0]		data_mem_WrData;
 	output			data_mem_memwrite;
 	output			data_mem_memread;
@@ -172,6 +173,8 @@ module cpu(
 	wire			decode_ctrl_mux_sel;
 	wire			inst_mux_sel;
 
+    
+
 	/*
 	 *	Instruction Fetch Stage
 	 */
@@ -182,11 +185,19 @@ module cpu(
 			.out(pc_in)
 		);
 
-	adder pc_adder(
+	`ifdef USE_ADDER_DSP
+		adder_dsp pc_adder(
 			.input1(32'b100),
 			.input2(pc_out),
 			.out(pc_adder_out)
 		);
+	`else
+		adder pc_adder(
+			.input1(32'b100),
+			.input2(pc_out),
+			.out(pc_adder_out)
+		);
+	`endif
 
 	program_counter PC(
 			.inAddr(pc_in),
@@ -331,11 +342,20 @@ module cpu(
 			.out(addr_adder_mux_out)
 		);
 
-	adder addr_adder(
+	`ifdef USE_ADDER_DSP
+		adder_dsp addr_adder(
 			.input1(addr_adder_mux_out),
 			.input2(id_ex_out[139:108]),
 			.out(addr_adder_sum)
 		);
+	`else
+		adder addr_adder(
+			.input1(addr_adder_mux_out),
+			.input2(id_ex_out[139:108]),
+			.out(addr_adder_sum)
+		);
+	`endif
+	
 
 	mux2to1 alu_mux(
 			.input0(wb_fwd2_mux_out),
@@ -468,17 +488,33 @@ module cpu(
 		);
 
 	//Branch Predictor
-	branch_predictor branch_predictor_FSM(
-			.clk(clk),
-			.actual_branch_decision(actual_branch_decision),
-			.branch_decode_sig(cont_mux_out[6]),
-			.branch_mem_sig(ex_mem_out[6]),
-			.in_addr(if_id_out[31:0]),
-			.offset(imm_out),
-			.branch_addr(branch_predictor_addr),
-			.prediction(predict)
-		);
+    
+     `ifdef USE_CORRELATING
+        branch_predictor branch_predictor_FSM(
+        .clk(clk),
+        .actual_branch_decision(actual_branch_decision),
+        .branch_decode_sig(cont_mux_out[6]),
+        .branch_mem_sig(ex_mem_out[6]),
+        .in_addr(if_id_out[31:0]),
+        .offset(imm_out),
+        .branch_addr(branch_predictor_addr),
+        .prediction(predict)
+    );
+    `else
+    
+    two_bit_branch_predictor branch_predictor_FSM(
+        .clk(clk),
+        .actual_branch_decision(actual_branch_decision),
+        .branch_decode_sig(cont_mux_out[6]),
+        .branch_mem_sig(ex_mem_out[6]),
+        .in_addr(if_id_out[31:0]),
+        .offset(imm_out),
+        .branch_addr(branch_predictor_addr),
+        .prediction(predict)
+    );
 
+    `endif
+	
 	mux2to1 branch_predictor_mux(
 			.input0(fence_mux_out),
 			.input1(branch_predictor_addr),
@@ -510,7 +546,9 @@ module cpu(
 	assign inst_mem_in = pc_out;
 
 	//Data Memory Connections
-	assign data_mem_addr = lui_result;
+	// Reduction in bits consistent with data_mem.v
+	//assign data_mem_addr = lui_result;
+	assign data_mem_addr = lui_result[11:0];
 	assign data_mem_WrData = wb_fwd2_mux_out;
 	assign data_mem_memwrite = ex_cont_mux_out[4];
 	assign data_mem_memread = ex_cont_mux_out[5];

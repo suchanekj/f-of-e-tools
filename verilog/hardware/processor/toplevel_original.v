@@ -55,25 +55,11 @@ module top (led);
 	/*
 	 *	Use the iCE40's hard primitive for the clock source.
 	 */
-	`ifdef USE_PLL_CLK
-		wire clk_hf;
-		SB_HFOSC #(.CLKHF_DIV("0b00")) OSCInst0 (
-			.CLKHFEN(ENCLKHF),
-			.CLKHFPU(CLKHF_POWERUP),
-			.CLKHF(clk_hf)
-		);
-		
-		pll_clk pll_clk_inst(
-			.clk_hf(clk_hf),
-			.clk(clk)
-		);
-	`else
-		SB_HFOSC #(.CLKHF_DIV(`CLK_NOPLL_DIV)) OSCInst0 (
-			.CLKHFEN(ENCLKHF),
-			.CLKHFPU(CLKHF_POWERUP),
-			.CLKHF(clk)
-		);
-	`endif
+	SB_HFOSC #(.CLKHF_DIV("0b11")) OSCInst0 (
+		.CLKHFEN(ENCLKHF),
+		.CLKHFPU(CLKHF_POWERUP),
+		.CLKHF(clk)
+	);
 
 	/*
 	 *	Memory interface
@@ -81,12 +67,7 @@ module top (led);
 	wire[31:0]	inst_in;
 	wire[31:0]	inst_out;
 	wire[31:0]	data_out;
-	`ifdef USE_SMALL_DATA_ADDR
-		 // Change size of data_addr to be consistent with data_mem
-		wire[11:0]	data_addr;
-	`else
-		wire[31:0]	data_addr;
-	`endif
+	wire[31:0]	data_addr;
 	wire[31:0]	data_WrData;
 	wire		data_memwrite;
 	wire		data_memread;

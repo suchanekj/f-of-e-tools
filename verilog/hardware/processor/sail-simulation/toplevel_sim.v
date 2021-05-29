@@ -41,52 +41,20 @@
  *	Top level entity, linking cpu with data and instruction memory.
  */
 
-
-module top (led);
+module top_sim (clk, led);
+	input		clk;
 	output [7:0]	led;
 
 	wire		clk_proc;
 	wire		data_clk_stall;
 	
-	wire		clk;
-	reg		ENCLKHF		= 1'b1;	// Plock enable
-	reg		CLKHF_POWERUP	= 1'b1;	// Power up the HFOSC circuit
-
-	/*
-	 *	Use the iCE40's hard primitive for the clock source.
-	 */
-	`ifdef USE_PLL_CLK
-		wire clk_hf;
-		SB_HFOSC #(.CLKHF_DIV("0b00")) OSCInst0 (
-			.CLKHFEN(ENCLKHF),
-			.CLKHFPU(CLKHF_POWERUP),
-			.CLKHF(clk_hf)
-		);
-		
-		pll_clk pll_clk_inst(
-			.clk_hf(clk_hf),
-			.clk(clk)
-		);
-	`else
-		SB_HFOSC #(.CLKHF_DIV(`CLK_NOPLL_DIV)) OSCInst0 (
-			.CLKHFEN(ENCLKHF),
-			.CLKHFPU(CLKHF_POWERUP),
-			.CLKHF(clk)
-		);
-	`endif
-
 	/*
 	 *	Memory interface
 	 */
 	wire[31:0]	inst_in;
 	wire[31:0]	inst_out;
 	wire[31:0]	data_out;
-	`ifdef USE_SMALL_DATA_ADDR
-		 // Change size of data_addr to be consistent with data_mem
-		wire[11:0]	data_addr;
-	`else
-		wire[31:0]	data_addr;
-	`endif
+	wire[13:0]	data_addr;
 	wire[31:0]	data_WrData;
 	wire		data_memwrite;
 	wire		data_memread;

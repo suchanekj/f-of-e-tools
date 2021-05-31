@@ -1,13 +1,3 @@
-`define CACHE_LINE_MAX_BIT 127
-`define CACHE_LINE_SIZE_WORDS 4
-`define CACHE_LINE_SIZE_BYTES_LOG 4
-`define CACHE_LINE_SIZE_BYTES_LOG_MINUS_ONE 3
-`define CACHE_LINE_ADDRESS_MAX_BIT 9
-`define CACHE_LINE_NUMBER 8
-`define CACHE_LINE_NUMBER_MINUS_ONE 7
-`define CACHE_LINE_NUMBER_LOG_MINUS_ONE 2
-
-
 //Fully associative cache, write to memory only at rejection
 
 module cache_line (clk, addr, write_data, memwrite, memread, age_of_accessed, data, stored_addr, age, addr_match, dirty, old);
@@ -18,7 +8,7 @@ module cache_line (clk, addr, write_data, memwrite, memread, age_of_accessed, da
 	input			memread;
 	input [`CACHE_LINE_NUMBER_LOG_MINUS_ONE:0]	age_of_accessed;
 	output reg [`CACHE_LINE_MAX_BIT:0]	data;
-	reg [`CACHE_LINE_ADDRESS_MAX_BIT:0] stored_addr;
+	output reg [`CACHE_LINE_ADDRESS_MAX_BIT:0] stored_addr;
 	output reg [`CACHE_LINE_NUMBER_LOG_MINUS_ONE:0] age;
 	output			addr_match;
 	output reg		dirty;
@@ -111,7 +101,7 @@ module cached_data_memory (clk, addr, write_data, memwrite, memread, sign_mask, 
 	 *	Buffers to store write data
 	 */
 	reg [31:0]		write_data_buffer;
-	wire [13:0]		current_write_data;
+	wire [31:0]		current_write_data;
 	
 	assign current_write_data = (state == IN_CACHE) ? write_data : write_data_buffer;
 
@@ -127,7 +117,7 @@ module cached_data_memory (clk, addr, write_data, memwrite, memread, sign_mask, 
 	 *	Sign_mask buffer
 	 */
 	reg [3:0]		sign_mask_buf;
-	wire [13:0]		current_sign_mask;
+	wire [3:0]		current_sign_mask;
 	
 	assign current_sign_mask = (state == IN_CACHE) ? sign_mask : sign_mask_buf;
 
@@ -138,7 +128,7 @@ module cached_data_memory (clk, addr, write_data, memwrite, memread, sign_mask, 
 	 */
 	 //`define memsize = 1024;
 	 // TODO: change it to correspond to cache_line size - just need to check the memory gets set correctly at initialization !!!!!!!!!!!!!!!!!!!!!!!!!!!
-	reg [31:0]		data_block[0:1024 - 1];
+	reg [`CACHE_LINE_MAX_BIT:0]		data_block[0:256 - 1];
 
 	/*
 	 *	wire assignments
@@ -231,7 +221,7 @@ module cached_data_memory (clk, addr, write_data, memwrite, memread, sign_mask, 
 		end
 	endgenerate
 	
-	assign accessed_line_dirty = (((cache_line_addr_match != 0) ? cache_line_addr_match : cache_line_old) & cache_line_dirty) != 0
+	assign accessed_line_dirty = (((cache_line_addr_match != 0) ? cache_line_addr_match : cache_line_old) & cache_line_dirty) != 0;
 	
 	assign cache_read = memread & (cache_line_addr_match != 0) & (state == IN_CACHE);
 	assign cache_write = ((state == IN_CACHE) & memwrite & (cache_line_addr_match != 0)) | (state == UPDATE_CACHE);
@@ -312,11 +302,11 @@ module cached_data_memory (clk, addr, write_data, memwrite, memread, sign_mask, 
 	assign replacement_word = (write_select1) ? current_write_data : write_out1;
 	
 	wire[`CACHE_LINE_MAX_BIT:0] cache_write_data_original;
+	wire[`CACHE_LINE_MAX_BIT:0] cache_write_data_updated;
 	
 	assign cache_write_data_original = (state == IN_CACHE) ? accessed_line_data : cache_line_from_memory;
 	
 	generate
-		wire[`CACHE_LINE_MAX_BIT:0] cache_write_data_updated;
 		always @ (*) begin
 			cache_write_data_updated = cache_write_data_original;
 			// might be wrong but enough if it is consistent with other accesses to accessed_line_data
@@ -324,7 +314,7 @@ module cached_data_memory (clk, addr, write_data, memwrite, memread, sign_mask, 
 		end
 	endgenerate
 	
-	assign cache_write_data = current_memwrite ?  : cache_write_data_original;
+	assign cache_write_data = current_memwrite ? cache_write_data_updated : cache_write_data_original;
 
 	/*
 	 *	Combinational logic for generating 32-bit read data
@@ -400,7 +390,7 @@ module cached_data_memory (clk, addr, write_data, memwrite, memread, sign_mask, 
 				addr_buf <= addr;
 				sign_mask_buf <= sign_mask;
 				if (memwrite == 1'b1 || memread == 1'b1) begin
-					if cache_line_addr_match != 0 begin
+					if (cache_line_addr_match != 0) begin
 						read_data <= read_buf;
 					end
 					else begin
@@ -412,15 +402,21 @@ module cached_data_memory (clk, addr, write_data, memwrite, memread, sign_mask, 
 			ACCESS_MEMORY: begin
 				genvar cache_line_word_i;
 				if (!accessed_line_dirty) begin
+					/*
 					for(cache_line_word_i = 0; cache_line_word_i < `CACHE_LINE_SIZE_WORDS; cache_line_word_i = cache_line_word_i + 1) begin
 						// might be wrong but enough if it is consistent with other accesses to accessed_line_data
-						data_block[{accessed_line_stored_addr, cache_line_word_i}] <= accessed_line_data[{cache_line_word_i,5'b0}, {cache_line_word_i, 5'b1}]
+						data_block[{accessed_line_stored_addr, cache_line_word_i}] <= accessed_line_data[{cache_line_word_i,5'b0}: {cache_line_word_i, 5'b1}];
 					end
+					*/
+					data_block[accessed_line_stored_addr - 32'h1000] <= accessed_line_data;
 				end
+				/*
 				for(cache_line_word_i = 0; cache_line_word_i < `CACHE_LINE_SIZE_WORDS; cache_line_word_i = cache_line_word_i + 1) begin
 					// might be wrong but enough if it is consistent with other accesses to accessed_line_data
-					cache_line_from_memory[{cache_line_word_i,5'b0}, {cache_line_word_i, 5'b1}] <= data_block[{accessed_line_stored_addr, cache_line_word_i}]
+					cache_line_from_memory[{cache_line_word_i,5'b0}: {cache_line_word_i, 5'b1}] <= data_block[{accessed_line_stored_addr, cache_line_word_i}];
 				end
+				*/
+				cache_line_from_memory <= data_block[accessed_line_stored_addr - 32'h1000];
 				state <= UPDATE_CACHE;
 			end
 			UPDATE_CACHE: begin

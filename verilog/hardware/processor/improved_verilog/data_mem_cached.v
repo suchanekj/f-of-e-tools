@@ -127,7 +127,7 @@ module cached_data_memory (clk, addr, write_data, memwrite, memread, sign_mask, 
 	 *	(Bad practice: The constant for the size should be a `define).
 	 */
 	 //`define memsize = 1024;
-	 // TODO: change it to correspond to cache_line size - just need to check the memory gets set correctly at initialization !!!!!!!!!!!!!!!!!!!!!!!!!!!
+	 // TODO: need to check the memory gets set correctly at initialization !!!!!!!!!!!!!!!!!!!!!!!!!!!
 	reg [`CACHE_LINE_MAX_BIT:0]		data_block[0:256 - 1];
 
 	/*
@@ -166,8 +166,8 @@ module cached_data_memory (clk, addr, write_data, memwrite, memread, sign_mask, 
 				.clk(clk),
 				.addr(current_address),
 				.write_data(cache_write_data),
-				.write(cache_write),
-				.read(cache_read),
+				.memwrite(cache_write),
+				.memread(cache_read),
 				.age_of_accessed(accessed_line_age),
 				.data(cache_line_data[i]),
 				.stored_addr(cache_line_stored_addr[i]),
@@ -187,6 +187,7 @@ module cached_data_memory (clk, addr, write_data, memwrite, memread, sign_mask, 
 	wire[`CACHE_LINE_MAX_BIT:0] accessed_line_data;
 	wire[`CACHE_LINE_ADDRESS_MAX_BIT:0] accessed_line_stored_addr;
 	wire accessed_line_dirty;
+	
 	
 	generate 
 		genvar m;
@@ -216,7 +217,7 @@ module cached_data_memory (clk, addr, write_data, memwrite, memread, sign_mask, 
 			end
 		end
 		always @ (*) begin
-			// might be wrong but enough if it is consistent with other accesses to accessed_line_data
+			// might be wrong, check it is accessing the correct word !!!!!!!!!!!!!!!!!!!!
 			cache_word = accessed_line_data[{current_address[`CACHE_LINE_SIZE_BYTES_LOG_MINUS_ONE:2],5'b0}:{current_address[`CACHE_LINE_SIZE_BYTES_LOG_MINUS_ONE:2],5'b1}];
 		end
 	endgenerate
@@ -309,7 +310,7 @@ module cached_data_memory (clk, addr, write_data, memwrite, memread, sign_mask, 
 	generate
 		always @ (*) begin
 			cache_write_data_updated = cache_write_data_original;
-			// might be wrong but enough if it is consistent with other accesses to accessed_line_data
+			// might be wrong, check it is accessing the correct word !!!!!!!!!!!!!!!!!!!!
 			cache_write_data_updated[{current_address[`CACHE_LINE_SIZE_BYTES_LOG_MINUS_ONE:2],5'b0}:{current_address[`CACHE_LINE_SIZE_BYTES_LOG_MINUS_ONE:2],5'b1}] = replacement_word;
 		end
 	endgenerate
@@ -400,22 +401,9 @@ module cached_data_memory (clk, addr, write_data, memwrite, memread, sign_mask, 
 				end
 			end
 			ACCESS_MEMORY: begin
-				genvar cache_line_word_i;
 				if (!accessed_line_dirty) begin
-					/*
-					for(cache_line_word_i = 0; cache_line_word_i < `CACHE_LINE_SIZE_WORDS; cache_line_word_i = cache_line_word_i + 1) begin
-						// might be wrong but enough if it is consistent with other accesses to accessed_line_data
-						data_block[{accessed_line_stored_addr, cache_line_word_i}] <= accessed_line_data[{cache_line_word_i,5'b0}: {cache_line_word_i, 5'b1}];
-					end
-					*/
 					data_block[accessed_line_stored_addr - 32'h1000] <= accessed_line_data;
 				end
-				/*
-				for(cache_line_word_i = 0; cache_line_word_i < `CACHE_LINE_SIZE_WORDS; cache_line_word_i = cache_line_word_i + 1) begin
-					// might be wrong but enough if it is consistent with other accesses to accessed_line_data
-					cache_line_from_memory[{cache_line_word_i,5'b0}: {cache_line_word_i, 5'b1}] <= data_block[{accessed_line_stored_addr, cache_line_word_i}];
-				end
-				*/
 				cache_line_from_memory <= data_block[accessed_line_stored_addr - 32'h1000];
 				state <= UPDATE_CACHE;
 			end

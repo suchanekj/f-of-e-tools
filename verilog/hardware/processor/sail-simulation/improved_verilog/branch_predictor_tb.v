@@ -45,8 +45,9 @@ reg [31:0] in_addr;
 reg [31:0] offset;
 wire [31:0] branch_addr;
 wire prediction;
-/*
+
 wire [1:0] check0;
+/*
 wire [1:0] check1;
 wire [1:0] check2;
 wire [1:0] check3;
@@ -60,9 +61,10 @@ branch_predictor bp(
 	.in_addr(in_addr),
 	.offset(offset),
 	.branch_addr(branch_addr),
-	.prediction(prediction)
-	/*
-	.check0(check0),
+	.prediction(prediction),
+	
+	.check0(check0)
+    /*
 	.check1(check1),
 	.check2(check2),
 	.check3(check3),

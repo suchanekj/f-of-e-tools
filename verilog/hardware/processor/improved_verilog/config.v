@@ -2,8 +2,7 @@
 
 `define USE_ADDER_DSP
 `define USE_SUBTRACTOR_DSP
-// `define USE_AND_DSP
-// `define USE_XOR_DSP
+`define USE_ANDXOR_DSP
  
 // Clock
 
@@ -18,13 +17,13 @@
 
 // branch prediction
 
-`define USE_CORRELATING
+// `define USE_CORRELATING
 //`define USE_ONE_BIT //Cannot be defined IF USE_CORRELATING is defined too!
-`define USE_BRANCH 
+// `define USE_BRANCH 
 //`define USE_STATIC //Cannot be defined IF USE_CORRELATING is defined too!
 
 
 // memory
 
-`define USE_SMALL_DATA_ADDR
-`define USE_MEMORY_OPTIMIZATIONS
+// `define USE_SMALL_DATA_ADDR
+// `define USE_MEMORY_OPTIMIZATIONS

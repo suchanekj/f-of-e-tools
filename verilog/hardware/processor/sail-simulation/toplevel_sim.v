@@ -59,7 +59,8 @@ module top_sim (clk, led);
 	wire		data_memwrite;
 	wire		data_memread;
 	wire[3:0]	data_sign_mask;
-	wire		check0;
+	wire check0;
+	wire check1;
 
 	cpu processor(
 		.clk(clk_proc),
@@ -88,7 +89,8 @@ module top_sim (clk, led);
 		.sign_mask(data_sign_mask),
 		.led(led),
 		.clk_stall(data_clk_stall),
-		.check0(check0)
+		.check0(check0),
+		.check1(check1)
 	);
 
 

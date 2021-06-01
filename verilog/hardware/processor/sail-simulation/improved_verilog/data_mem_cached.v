@@ -46,7 +46,7 @@ module cache_line (clk, addr, write_data, memwrite, memread, age_of_accessed, da
 endmodule
 
 
-module cached_data_memory (clk, addr, write_data, memwrite, memread, sign_mask, read_data, led, clk_stall, check0);
+module cached_data_memory (clk, addr, write_data, memwrite, memread, sign_mask, read_data, led, clk_stall, check0, check1);
 	input			clk;
 	/* 
 	addr is used only to assign bits to addr_buff, which in turn assigns bits to addr_buf_block_addr and addr_buf_byte_offset
@@ -60,8 +60,8 @@ module cached_data_memory (clk, addr, write_data, memwrite, memread, sign_mask, 
 	output reg [31:0]	read_data;
 	output [7:0]		led;
 	output reg		clk_stall;	//Sets the clock high
-	output check0;
-	
+	output reg check0;
+	output reg check1;
 
 	/*
 	 *	Current state
@@ -150,7 +150,7 @@ module cached_data_memory (clk, addr, write_data, memwrite, memread, sign_mask, 
 	wire[`CACHE_LINE_MAX_BIT:0] cache_write_data;
 	wire cache_write;
 	wire cache_read;
-	wire[`CACHE_LINE_NUMBER_LOG_MINUS_ONE:0]	accessed_line_age;
+	reg[`CACHE_LINE_NUMBER_LOG_MINUS_ONE:0]	accessed_line_age;
 	wire[`CACHE_LINE_MAX_BIT:0]	cache_line_data [`CACHE_LINE_NUMBER_MINUS_ONE: 0];
 	wire[`CACHE_LINE_ADDRESS_MAX_BIT:0]	cache_line_stored_addr [`CACHE_LINE_NUMBER_MINUS_ONE: 0];
 	wire[`CACHE_LINE_NUMBER_LOG_MINUS_ONE:0]	cache_line_age [`CACHE_LINE_NUMBER_MINUS_ONE: 0];
@@ -186,13 +186,12 @@ module cached_data_memory (clk, addr, write_data, memwrite, memread, sign_mask, 
 	 *	Read correct data from the cache
 	 */
 	
-	wire[`CACHE_LINE_MAX_BIT:0] accessed_line_data;
-	wire[`CACHE_LINE_ADDRESS_MAX_BIT:0] accessed_line_stored_addr;
+	reg[`CACHE_LINE_MAX_BIT:0] accessed_line_data;
+	reg[`CACHE_LINE_ADDRESS_MAX_BIT:0] accessed_line_stored_addr;
 	wire accessed_line_dirty;
-	wire[`CACHE_LINE_SIZE_BYTES_LOG_MINUS_ONE+4:0] temp1;
-	wire[`CACHE_LINE_SIZE_BYTES_LOG_MINUS_ONE+4:0] temp2;
-	wire[`CACHE_LINE_SIZE_BYTES_LOG_MINUS_ONE+4:0] width;
 
+	wire [31:0] accessed_line_data_unpacked[`CACHE_LINE_SIZE_WORDS - 1:0];
+	
 	generate 
 		genvar m;
 		integer l;
@@ -220,12 +219,11 @@ module cached_data_memory (clk, addr, write_data, memwrite, memread, sign_mask, 
 					accessed_line_data[m] = accessed_line_data[m] | (cache_line_data[l][m] & cache_line_addr_match[l]);
 			end
 		end
+		for (m = 0; m < `CACHE_LINE_SIZE_WORDS; m = m + 1)
+			assign accessed_line_data_unpacked[m] = accessed_line_data[m * 32 + 31:m * 32];
+		
 		always @ (*) begin
-			// might be wrong, check it is accessing the correct word !!!!!!!!!!!!!!!!!!!!
-			temp1 = {current_address[`CACHE_LINE_SIZE_BYTES_LOG_MINUS_ONE:2],5'b0};
-			temp2 = {current_address[`CACHE_LINE_SIZE_BYTES_LOG_MINUS_ONE:2],5'b1};
-			width = temp2 - temp1;
-			cache_word = accessed_line_data[temp1-:width];
+			cache_word = accessed_line_data_unpacked[current_address[`CACHE_LINE_SIZE_BYTES_LOG_MINUS_ONE:2]];
 		end
 	endgenerate
 	
@@ -233,7 +231,6 @@ module cached_data_memory (clk, addr, write_data, memwrite, memread, sign_mask, 
 	
 	assign cache_read = memread & (cache_line_addr_match != 0) & (state == IN_CACHE);
 	assign cache_write = ((state == IN_CACHE) & memwrite & (cache_line_addr_match != 0)) | (state == UPDATE_CACHE);
-
 	/*
 	 *	Regs for multiplexer output
 	 */
@@ -315,10 +312,13 @@ module cached_data_memory (clk, addr, write_data, memwrite, memread, sign_mask, 
 	assign cache_write_data_original = (state == IN_CACHE) ? accessed_line_data : cache_line_from_memory;
 	
 	generate
-		always @ (*) begin
-			cache_write_data_updated = cache_write_data_original;
-			// might be wrong, check it is accessing the correct word !!!!!!!!!!!!!!!!!!!!
-			cache_write_data_updated[{current_address[`CACHE_LINE_SIZE_BYTES_LOG_MINUS_ONE:2],5'b0}:{current_address[`CACHE_LINE_SIZE_BYTES_LOG_MINUS_ONE:2],5'b1}] = replacement_word;
+		for (m = 0; m < `CACHE_LINE_SIZE_WORDS; m = m + 1) begin
+			always @ (*) begin
+				if (current_memwrite && current_address[`CACHE_LINE_SIZE_BYTES_LOG_MINUS_ONE:2] == m)
+					cache_write_data_updated[m * 32 + 31:m * 32] = replacement_word;
+				else
+					cache_write_data_updated[m * 32 + 31:m * 32] = cache_write_data_original[m * 32 + 31:m * 32];
+			end
 		end
 	endgenerate
 	
@@ -374,12 +374,20 @@ module cached_data_memory (clk, addr, write_data, memwrite, memread, sign_mask, 
 	initial begin
 		$readmemh("programs/data.hex", data_block);
 		clk_stall = 0;
+		check0 = 1'b0;
+		check1 = 1'b0;
 	end
 
 	/*
 	 *	LED register interfacing with I/O
 	 */
 	always @(posedge clk) begin
+		if (addr == 32'h1000) begin
+			check0 <= 1'b1;
+		end
+		if (addr == 32'h2000) begin
+			check1 <=1'b1;
+		end
 		if(memwrite == 1'b1 && addr == 32'h2000) begin
 			led_reg <= write_data;
 		end
@@ -420,10 +428,9 @@ module cached_data_memory (clk, addr, write_data, memwrite, memread, sign_mask, 
 			end
 		endcase
 	end
-
+	
 	/*
 	 *	Test led
 	 */
 	assign led = led_reg[7:0];
-	assign check0 = cache_write;
 endmodule

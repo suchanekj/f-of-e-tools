@@ -21,21 +21,12 @@ sc_time_stamp ()
     return vtime;
 }
 
-double
-sc_time_stamp ()
-{
-    return vtime;
-}
-
 int main(int argc, char** argv, char** env)
 {
     bool vcdTrace = true;
     VerilatedVcdC* tfp = NULL;
     Verilated::commandArgs(argc, argv);
     Vtop_sim* top = new Vtop_sim;
-    
-    bool vcdTrace = true;
-    VerilatedVcdC* tfp = NULL;
     
     top->eval();
     top->eval();

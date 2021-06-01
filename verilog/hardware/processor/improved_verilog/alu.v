@@ -63,9 +63,17 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 
 	reg [31:0] inputA;
 	reg [31:0] inputB;
+	reg [31:0] inputA1;
+	reg [31:0] inputB1;
+	reg [31:0] inputA2;
+	reg [31:0] inputB2;
 	reg addsub_in;
-	wire [31:0] add_output;
-	wire [31:0] sub_output;
+	reg [31:0] add_output;
+	reg [31:0] sub_output;
+	reg [31:0] andxor_output;
+	reg [31:0] andxor_output1;
+	reg [31:0] andxor_output2;
+	integer i;
 	/*
 	 *	This uses Yosys's support for nonzero initial values:
 	 *
@@ -78,84 +86,99 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 	initial begin
 		inputA = 0;
 		inputB = 0;
+		inputA1 = 0;
+		inputB1 = 0;
+		inputA2 = 0;
+		inputB2 = 0;
 		addsub_in = 1'b0;
-		
-		// integer i;
-
-		// initialise to all zeros
-		// inputA1 = 0;
-		// inputB1 = 0;
-		// inputA2 = 0;
-		// inputB2 = 0;
-
-		// for (i=0; i < 16; i = i + 1) begin
-		// 	inputA1[2*i] = A[i];
-		// 	inputB1[2*i] = B[i];
-		// end
-
-		// for (i=0; i < 16; i = i + 1) begin
-		// 	inputA2[2*i] = A[i+16];
-		// 	inputB2[2*i] = B[i+16];
-		// end
 
 		ALUOut = 32'b0;
 		Branch_Enable = 1'b0;
 	end
-	
-	
 
-	adder_dsp alu_adder(
-		.input1(inputA),
-		.input2(inputB),
-		.addsub(addsub_in),
-		.out(add_output)
-	);
+	`ifdef USE_ADDER_DSP
+		adder_dsp alu_adder(
+			.input1(inputA),
+			.input2(inputB),
+			.addsub(1'b0),
+			.out(add_output)
+		);
+	`endif 
 
-	`ifdef USE_AND_DSP
-		wire [31:0] and_output;
+	`ifdef USE_SUBTRACTOR_DSP
+		adder_dsp alu_subtractor(
+			.input1(inputA),
+			.input2(inputB),
+			.addsub(1'b1),
+			.out(sub_output)
+		);
+	`endif 
+
+	`ifdef USE_ANDXOR_DSP
 
 		adder_dsp alu_andxor1(
 			.input1(inputA1),
 			.input2(inputB1),
+			.addsub(1'b0),
 			.out(andxor_output1)
 		);
 
 		adder_dsp alu_andxor2(
-			.input1(inputA1),
-			.input2(inputB1),
+			.input1(inputA2),
+			.input2(inputB2),
+			.addsub(1'b0),
 			.out(andxor_output2)
 		);
-
-	`endif
-
-
+	`endif 
+	
 	always @(ALUctl, A, B) begin
+		
+		`ifdef USE_ANDXOR_DSP
+
+			for (i=0; i < 16; i = i + 1) begin
+				inputA1[2*i] <= A[i];
+				inputB1[2*i] <= B[i];
+			end
+
+			for (i=0; i < 16; i = i + 1) begin
+				inputA2[2*i] <= A[i+16];
+				inputB2[2*i] <= B[i+16];
+			end
+
+		`endif
+
+		inputA <= A;
+		inputB <= B;
+
 		case (ALUctl[3:0])
 			/*
 			 *	AND (the fields also match ANDI and LUI)
 			 */
 			`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_AND:	begin
 			
-				`ifdef USE_AND_DSP
+				`ifdef USE_ANDXOR_DSP
+					/*
+					addsub_in <= 1'b0;
 
 					for (i=0; i < 16; i = i + 1) begin
-						inputA[2*i] = A[i];
-						inputB[2*i] = B[i];
+						inputA[2*i] <= A[i];
+						inputB[2*i] <= B[i];
 					end
 
 					for (i=0; i < 16; i = i + 1) begin
-						ALUOut[i] = and_output[2*i+1];
+						inputA[2*i] <= A[i+16];
+						inputB[2*i] <= B[i+16];
+					end
+					*/
+					for (i=0; i < 16; i = i + 1) begin
+						ALUOut[i] = andxor_output1[2*i+1];
 					end
 
 					for (i=0; i < 16; i = i + 1) begin
-						inputA[2*i] = A[i+16];
-						inputB[2*i] = B[i+16];
+						ALUOut[i+16] = andxor_output2[2*i+1];
 					end
-
-					for (i=0; i < 16; i = i + 1) begin
-						ALUOut[i+16] = and_output[2*i+1];
-					end
-					// ALUOut = AND_output;
+					
+					// ALUOut = and_output;
 				`else 
 					ALUOut = A & B;
 				`endif 
@@ -171,9 +194,7 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 			`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_ADD:	begin
 			
 				`ifdef USE_ADDER_DSP
-					inputA <= A;
-					inputB <= B;
-					addsub_in <= 1'b0;
+					// addsub_in <= 1'b0;
 					ALUOut = add_output;
 				`else 
 					ALUOut = A + B;
@@ -185,10 +206,9 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 			`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SUB: begin
 
 				`ifdef USE_SUBTRACTOR_DSP
-					inputA <= A;
-					inputB <= B;
-					addsub_in <= 1'b1;
-					ALUOut = add_output;
+					// addsub_in <= 1'b1;
+					// ALUOut = add_output;
+					ALUOut = sub_output;
 				`else 
 					ALUOut = A - B;
 				`endif 
@@ -217,14 +237,22 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 			/*
 			 *	XOR (the fields also match other XOR variants)
 			 */
-			`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_XOR:	
+			`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_XOR:	begin
 			
-				`ifdef USE_XOR_DSP
-					ALUOut = XOR_output;
+				`ifdef USE_ANDXOR_DSP
+				
+					for (i=0; i < 16; i = i + 1) begin
+						ALUOut[i] = andxor_output1[2*i];
+					end
+
+					for (i=0; i < 16; i = i + 1) begin
+						ALUOut[i+16] = andxor_output2[2*i];
+					end
+
 				`else 
 					ALUOut = A ^ B;
 				`endif 
-			
+			end
 			/*
 			 *	CSRRW  only
 			 */

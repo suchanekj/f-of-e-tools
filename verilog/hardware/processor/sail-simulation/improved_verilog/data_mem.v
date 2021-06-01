@@ -38,7 +38,7 @@
 
 //Data cache
 
-module data_mem (clk, addr, write_data, memwrite, memread, sign_mask, read_data, led, clk_stall);
+module data_mem (clk, addr, write_data, memwrite, memread, sign_mask, read_data, led, clk_stall, check0, check1);
 	input			clk;
 	/* 
 	addr is used only to assign bits to addr_buff, which in turn assigns bits to addr_buf_block_addr and addr_buf_byte_offset
@@ -53,7 +53,8 @@ module data_mem (clk, addr, write_data, memwrite, memread, sign_mask, read_data,
 	output reg [31:0]	read_data;
 	output [7:0]		led;
 	output reg		clk_stall;	//Sets the clock high
-
+	output reg check0;
+	output reg check1;
 	/*
 	 *	led register
 	 */
@@ -255,13 +256,27 @@ module data_mem (clk, addr, write_data, memwrite, memread, sign_mask, read_data,
 	initial begin
 		$readmemh("programs/data.hex", data_block);
 		clk_stall = 0;
+		check0 = 0;
+		check1 = 0;
 	end
 
 	/*
 	 *	LED register interfacing with I/O
 	 */
 	always @(posedge clk) begin
-		if(memwrite == 1'b1 && addr == 32'h2000) begin
+		if (addr == 32'h1000) begin
+			check0 <= 1'b1;
+			$display("Check0 %0t\n", check0);
+		end else begin
+			check0 <= 1'b0;
+		end
+		if (addr == 32'h2000) begin
+			check1 <=1'b1;
+			$display("Check1 %0t\n", check1);
+		end else begin
+			check1 <= 1'b0;
+		end
+		if(memwrite == 1'b1 && addr == 14'h2000) begin
 			led_reg <= write_data;
 		end
 	end
@@ -325,4 +340,5 @@ module data_mem (clk, addr, write_data, memwrite, memread, sign_mask, read_data,
 	 *	Test led
 	 */
 	assign led = led_reg[7:0];
+
 endmodule

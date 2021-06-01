@@ -93,6 +93,5 @@ module top_sim (clk, led);
 		.check1(check1)
 	);
 
-
 	assign clk_proc = (data_clk_stall) ? 1'b1 : clk;
 endmodule

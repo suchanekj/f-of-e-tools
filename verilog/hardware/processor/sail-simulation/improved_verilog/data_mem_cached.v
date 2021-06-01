@@ -384,9 +384,15 @@ module cached_data_memory (clk, addr, write_data, memwrite, memread, sign_mask, 
 	always @(posedge clk) begin
 		if (addr == 32'h1000) begin
 			check0 <= 1'b1;
+			//$display("Check0 %0t\n", check0);
+		end else begin
+			check0 <= 1'b0;
 		end
 		if (addr == 32'h2000) begin
 			check1 <=1'b1;
+			//$display("Check1 %0t\n", check1);
+		end else begin
+			check1 <= 1'b0;
 		end
 		if(memwrite == 1'b1 && addr == 32'h2000) begin
 			led_reg <= write_data;

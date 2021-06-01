@@ -33,9 +33,9 @@ int main(void)
 {
         while (1)
         {
-                *gDebugLedsMemoryMappedRegister = 0xFF;
+                *gDebugLedsMemoryMappedRegister = 0xFFFFFFFF;
                 run();
-                *gDebugLedsMemoryMappedRegister = 0x00;
+                *gDebugLedsMemoryMappedRegister = 0x00000000;
                 run();
         }
         return 0;

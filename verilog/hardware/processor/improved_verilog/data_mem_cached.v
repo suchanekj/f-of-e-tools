@@ -81,7 +81,7 @@ module cached_data_memory (clk, addr, write_data, memwrite, memread, sign_mask, 
 	/*
 	 *	Line buffer
 	 */
-	wire [31:0]		cache_word;
+	reg [31:0]		cache_word;
 
 	/*
 	 *	Read buffer
@@ -148,7 +148,7 @@ module cached_data_memory (clk, addr, write_data, memwrite, memread, sign_mask, 
 	wire[`CACHE_LINE_MAX_BIT:0] cache_write_data;
 	wire cache_write;
 	wire cache_read;
-	wire[`CACHE_LINE_NUMBER_LOG_MINUS_ONE:0]	accessed_line_age;
+	reg[`CACHE_LINE_NUMBER_LOG_MINUS_ONE:0]	accessed_line_age;
 	wire[`CACHE_LINE_MAX_BIT:0]	cache_line_data [`CACHE_LINE_NUMBER_MINUS_ONE: 0];
 	wire[`CACHE_LINE_ADDRESS_MAX_BIT:0]	cache_line_stored_addr [`CACHE_LINE_NUMBER_MINUS_ONE: 0];
 	wire[`CACHE_LINE_NUMBER_LOG_MINUS_ONE:0]	cache_line_age [`CACHE_LINE_NUMBER_MINUS_ONE: 0];
@@ -184,10 +184,11 @@ module cached_data_memory (clk, addr, write_data, memwrite, memread, sign_mask, 
 	 *	Read correct data from the cache
 	 */
 	
-	wire[`CACHE_LINE_MAX_BIT:0] accessed_line_data;
-	wire[`CACHE_LINE_ADDRESS_MAX_BIT:0] accessed_line_stored_addr;
+	reg[`CACHE_LINE_MAX_BIT:0] accessed_line_data;
+	reg[`CACHE_LINE_ADDRESS_MAX_BIT:0] accessed_line_stored_addr;
 	wire accessed_line_dirty;
 	
+	wire [31:0] accessed_line_data_unpacked[`CACHE_LINE_SIZE_WORDS - 1:0];
 	
 	generate 
 		genvar m;
@@ -216,9 +217,11 @@ module cached_data_memory (clk, addr, write_data, memwrite, memread, sign_mask, 
 					accessed_line_data[m] = accessed_line_data[m] | (cache_line_data[l][m] & cache_line_addr_match[l]);
 			end
 		end
+		for (m = 0; m < `CACHE_LINE_SIZE_WORDS; m = m + 1)
+			assign accessed_line_data_unpacked[m] = accessed_line_data[m * 32 + 31:m * 32];
+		
 		always @ (*) begin
-			// might be wrong, check it is accessing the correct word !!!!!!!!!!!!!!!!!!!!
-			cache_word = accessed_line_data[{current_address[`CACHE_LINE_SIZE_BYTES_LOG_MINUS_ONE:2],5'b0}:{current_address[`CACHE_LINE_SIZE_BYTES_LOG_MINUS_ONE:2],5'b1}];
+			cache_word = accessed_line_data_unpacked[current_address[`CACHE_LINE_SIZE_BYTES_LOG_MINUS_ONE:2]];
 		end
 	endgenerate
 	
@@ -303,15 +306,18 @@ module cached_data_memory (clk, addr, write_data, memwrite, memread, sign_mask, 
 	assign replacement_word = (write_select1) ? current_write_data : write_out1;
 	
 	wire[`CACHE_LINE_MAX_BIT:0] cache_write_data_original;
-	wire[`CACHE_LINE_MAX_BIT:0] cache_write_data_updated;
+	reg[`CACHE_LINE_MAX_BIT:0] cache_write_data_updated;
 	
 	assign cache_write_data_original = (state == IN_CACHE) ? accessed_line_data : cache_line_from_memory;
 	
 	generate
-		always @ (*) begin
-			cache_write_data_updated = cache_write_data_original;
-			// might be wrong, check it is accessing the correct word !!!!!!!!!!!!!!!!!!!!
-			cache_write_data_updated[{current_address[`CACHE_LINE_SIZE_BYTES_LOG_MINUS_ONE:2],5'b0}:{current_address[`CACHE_LINE_SIZE_BYTES_LOG_MINUS_ONE:2],5'b1}] = replacement_word;
+		for (m = 0; m < `CACHE_LINE_SIZE_WORDS; m = m + 1) begin
+			always @ (*) begin
+				if (current_memwrite && current_address[`CACHE_LINE_SIZE_BYTES_LOG_MINUS_ONE:2] == m)
+					cache_write_data_updated[m * 32 + 31:m * 32] = replacement_word;
+				else
+					cache_write_data_updated[m * 32 + 31:m * 32] = cache_write_data_original[m * 32 + 31:m * 32];
+			end
 		end
 	endgenerate
 	

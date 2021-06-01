@@ -1,8 +1,9 @@
 // DSP blocks
 
-// `define USE_ADDER_DSP
-// `define USE_SUBTRACTOR_DSP
-
+`define USE_ADDER_DSP
+`define USE_SUBTRACTOR_DSP
+// `define USE_AND_DSP
+// `define USE_XOR_DSP
  
 // Clock
 

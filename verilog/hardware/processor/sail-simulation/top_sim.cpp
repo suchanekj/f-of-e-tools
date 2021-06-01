@@ -21,12 +21,22 @@ sc_time_stamp ()
     return vtime;
 }
 
+double
+sc_time_stamp ()
+{
+    return vtime;
+}
+
 int main(int argc, char** argv, char** env)
 {
     bool vcdTrace = true;
     VerilatedVcdC* tfp = NULL;
     Verilated::commandArgs(argc, argv);
     Vtop_sim* top = new Vtop_sim;
+    
+    bool vcdTrace = true;
+    VerilatedVcdC* tfp = NULL;
+    
     top->eval();
     top->eval();
     
@@ -50,7 +60,7 @@ int main(int argc, char** argv, char** env)
         clk = not clk;
         top->clk = int(clk);
         top->eval();
-        
+		
         if (tfp != NULL)
         {
             tfp->dump (vtime);
@@ -68,13 +78,13 @@ int main(int argc, char** argv, char** env)
         }
     }
     top->final();
-        
+	
     if (tfp != NULL)
     {
         tfp->close();
         delete tfp;
     }
 
-        delete top;
-        exit(0);
+    delete top;
+    exit(0);
 }

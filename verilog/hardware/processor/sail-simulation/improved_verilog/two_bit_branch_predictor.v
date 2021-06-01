@@ -70,8 +70,8 @@ module two_bit_branch_predictor(
 	/*
 	 *	internal state
 	 */
-	reg [1:0]	s;
-
+	//reg [1:0]	s;
+	reg s;
 	reg		branch_mem_sig_reg;
 
 	/*

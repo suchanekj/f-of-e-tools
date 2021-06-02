@@ -15,17 +15,11 @@ enum
 vluint64_t vtime = 0;
 bool clk = false;
 int led = 255;
-double
-sc_time_stamp ()
+double sc_time_stamp ()
 {
     return vtime;
 }
 
-double
-sc_time_stamp ()
-{
-    return vtime;
-}
 
 int main(int argc, char** argv, char** env)
 {
@@ -34,10 +28,6 @@ int main(int argc, char** argv, char** env)
     Verilated::commandArgs(argc, argv);
     Vtop_sim* top = new Vtop_sim;
     
-    bool vcdTrace = true;
-    VerilatedVcdC* tfp = NULL;
-    
-    top->eval();
     top->eval();
     
     if (vcdTrace)

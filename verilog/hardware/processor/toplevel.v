@@ -111,7 +111,7 @@ module top (led);
 	);
 
 	`ifdef USE_CACHE_MEMORY
-		cached_data_memory data_mem_inst(
+		data_mem_cached data_mem_inst(
 			.clk(clk),
 			.addr(data_addr),
 			.write_data(data_WrData),
@@ -125,16 +125,16 @@ module top (led);
 
 	`else
 		data_mem data_mem_inst(
-				.clk(clk),
-				.addr(data_addr),
-				.write_data(data_WrData),
-				.memwrite(data_memwrite), 
-				.memread(data_memread), 
-				.read_data(data_out),
-				.sign_mask(data_sign_mask),
-				.led(led),
-				.clk_stall(data_clk_stall)
-			);
+			.clk(clk),
+			.addr(data_addr),
+			.write_data(data_WrData),
+			.memwrite(data_memwrite), 
+			.memread(data_memread), 
+			.read_data(data_out),
+			.sign_mask(data_sign_mask),
+			.led(led),
+			.clk_stall(data_clk_stall)
+		);
 	`endif
 
 	assign clk_proc = (data_clk_stall) ? 1'b1 : clk;

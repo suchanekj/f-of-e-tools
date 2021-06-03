@@ -4,8 +4,8 @@ include $(TREEROOT)/conf/setup.conf
 TARGET-ARCH	= riscv32-elf
 TARGET		= riscv
 
-PROGRAM		= fft
-PROGRAM-SF	= fft-sf
+PROGRAM		= float
+PROGRAM-SF	= float-sf
 INIT		= init
 INIT-SF		= init-sf
 

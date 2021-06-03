@@ -1,5 +1,5 @@
 #include "bsort.h"
-void run(void)
+int run(void)
 {
     const float data[] = {-3.50, 5.99, +3.50, -5.99};
     const int data_length = sizeof(data) / sizeof(data[0]); // Division
@@ -36,12 +36,9 @@ void run(void)
         {
             Equiv = 1;
         }
+		b = 1;
     }
-    
-    if (Equiv == 1)
-    {
-        *gDebugLedsMemoryMappedRegister = 0xFFFFFFFF;
-    }
+	return Equiv;
 }
 
 int main()
@@ -50,6 +47,7 @@ int main()
     {
         *gDebugLedsMemoryMappedRegister = 0x00000000;
         run();
+		*gDebugLedsMemoryMappedRegister = 0xFFFFFFFF;
         run();
     }
     return 0;

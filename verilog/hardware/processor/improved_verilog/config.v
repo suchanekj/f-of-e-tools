@@ -1,7 +1,7 @@
 // DSP blocks
 
-`define USE_ADDER_DSP
-`define USE_SUBTRACTOR_DSP
+//`define USE_ADDER_DSP
+//`define USE_SUBTRACTOR_DSP
 
  
 // Clock
@@ -21,7 +21,7 @@
 
 `define USE_CORRELATING
 //`define USE_ONE_BIT //Cannot be defined if USE_CORRELATING is defined too!
-//`define USE_BRANCH // USE_CORRELATING must be defined too!
+`define USE_BRANCH // USE_CORRELATING must be defined too!
 //`define USE_STATIC //Cannot be defined if USE_CORRELATING is defined too!
 
 // memory

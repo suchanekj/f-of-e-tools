@@ -25,7 +25,6 @@ module pll_clk(clk_hf, clk);
 		.PLLOUTCORE(clk_mf[0])
 	);
 	
-	
 	`ifdef CLK_PLL_DIV_REG
 		clk_divisor clkdivider(
 			.clk_hf(clk_mf[0]),
@@ -34,6 +33,5 @@ module pll_clk(clk_hf, clk);
 	`else
 		assign clk = clk_mf[0];
 	`endif
-	
 
 endmodule

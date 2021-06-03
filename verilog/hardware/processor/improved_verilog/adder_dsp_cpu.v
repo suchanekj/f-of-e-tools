@@ -76,8 +76,8 @@ module adder_dsp_cpu(input1a, input1b, input2a, input2b, outa, outb);
 		.OHOLDBOT(),
 		.OLOADTOP(1'b0),	// 0: load sum output
 		.OLOADBOT(1'b0),
-		.ADDSUBTOP(addsub),	// 0: Add; 1: subtract
-		.ADDSUBBOT(addsub),	// 0: Add; 1: subtract
+		.ADDSUBTOP(1'b0),	// 0: Add; 1: subtract
+		.ADDSUBBOT(1'b0),	// 0: Add; 1: subtract
 		.CO(),
 		.CI(),
 		//MAC cascading ports.

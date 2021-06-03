@@ -67,7 +67,7 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 	reg [31:0] inputB1;
 	reg [31:0] inputA2;
 	reg [31:0] inputB2;
-	reg addsub_in;
+	// reg addsub_in;
 	reg [31:0] add_output;
 	reg [31:0] sub_output;
 	reg [31:0] andxor_output;
@@ -98,18 +98,17 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 
 	`ifdef USE_ADDER_DSP
 		adder_dsp alu_adder(
-			.input1(A),
-			.input2(B),
+			.input1(inputA),
+			.input2(inputB),
 			.addsub(1'b0),
 			.out(add_output)
 		);
 	`endif 
 
 	`ifdef USE_SUBTRACTOR_DSP
-		adder_dsp alu_subtractor(
-			.input1(A),
-			.input2(B),
-			.addsub(1'b1),
+		subtractor_dsp alu_subtractor(
+			.input1(inputA),
+			.input2(inputB),
 			.out(sub_output)
 		);
 	`endif 

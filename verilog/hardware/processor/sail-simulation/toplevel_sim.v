@@ -42,11 +42,18 @@
  */
 
 module top_sim (clk, led);
-	input		clk;
+	input 			clk;
 	output [7:0]	led;
 
 	wire		clk_proc;
 	wire		data_clk_stall;
+	//wire 		clk_f;
+	
+	/* Clock division 
+	clk_divisor net_clk(
+		.clk_hf(clk),
+		.clk(clk_f)
+	);
 	
 	/*
 	 *	Memory interface

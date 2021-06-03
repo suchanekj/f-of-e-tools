@@ -10,11 +10,10 @@ INIT		= init
 INIT-SF		= init-sf
 
 OPTFLAGS	= -O0
-CFLAGS		= -march=rv32i -mabi=ilp32 $(TARGET-ARCH-FLAGS) -Wall
+CFLAGS		= -march=rv32i -mabi=ilp32 $(TARGET-ARCH-FLAGS) -Wall 
 ASFLAGS		= --march=rv32i --mabi=ilp32
 LDFLAGS		= -L$(TOOLSLIB)/$(TARGET) -Map $(PROGRAM).map -Tsail.ld
 LDFLAGS-SF	= -Ttext $(LOADADDR-SF)  -L$(TOOLSLIB)/$(TARGET) -Map $(PROGRAM).map
-
 SREC2HEX	= srec2hex
 LOADADDR-SF	= 0x08004000
 
@@ -32,20 +31,20 @@ $(INIT).o: $(INIT).S
 	$(AS) $(ASFLAGS) $(INIT).S -o $(INIT).o
 
 $(PROGRAM): $(OBJS)
-	$(LD) $(LDFLAGS) $(OBJS) -o $@ -lm -lc -lgcc
+	$(LD) $(LDFLAGS) $(OBJS) -o $@ -lc -lm -lgcc
 
 $(PROGRAM).sr:$(PROGRAM)
 	$(OBJCOPY) -O srec $(PROGRAM) $@
 
 $(PROGRAM).o: $(PROGRAM).c Makefile
-	$(CC) $(CFLAGS) $(OPTFLAGS) -c $(PROGRAM).c -lm -lc
+	$(CC) $(CFLAGS) $(OPTFLAGS) -c $(PROGRAM).c
 
 
 $(INIT-SF).o: $(INIT-SF).S
 	$(CPP) $(INIT-SF).S > $(INIT-SF).i; $(AS) $(ASFLAGS) $(INIT-SF).i -o $(INIT-SF).o
 
 $(PROGRAM-SF): $(OBJS-SF)
-	$(LD) $(LDFLAGS-SF) $(OBJS-SF) -o $@ -lm -lc -lgcc -lgloss
+	$(LD) $(LDFLAGS-SF) $(OBJS-SF) -o $@ -lc -lgcc -lgloss
 
 $(PROGRAM-SF).sr:$(PROGRAM-SF)
 	$(OBJCOPY) -O srec $(PROGRAM-SF) $@

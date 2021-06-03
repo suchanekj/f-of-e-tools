@@ -197,6 +197,22 @@ module cpu(
 			.outa(pc_adder_out[15:0]),
 			.outb(addr_adder_sum[15:0])
 		);
+		
+	`elsif USE_ADDER_DSP
+		adder_dsp pc_adder(
+			.input1(32'b100),
+			.input2(pc_out),
+			.addsub(1'b0),
+			.out(pc_adder_out)
+		);
+
+		adder_dsp addr_adder(
+			.input1(addr_adder_mux_out),
+			.input2(id_ex_out[139:108]),
+			.addsub(1'b0),
+			.out(addr_adder_sum)
+		);
+
 	`else
 		adder pc_adder(
 			.input1(32'b100),

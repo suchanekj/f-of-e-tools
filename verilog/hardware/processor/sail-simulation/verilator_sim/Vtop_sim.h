@@ -60,7 +60,7 @@ VL_MODULE(Vtop_sim) {
         CData/*0:0*/ top_sim__DOT__data_mem_inst__DOT__select1;
         SData/*13:0*/ top_sim__DOT__data_mem_inst__DOT__addr_buf;
         SData/*13:0*/ top_sim__DOT__data_mem_inst__DOT__current_address;
-        SData/*10:0*/ top_sim__DOT__data_mem_inst__DOT__accessed_line_stored_addr;
+        SData/*11:0*/ top_sim__DOT__data_mem_inst__DOT__accessed_line_stored_addr;
         IData/*31:0*/ top_sim__DOT__data_out;
         IData/*31:0*/ top_sim__DOT__processor__DOT__pc_out;
         IData/*31:0*/ top_sim__DOT__processor__DOT__inst_mux_out;
@@ -97,25 +97,22 @@ VL_MODULE(Vtop_sim) {
         IData/*31:0*/ top_sim__DOT__data_mem_inst__DOT__current_write_data;
     };
     struct {
-        IData/*31:0*/ top_sim__DOT__data_mem_inst__DOT__replacement_word;
+        IData/*31:0*/ top_sim__DOT__data_mem_inst__DOT__cache_line_from_memory;
+        IData/*31:0*/ top_sim__DOT__data_mem_inst__DOT__accessed_line_data;
         IData/*31:0*/ top_sim__DOT__data_mem_inst__DOT__l;
         IData/*31:0*/ top_sim__DOT__data_mem_inst__DOT__write_out1;
         IData/*31:0*/ top_sim__DOT__data_mem_inst__DOT__cache_line_from_memory_extra;
         QData/*63:0*/ top_sim__DOT__processor__DOT__if_id_out;
-        QData/*63:0*/ top_sim__DOT__data_mem_inst__DOT__cache_line_from_memory;
-        QData/*63:0*/ top_sim__DOT__data_mem_inst__DOT__accessed_line_data;
-        QData/*63:0*/ top_sim__DOT__data_mem_inst__DOT__cache_write_data_original;
-        QData/*63:0*/ top_sim__DOT__data_mem_inst__DOT__cache_write_data_updated;
         IData/*31:0*/ top_sim__DOT__processor__DOT__register_files__DOT__regfile[32];
         IData/*31:0*/ top_sim__DOT__processor__DOT__ControlAndStatus_registers__DOT__csr_file[1024];
         CData/*1:0*/ top_sim__DOT__processor__DOT__branch_predictor_FSM__DOT__LHT[4];
         CData/*1:0*/ top_sim__DOT__processor__DOT__branch_predictor_FSM__DOT__LPT[4];
         IData/*31:0*/ top_sim__DOT__inst_mem__DOT__instruction_memory[4096];
-        QData/*63:0*/ top_sim__DOT__data_mem_inst__DOT__data_block[1024];
-        QData/*63:0*/ top_sim__DOT__data_mem_inst__DOT__cache_line_data[1];
-        SData/*10:0*/ top_sim__DOT__data_mem_inst__DOT__cache_line_stored_addr[1];
-        IData/*31:0*/ top_sim__DOT__data_mem_inst__DOT__accessed_line_data_unpacked[2];
-        IData/*31:0*/ top_sim__DOT__data_mem_inst__DOT__cache_line_from_memory_unpacked[2];
+        IData/*31:0*/ top_sim__DOT__data_mem_inst__DOT__data_block[1023];
+        IData/*31:0*/ top_sim__DOT__data_mem_inst__DOT__cache_line_data[1];
+        SData/*11:0*/ top_sim__DOT__data_mem_inst__DOT__cache_line_stored_addr[1];
+        IData/*31:0*/ top_sim__DOT__data_mem_inst__DOT__accessed_line_data_unpacked[1];
+        IData/*31:0*/ top_sim__DOT__data_mem_inst__DOT__cache_line_from_memory_unpacked[1];
     };
     
     // LOCAL VARIABLES
@@ -125,12 +122,13 @@ VL_MODULE(Vtop_sim) {
     CData/*0:0*/ __Vclklast__TOP____VinpClk__TOP__top_sim__DOT__clk_proc;
     CData/*0:0*/ __Vclklast__TOP__clk;
     CData/*0:0*/ __Vchglast__TOP__top_sim__DOT__clk_proc;
-    SData/*10:0*/ top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__0__KET____DOT__cache_line_instance__stored_addr;
+    SData/*11:0*/ top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__0__KET____DOT__cache_line_instance__stored_addr;
     SData/*10:0*/ __Vtableidx1;
     IData/*31:0*/ top_sim__DOT__processor__DOT____Vcellinp__cont_mux__input0;
+    IData/*31:0*/ top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__0__KET____DOT__cache_line_instance__data;
+    IData/*31:0*/ top_sim__DOT__data_mem_inst__DOT____Vlvbound1;
     WData/*177:0*/ __Vdly__top_sim__DOT__processor__DOT__id_ex_out[6];
     IData/*31:0*/ __Vm_traceActivity;
-    QData/*63:0*/ top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__0__KET____DOT__cache_line_instance__data;
     static CData/*6:0*/ __Vtable1_top_sim__DOT__processor__DOT__alu_ctl[2048];
     static CData/*2:0*/ __Vtable2_top_sim__DOT__processor__DOT__sign_mask_gen_inst__DOT__mask[8];
     

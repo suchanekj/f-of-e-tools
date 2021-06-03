@@ -1,5 +1,6 @@
 //Fully associative cache, write to memory only at rejection
 
+
 module cache_line (clk, addr, write_data, memwrite, memread, data, stored_addr, addr_match, dirty, old);
 	input 			clk;
 	input [13:0]	addr;
@@ -18,10 +19,11 @@ module cache_line (clk, addr, write_data, memwrite, memread, data, stored_addr, 
 	wire addr_match_dirty_flush;
 	
 	assign addr_match = (addr[13:`CACHE_LINE_SIZE_BYTES_LOG] == stored_addr) && !dirty;
-	assign old = 1'b1;
-	assign addr_match_dirty_flush = 1'b1;
+		assign old = 1'b1;
+		assign addr_match_dirty_flush = 1'b1;
 	
 	initial begin
+		
 		dirty = 1;
 	end
 	
@@ -53,7 +55,6 @@ module data_mem_cached (clk, addr, write_data, memwrite, memread, sign_mask, rea
 	output reg [31:0]	read_data;
 	output [7:0]		led;
 	output reg		clk_stall;	//Sets the clock high
-	
 
 	/*
 	 *	Current state
@@ -127,18 +128,19 @@ module data_mem_cached (clk, addr, write_data, memwrite, memread, sign_mask, rea
 	 */
 	 //`define memsize = 1024;
 	 // TODO: need to check the memory gets set correctly at initialization !!!!!!!!!!!!!!!!!!!!!!!!!!!
-	reg [`CACHE_LINE_MAX_BIT:0]		data_block[0:1023];
+	reg [`CACHE_LINE_MAX_BIT:0]		data_block[0:`MEMORY_SIZE_LINES - 1];
 
 	/*
 	 *	wire assignments
 	 */
-
-	wire [8:0]		addr_buf_block_addr;
-	wire [1:0]		addr_buf_byte_offset;
-
-	assign			addr_buf_block_addr	= current_address[11:3];
-	assign			addr_buf_byte_offset	= current_address[1:0];
 	
+	wire [9:0]		addr_buf_block_addr;
+
+	assign			addr_buf_block_addr	= current_address[11:2];
+	
+	wire [1:0]		addr_buf_byte_offset;
+	assign			addr_buf_byte_offset = current_address[1:0];
+		
 	wire [31:0]		replacement_word;
 	
 	/*
@@ -160,19 +162,19 @@ module data_mem_cached (clk, addr, write_data, memwrite, memread, sign_mask, rea
 		genvar i;
 		for(i = 0; i < `CACHE_LINE_NUMBER; i = i + 1) begin
 	
-			cache_line cache_line_instance(
-				.clk(clk),
-				.addr(current_address),
-				.write_data(cache_write_data),
-				.memwrite(cache_write),
-				.memread(cache_read),
-				.data(cache_line_data[i]),
-				.stored_addr(cache_line_stored_addr[i]),
-				.addr_match(cache_line_addr_match[i]),
-				.dirty(cache_line_dirty[i]),
-				.old(cache_line_old[i])
-			);
-			defparam cache_line_instance.initial_age = i;
+				cache_line cache_line_instance(
+					.clk(clk),
+					.addr(current_address),
+					.write_data(cache_write_data),
+					.memwrite(cache_write),
+					.memread(cache_read),
+					.data(cache_line_data[i]),
+					.stored_addr(cache_line_stored_addr[i]),
+					.addr_match(cache_line_addr_match[i]),
+					.dirty(cache_line_dirty[i]),
+					.old(cache_line_old[i])
+				);
+				defparam cache_line_instance.initial_age = i;
 		end
 	endgenerate
 
@@ -180,7 +182,7 @@ module data_mem_cached (clk, addr, write_data, memwrite, memread, sign_mask, rea
 	 *	Read correct data from the cache
 	 */
 	
-	wire[`CACHE_LINE_MAX_BIT:0] accessed_line_data;
+	reg[`CACHE_LINE_MAX_BIT:0] accessed_line_data;
 	reg[13 - `CACHE_LINE_SIZE_BYTES_LOG:0] accessed_line_stored_addr;
 	wire accessed_line_dirty;
 	
@@ -189,7 +191,7 @@ module data_mem_cached (clk, addr, write_data, memwrite, memread, sign_mask, rea
 	wire[`CACHE_LINE_NUMBER - 1: 0]	cache_line_selection;
 	
 	assign cache_line_selection = (cache_line_addr_match != 0) ? cache_line_addr_match : cache_line_old;
-
+	
 	generate 
 		genvar m;
 		integer l;
@@ -211,8 +213,9 @@ module data_mem_cached (clk, addr, write_data, memwrite, memread, sign_mask, rea
 		end
 		for (m = 0; m < `CACHE_LINE_SIZE_WORDS; m = m + 1)
 			assign accessed_line_data_unpacked[m] = accessed_line_data[m * 32 + 31:m * 32];
+		
 		always @ (*) begin
-			cache_word = accessed_line_data_unpacked[current_address[`CACHE_LINE_SIZE_BYTES_LOG - 1:2]];
+				cache_word = accessed_line_data_unpacked[0];
 		end
 	endgenerate
 	
@@ -306,17 +309,14 @@ module data_mem_cached (clk, addr, write_data, memwrite, memread, sign_mask, rea
 	generate
 		for (m = 0; m < `CACHE_LINE_SIZE_WORDS; m = m + 1) begin
 			always @ (*) begin
-				if (current_address[`CACHE_LINE_SIZE_BYTES_LOG - 1:2] == m)
-						cache_write_data_updated[m * 32 + 31:m * 32] = replacement_word;
-					else
-						cache_write_data_updated[m * 32 + 31:m * 32] = cache_write_data_original[m * 32 + 31:m * 32];
+					cache_write_data_updated[m * 32 + 31:m * 32] = replacement_word;
 			end
 		end
 		
 		for (m = 0; m < `CACHE_LINE_SIZE_WORDS; m = m + 1)
 			assign cache_line_from_memory_unpacked[m] = cache_line_from_memory[m * 32 + 31:m * 32];
 		always @ (*) begin
-			read_word_from_memory = cache_line_from_memory_unpacked[current_address[`CACHE_LINE_SIZE_BYTES_LOG - 1:2]];
+				read_word_from_memory = cache_line_from_memory_unpacked[0];
 		end
 	endgenerate
 	
@@ -388,7 +388,7 @@ module data_mem_cached (clk, addr, write_data, memwrite, memread, sign_mask, rea
 	wire [13:0] cache_line_adress_1;
 	wire [13:0] cache_line_adress_2;
 	wire [13:0] cache_line_adress_3;
-	
+
 	assign cache_line_adress_0 =  current_address[11:`CACHE_LINE_SIZE_BYTES_LOG];
 	assign cache_line_adress_1 =  current_address[11:`CACHE_LINE_SIZE_BYTES_LOG] - 32'h1000;
 	assign cache_line_adress_2 =  addr_buf_block_addr;
@@ -418,7 +418,7 @@ module data_mem_cached (clk, addr, write_data, memwrite, memread, sign_mask, rea
 			end
 			ACCESS_MEMORY: begin
 				if (!accessed_line_dirty) begin
-					// the 2'b0 needs to take from `CACHE_LINE_SIZE_BYTES_LOG !!!!!!!!!!!!!!!!!
+					// doesn't use defines properly !!!!!!!!!!!!!!!!!
 					data_block[accessed_line_stored_addr[9:`CACHE_LINE_SIZE_BYTES_LOG - 2] - 32'h1000] <= accessed_line_data;
 				end
 				cache_line_from_memory <= data_block[current_address[11:`CACHE_LINE_SIZE_BYTES_LOG] - 32'h1000];

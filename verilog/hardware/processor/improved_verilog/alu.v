@@ -98,8 +98,8 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 
 	`ifdef USE_ADDER_DSP
 		adder_dsp alu_adder(
-			.input1(inputA),
-			.input2(inputB),
+			.input1(A),
+			.input2(B),
 			.addsub(1'b0),
 			.out(add_output)
 		);
@@ -107,8 +107,8 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 
 	`ifdef USE_SUBTRACTOR_DSP
 		adder_dsp alu_subtractor(
-			.input1(inputA),
-			.input2(inputB),
+			.input1(A),
+			.input2(B),
 			.addsub(1'b1),
 			.out(sub_output)
 		);

@@ -1,7 +1,7 @@
 // DSP blocks
 
 `define USE_ADDER_DSP
-//`define USE_SUBTRACTOR_DSP
+`define USE_SUBTRACTOR_DSP
 `define USE_ANDXOR_DSP
 `define USE_COMBIADDER_DSP
  
@@ -29,7 +29,7 @@
 `define USE_SMALL_DATA_ADDR // Suspect it has no effect -> "WARNING resizing ..." when running yosys
 `define USE_MEMORY_OPTIMIZATIONS
 
-//`define USE_CACHE_MEMORY // the above has to be used too - might not work at 12MHz yet
+`define USE_CACHE_MEMORY // the above has to be used too - might not work at 12MHz yet
 
 // Only works for the settings below - one cache line containing one word
 //`define MULTIPLE_CACHE_LINES

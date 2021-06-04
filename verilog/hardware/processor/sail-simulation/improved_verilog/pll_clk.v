@@ -34,6 +34,5 @@ module pll_clk(clk_hf, clk);
 	`else
 		assign clk = clk_mf[0];
 	`endif
-	
 
 endmodule

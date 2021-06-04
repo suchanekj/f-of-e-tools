@@ -56,7 +56,6 @@ module cpu(
 	 *	Input Clock
 	 */
 	input clk;
-
 	/*
 	 *	instruction memory input
 	 */

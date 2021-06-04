@@ -107,8 +107,8 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 
 	`ifdef USE_SUBTRACTOR_DSP
 		subtractor_dsp alu_subtractor(
-			.input1(inputA),
-			.input2(inputB),
+			.input1(inputB),
+			.input2(inputA),
 			.out(sub_output)
 		);
 	`endif 

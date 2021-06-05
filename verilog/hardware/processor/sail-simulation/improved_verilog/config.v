@@ -1,6 +1,6 @@
 // DSP blocks
 
-//`define USE_ADDER_DSP
+`define USE_ADDER_DSP
 //`define USE_SUBTRACTOR_DSP
 //`define USE_ANDXOR_DSP
 //`define USE_COMBIADDER_DSP

@@ -1,12 +1,14 @@
 // DSP blocks
 
-//`define USE_ADDER_DSP
+`define USE_ADDER_DSP
 //`define USE_SUBTRACTOR_DSP
 //`define USE_ANDXOR_DSP
 //`define USE_COMBIADDER_DSP
  
 // RAM instruction memory
-`define USE_INS_RAM 
+`define USE_INS_RAM_1
+//`define USE_INS_RAM_2
+//`define USE_INS_RAM_3
 
 // Clock
 
@@ -32,7 +34,7 @@
 `define USE_SMALL_DATA_ADDR
 `define USE_MEMORY_OPTIMIZATIONS
 
-//`define USE_CACHE_MEMORY // the above has to be used too - might not work at 12MHz yet
+`define USE_CACHE_MEMORY // the above has to be used too - might not work at 12MHz yet
 
 // Only works for the settings below - one cache line containing one word
 //`define MULTIPLE_CACHE_LINES

@@ -22,7 +22,9 @@ improved_verilog/one_bit_branch_predictor.v
 improved_verilog/static_branch_predictor.v
 improved_verilog/data_mem_cached.v
 improved_verilog/clk_divisor.v
-improved_verilog/instruction_RAM_mem.v
+improved_verilog/instruction_RAM_mem_1.v
+improved_verilog/instruction_RAM_mem_2.v
+improved_verilog/instruction_RAM_mem_3.v
 improved_verilog/adder_dsp.v
 improved_verilog/adder_dsp_cpu.v
 improved_verilog/subtractor_dsp.v

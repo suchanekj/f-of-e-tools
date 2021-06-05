@@ -111,11 +111,23 @@ module top (led);
 		.data_mem_memread(data_memread),
 		.data_mem_sign_mask(data_sign_mask)
 	);
-	`ifdef USE_INS_RAM
-		instruction_RAM_mem inst_mem(
+	`ifdef USE_INS_RAM_1
+		instruction_RAM1_mem inst_mem(
 			.raddr(inst_in), 
 			.rclk(clk), 
 			.dout(inst_out)
+		);
+	`elsif USE_INS_RAM_2
+		instruction_RAM2_mem inst_mem( 
+			.raddr(inst_in), 
+			.rclk(clk), 
+			.dout(inst_out)
+		);
+	`elsif USE_INS_RAM_3
+		instruction_RAM3_mem inst_mem(
+			.clk(clk),
+			.addr(inst_in), 
+			.out(inst_out)
 		);
 	`else
 		instruction_memory inst_mem( 

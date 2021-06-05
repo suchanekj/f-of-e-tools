@@ -83,17 +83,12 @@ module top_sim (clk, led);
 		.data_mem_memread(data_memread),
 		.data_mem_sign_mask(data_sign_mask)
 	);
-		instruction_RAM_mem inst_mem(
-			.din(32'b0), // No writing to Instruction Memory 
-			.write_en(1'b0), 
-			.waddr(32'b0), 
-			.wclk(1'b0), 
-			.raddr(inst_in), 
-			.rclk(clk), 
-			.dout(inst_out)
-		);
-
-
+	instruction_RAM3_mem inst_mem(
+		// No writing to Instruction Memory 
+		.addr(inst_in), 
+		.clk(clk), 
+		.out(inst_out)
+	);
 	data_mem_cached data_mem_inst(
 		.clk(clk),
 		.addr(data_addr),

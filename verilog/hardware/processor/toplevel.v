@@ -51,7 +51,8 @@ module top (led);
 	wire		clk;
 	reg		ENCLKHF		= 1'b1;	// Plock enable
 	reg		CLKHF_POWERUP	= 1'b1;	// Power up the HFOSC circuit
-
+	reg ENCLKLF = 1'b1; // Plock enable
+	reg CLKLF_POWERUP = 1'b1; // Power up the LFOSC circuit
 	/*
 	 *	Use the iCE40's hard primitive for the clock source.
 	 */
@@ -67,11 +68,17 @@ module top (led);
 			.clk_hf(clk_hf),
 			.clk(clk)
 		);
-	`else
+	`elsif USE_HFOSC
 		SB_HFOSC #(.CLKHF_DIV(`CLK_NOPLL_DIV)) OSCInst0 (
 			.CLKHFEN(ENCLKHF),
 			.CLKHFPU(CLKHF_POWERUP),
 			.CLKHF(clk)
+		);
+	`else
+		SB_LFOSC OSCInst0 (
+			.CLKLFEN(ENCLKLF),
+			.CLKLFPU(CLKLF_POWERUP),
+			.CLKLF(clk)
 		);
 	`endif
 
@@ -81,8 +88,12 @@ module top (led);
 	wire[31:0]	inst_in;
 	wire[31:0]	inst_out;
 	wire[31:0]	data_out;
-     // Change size of data_addr to be consistent with data_mem
-	wire[11:0]	data_addr;
+	`ifdef USE_SMALL_DATA_ADDR
+		 // Change size of data_addr to be consistent with data_mem
+		wire[13:0]	data_addr;
+	`else
+		wire[31:0]	data_addr;
+	`endif
 	wire[31:0]	data_WrData;
 	wire		data_memwrite;
 	wire		data_memread;
@@ -106,7 +117,8 @@ module top (led);
 		.out(inst_out)
 	);
 
-	data_mem data_mem_inst(
+	`ifdef USE_CACHE_MEMORY
+		data_mem_cached data_mem_inst(
 			.clk(clk),
 			.addr(data_addr),
 			.write_data(data_WrData),
@@ -117,6 +129,20 @@ module top (led);
 			.led(led),
 			.clk_stall(data_clk_stall)
 		);
+
+	`else
+		data_mem data_mem_inst(
+			.clk(clk),
+			.addr(data_addr),
+			.write_data(data_WrData),
+			.memwrite(data_memwrite), 
+			.memread(data_memread), 
+			.read_data(data_out),
+			.sign_mask(data_sign_mask),
+			.led(led),
+			.clk_stall(data_clk_stall)
+		);
+	`endif
 
 	assign clk_proc = (data_clk_stall) ? 1'b1 : clk;
 endmodule

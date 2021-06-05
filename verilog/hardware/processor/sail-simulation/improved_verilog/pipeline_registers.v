@@ -47,7 +47,6 @@ module if_id (clk, data_in, data_out);
 	input			clk;
 	input [63:0]		data_in;
 	output reg[63:0]	data_out;
-
 	/*
 	 *	This uses Yosys's support for nonzero initial values:
 	 *
@@ -62,8 +61,9 @@ module if_id (clk, data_in, data_out);
 	end
 
 	always @(posedge clk) begin
-		data_out <= data_in;
-	end
+			data_out <= data_in;
+     end
+
 endmodule
 
 

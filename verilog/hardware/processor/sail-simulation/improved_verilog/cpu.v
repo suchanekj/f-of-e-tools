@@ -77,12 +77,6 @@ module cpu(
 	output			data_mem_memwrite;
 	output			data_mem_memread;
 	output [3:0]		data_mem_sign_mask;
-	/*
-	output [1:0]		check0;
-	output [1:0]		check1;
-	output [1:0]		check2;
-	*/
-
 
 	/*
 	 *	Program Counter
@@ -181,10 +175,6 @@ module cpu(
 	wire			mistake_trigger;
 	wire			decode_ctrl_mux_sel;
 	wire			inst_mux_sel;
-	wire[1:0] 			check0;
-	wire[1:0] 			check1;
-	wire[1:0] 			check2;
-
 
     
 
@@ -198,17 +188,42 @@ module cpu(
 			.out(pc_in)
 		);
 
-	`ifdef USE_ADDER_DSP
+	`ifdef USE_COMBIADDER_DSP
+		adder_dsp_cpu combi_adder(
+			.input1a(16'b100),
+			.input2a(pc_out[15:0]),
+			.input1b(addr_adder_mux_out[15:0]),
+			.input2b(id_ex_out[123:108]),
+			.outa(pc_adder_out[15:0]),
+			.outb(addr_adder_sum[15:0])
+		);
+		
+	`elsif USE_ADDER_DSP
 		adder_dsp pc_adder(
 			.input1(32'b100),
 			.input2(pc_out),
+			.addsub(1'b0),
 			.out(pc_adder_out)
 		);
+
+		adder_dsp addr_adder(
+			.input1(addr_adder_mux_out),
+			.input2(id_ex_out[139:108]),
+			.addsub(1'b0),
+			.out(addr_adder_sum)
+		);
+
 	`else
 		adder pc_adder(
 			.input1(32'b100),
 			.input2(pc_out),
 			.out(pc_adder_out)
+		);
+
+		adder addr_adder(
+			.input1(addr_adder_mux_out),
+			.input2(id_ex_out[139:108]),
+			.out(addr_adder_sum)
 		);
 	`endif
 
@@ -355,20 +370,7 @@ module cpu(
 			.out(addr_adder_mux_out)
 		);
 
-	`ifdef USE_ADDER_DSP
-		adder_dsp addr_adder(
-			.input1(addr_adder_mux_out),
-			.input2(id_ex_out[139:108]),
-			.out(addr_adder_sum)
-		);
-	`else
-		adder addr_adder(
-			.input1(addr_adder_mux_out),
-			.input2(id_ex_out[139:108]),
-			.out(addr_adder_sum)
-		);
-	`endif
-	
+	// addr_adder used to be here
 
 	mux2to1 alu_mux(
 			.input0(wb_fwd2_mux_out),
@@ -511,42 +513,20 @@ module cpu(
         .in_addr(if_id_out[31:0]),
         .offset(imm_out),
         .branch_addr(branch_predictor_addr),
-        .prediction(predict),
-		.check0(check0),
-		.check1(check1),
-		.check2(check2)
-
+        .prediction(predict)
     );
-    `elsif USE_ONE_BIT
-		one_bit_branch_predictor branch_predictor_FSM(
-			.clk(clk),
-			.actual_branch_decision(actual_branch_decision),
-			.branch_decode_sig(cont_mux_out[6]),
-			.branch_mem_sig(ex_mem_out[6]),
-			.in_addr(if_id_out[31:0]),
-			.offset(imm_out),
-			.branch_addr(branch_predictor_addr),
-			.prediction(predict)
-		);
-	`elsif USE_STATIC
-		static_branch_predictor branch_predictor_FSM(
-			.branch_decode_sig(cont_mux_out[6]),
-			.in_addr(if_id_out[31:0]),
-			.offset(imm_out),
-			.branch_addr(branch_predictor_addr),
-			.prediction(predict)
-		);
-	`else
-		two_bit_branch_predictor branch_predictor_FSM(
-			.clk(clk),
-			.actual_branch_decision(actual_branch_decision),
-			.branch_decode_sig(cont_mux_out[6]),
-			.branch_mem_sig(ex_mem_out[6]),
-			.in_addr(if_id_out[31:0]),
-			.offset(imm_out),
-			.branch_addr(branch_predictor_addr),
-			.prediction(predict)
-		);
+    `else
+    
+    two_bit_branch_predictor branch_predictor_FSM(
+        .clk(clk),
+        .actual_branch_decision(actual_branch_decision),
+        .branch_decode_sig(cont_mux_out[6]),
+        .branch_mem_sig(ex_mem_out[6]),
+        .in_addr(if_id_out[31:0]),
+        .offset(imm_out),
+        .branch_addr(branch_predictor_addr),
+        .prediction(predict)
+    );
 
     `endif
 	
@@ -578,7 +558,7 @@ module cpu(
 	assign inst_mux_sel = pcsrc | predict | mistake_trigger | Fence_signal;
 
 	//Instruction Memory Connections
-	assign inst_mem_in = pc_out;
+	assign inst_mem_in = pc_out; // Speed up access when RAM is synchronous read since the pc_out <= pc_in !!
 
 	//Data Memory Connections
 	`ifdef `USE_SMALL_DATA_ADDR

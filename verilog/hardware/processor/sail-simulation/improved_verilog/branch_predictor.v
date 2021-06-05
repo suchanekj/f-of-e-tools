@@ -48,10 +48,7 @@ module branch_predictor(
 		in_addr,
 		offset,
 		branch_addr,
-		prediction,
-		check0,
-		check1,
-		check2
+		prediction
 	);
 
 	/*
@@ -70,12 +67,10 @@ module branch_predictor(
 	 */
 	output [31:0]	branch_addr;
 	output		prediction;
-    
+    /*
 	output [1:0]	check0;
-	
 	output [1:0]	check1;
 	output [1:0]	check2;
-	/*
 	output [1:0]	check3;
 	output [1:0]	check4;
     */
@@ -125,36 +120,15 @@ module branch_predictor(
 	assign check4 = LPT[LHT[branch_addr[1:0]]];
 	*/
 	always @(posedge clk) begin
-		`ifdef USE_BRANCH
-			if (branch_mem_sig_reg) begin
-				// 2-bit branch predictor
-				LPT[LHT[branch_addr[5:4]]][1] <= (LPT[LHT[branch_addr[5:4]]][1]&LPT[LHT[branch_addr[5:4]]][0]) | (LPT[LHT[branch_addr[5:4]]][0]&actual_branch_decision) | (LPT[LHT[branch_addr[5:4]]][1]&actual_branch_decision);
-				LPT[LHT[branch_addr[5:4]]][0] <= (LPT[LHT[branch_addr[5:4]]][1]&(!LPT[LHT[branch_addr[5:4]]][0])) | ((!LPT[LHT[branch_addr[5:4]]][0])&actual_branch_decision) | (LPT[LHT[branch_addr[5:4]]][1]&actual_branch_decision);
-				// Now update the LHT table (counter)
-				LHT[branch_addr[5:4]][1] <= actual_branch_decision;
-				LHT[branch_addr[5:4]][0] <= LHT[branch_addr[5:4]][1];
-			end
-		`else
-			if (branch_mem_sig_reg) begin
-					// 2-bit branch predictor
-					LPT[LHT[in_addr[5:4]]][1] <= (LPT[LHT[in_addr[5:4]]][1]&LPT[LHT[in_addr[5:4]]][0]) | (LPT[LHT[in_addr[5:4]]][0]&actual_branch_decision) | (LPT[LHT[in_addr[5:4]]][1]&actual_branch_decision);
-					LPT[LHT[in_addr[5:4]]][0] <= (LPT[LHT[in_addr[5:4]]][1]&(!LPT[LHT[in_addr[5:4]]][0])) | ((!LPT[LHT[in_addr[5:4]]][0])&actual_branch_decision) | (LPT[LHT[in_addr[5:4]]][1]&actual_branch_decision);
-					// Now update the LHT table (counter)
-					LHT[in_addr[5:4]][1] <= actual_branch_decision;
-					LHT[in_addr[5:4]][0] <= LHT[in_addr[5:4]][1];
-			end
-		`endif
+		if (branch_mem_sig_reg) begin
+			// 2-bit branch predictor
+			LPT[LHT[branch_addr[1:0]]][1] <= (LPT[LHT[branch_addr[1:0]]][1]&LPT[LHT[branch_addr[1:0]]][0]) | (LPT[LHT[branch_addr[1:0]]][0]&actual_branch_decision) | (LPT[LHT[branch_addr[1:0]]][1]&actual_branch_decision);
+			LPT[LHT[branch_addr[1:0]]][0] <= (LPT[LHT[branch_addr[1:0]]][1]&(!LPT[LHT[branch_addr[1:0]]][0])) | ((!LPT[LHT[branch_addr[1:0]]][0])&actual_branch_decision) | (LPT[LHT[branch_addr[1:0]]][1]&actual_branch_decision);
+			// Now update the LHT table (counter)
+			LHT[branch_addr[1:0]][1] <= actual_branch_decision;
+			LHT[branch_addr[1:0]][0] <= LHT[branch_addr[1:0]][1];
+		end
 	end
-	`ifdef USE_BRANCH
-		assign prediction = LPT[LHT[branch_addr[5:4]]][1] & branch_decode_sig;
-		assign check0 = branch_addr[5:4];
-		assign check1 = LHT[branch_addr[5:4]];
-		assign check2 = LPT[LHT[branch_addr[5:4]]];
-	`else
-		assign prediction = LPT[LHT[in_addr[5:4]]][1] & branch_decode_sig;
-		assign check0 = in_addr[5:4];
-		assign check1 = LHT[in_addr[5:4]];
-		assign check2 = LPT[LHT[in_addr[5:4]]];
-	`endif
+	assign prediction = LPT[LHT[branch_addr[1:0]]][1] & branch_decode_sig;
 	assign branch_addr = in_addr + offset;
 endmodule

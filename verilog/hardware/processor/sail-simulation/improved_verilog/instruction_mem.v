@@ -51,6 +51,7 @@ module instruction_memory(addr, out);
 	 *
 	 *	(Bad practice: The constant should be a `define).
 	 */
+	 
 	reg [31:0]		instruction_memory[0:2**12-1];
 
 	/*
@@ -71,7 +72,7 @@ module instruction_memory(addr, out);
 		/*
 		 *	read from "program.hex" and store the instructions in instruction memory
 		 */
-		$readmemh("programs/program.hex",instruction_memory);
+		$readmemh("../programs/program.hex",instruction_memory);
 	end
 
 	assign out = instruction_memory[addr >> 2];

@@ -54,7 +54,12 @@ module top_sim (clk, led);
 	wire[31:0]	inst_in;
 	wire[31:0]	inst_out;
 	wire[31:0]	data_out;
-	wire[13:0]	data_addr;
+	`ifdef USE_SMALL_DATA_ADDR
+		 // Change size of data_addr to be consistent with data_mem
+		wire[13:0]	data_addr;
+	`else
+		wire[31:0]	data_addr;
+	`endif
 	wire[31:0]	data_WrData;
 	wire		data_memwrite;
 	wire		data_memread;
@@ -72,11 +77,16 @@ module top_sim (clk, led);
 		.data_mem_memread(data_memread),
 		.data_mem_sign_mask(data_sign_mask)
 	);
+		instruction_RAM_mem inst_mem(
+			.din(32'b0), // No writing to Instruction Memory 
+			.write_en(1'b0), 
+			.waddr(32'b0), 
+			.wclk(1'b0), 
+			.raddr(inst_in), 
+			.rclk(clk), 
+			.dout(inst_out)
+		);
 
-	instruction_memory inst_mem( 
-		.addr(inst_in), 
-		.out(inst_out)
-	);
 
 	data_mem data_mem_inst(
 			.clk(clk),

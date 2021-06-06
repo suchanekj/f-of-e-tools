@@ -1,14 +1,16 @@
 //Fully associative cache, write to memory only at rejection
 
 
-module cache_line (clk, addr, write_data, memwrite, memread, data, stored_addr, addr_match, dirty, old);
+module cache_line (clk, addr, write_data, memwrite, memread, age_of_accessed, data, stored_addr, age, addr_match, dirty, old);
 	input 			clk;
 	input [13:0]	addr;
 	input [`CACHE_LINE_MAX_BIT:0]	write_data;
 	input			memwrite;
 	input			memread;
+		input [`CACHE_LINE_NUMBER_LOG - 1:0]	age_of_accessed;
 	output reg [`CACHE_LINE_MAX_BIT:0]	data;
 	output reg [13 - `CACHE_LINE_SIZE_BYTES_LOG:0] stored_addr;
+		output reg [`CACHE_LINE_NUMBER_LOG - 1:0] age;
 	output			addr_match;
 	output reg		dirty;
 	output			old;
@@ -19,10 +21,11 @@ module cache_line (clk, addr, write_data, memwrite, memread, data, stored_addr, 
 	wire addr_match_dirty_flush;
 	
 	assign addr_match = (addr[13:`CACHE_LINE_SIZE_BYTES_LOG] == stored_addr) && !dirty;
-		assign old = 1'b1;
-		assign addr_match_dirty_flush = 1'b1;
+		assign old = age == 0;
+		assign addr_match_dirty_flush = addr_match | ((dirty | (age_of_accessed == 0)) & old);
 	
 	initial begin
+			age = initial_age;
 		
 		dirty = 1;
 	end
@@ -35,14 +38,18 @@ module cache_line (clk, addr, write_data, memwrite, memread, data, stored_addr, 
 					stored_addr <= addr[13:`CACHE_LINE_SIZE_BYTES_LOG];
 					dirty <= 0;
 				end
+					age <= `CACHE_LINE_NUMBER - 1;
 			end
+				else if (age > age_of_accessed)
+					age <= age - 1;
 		end
 	end
 endmodule
 
 
-module data_mem_cached (clk, addr, write_data, memwrite, memread, sign_mask, read_data, led, clk_stall);
+module data_mem_cached (clk, clk_delayed, addr, write_data, memwrite, memread, sign_mask, read_data, led, clk_stall);
 	input			clk;
+	input			clk_delayed;
 	/* 
 	addr is used only to assign bits to addr_buff, which in turn assigns bits to addr_buf_block_addr and addr_buf_byte_offset
 	which require bits 11 to 0 only. Instruction memory substraction in FSM is unaffected by reducing address size bus.
@@ -55,6 +62,8 @@ module data_mem_cached (clk, addr, write_data, memwrite, memread, sign_mask, rea
 	output reg [31:0]	read_data;
 	output [7:0]		led;
 	output reg		clk_stall;	//Sets the clock high
+	
+	reg [31:0]	read_data_before_delay;
 
 	/*
 	 *	Current state
@@ -67,6 +76,7 @@ module data_mem_cached (clk, addr, write_data, memwrite, memread, sign_mask, rea
 	parameter		IN_CACHE = 0;
 	parameter		ACCESS_MEMORY = 1;
 	parameter		UPDATE_CACHE = 2;
+	parameter		DEBUG_DELAY = 3;
 
 	/*
 	 *	led register
@@ -81,7 +91,7 @@ module data_mem_cached (clk, addr, write_data, memwrite, memread, sign_mask, rea
 	reg [31:0]		read_word_from_memory;
 	wire [31:0]		current_read_word;
 	
-	assign current_read_word = (state == IN_CACHE) ? cache_word : read_word_from_memory;
+	assign current_read_word = (state == IN_CACHE || state == DEBUG_DELAY) ? cache_word : read_word_from_memory;
 
 	/*
 	 *	Read buffer
@@ -135,7 +145,6 @@ module data_mem_cached (clk, addr, write_data, memwrite, memread, sign_mask, rea
 	 */
 	
 	wire [9:0]		addr_buf_block_addr;
-
 	assign			addr_buf_block_addr	= current_address[11:2];
 	
 	wire [1:0]		addr_buf_byte_offset;
@@ -155,6 +164,8 @@ module data_mem_cached (clk, addr, write_data, memwrite, memread, sign_mask, rea
 	wire[`CACHE_LINE_NUMBER - 1: 0]	cache_line_addr_match;
 	wire[`CACHE_LINE_NUMBER - 1: 0]	cache_line_dirty;
 	wire[`CACHE_LINE_NUMBER - 1: 0]	cache_line_old;
+		reg[`CACHE_LINE_NUMBER_LOG - 1:0]	accessed_line_age;
+		wire[`CACHE_LINE_NUMBER_LOG - 1:0]	cache_line_age [`CACHE_LINE_NUMBER - 1: 0];
 	
 	reg [`CACHE_LINE_MAX_BIT:0]	cache_line_from_memory;
 	
@@ -168,13 +179,15 @@ module data_mem_cached (clk, addr, write_data, memwrite, memread, sign_mask, rea
 					.write_data(cache_write_data),
 					.memwrite(cache_write),
 					.memread(cache_read),
+					.age_of_accessed(accessed_line_age),
 					.data(cache_line_data[i]),
 					.stored_addr(cache_line_stored_addr[i]),
+					.age(cache_line_age[i]),
 					.addr_match(cache_line_addr_match[i]),
 					.dirty(cache_line_dirty[i]),
 					.old(cache_line_old[i])
 				);
-				defparam cache_line_instance.initial_age = i;
+			defparam cache_line_instance.initial_age = i;
 		end
 	endgenerate
 
@@ -195,6 +208,14 @@ module data_mem_cached (clk, addr, write_data, memwrite, memread, sign_mask, rea
 	generate 
 		genvar m;
 		integer l;
+			for (m = 0; m < `CACHE_LINE_NUMBER_LOG; m = m + 1) begin
+				always @ (*) begin
+					// if none is a match will set age = 0, which is the oldest one
+					accessed_line_age[m] = 1'b0;
+					for (l = 0; l < `CACHE_LINE_NUMBER; l = l + 1)
+						accessed_line_age[m] = accessed_line_age[m] | (cache_line_age[l][m] & cache_line_selection[l]);
+				end
+			end
 		
 		for (m = 0; m <= 13 - `CACHE_LINE_SIZE_BYTES_LOG; m = m + 1) begin
 			always @ (*) begin
@@ -221,8 +242,8 @@ module data_mem_cached (clk, addr, write_data, memwrite, memread, sign_mask, rea
 	
 	assign accessed_line_dirty = (cache_line_selection & cache_line_dirty) != 0;
 	
-	assign cache_read = memread & (cache_line_addr_match != 0) & (state == IN_CACHE);
-	assign cache_write = ((state == IN_CACHE) & memwrite & (cache_line_addr_match != 0)) | (state == UPDATE_CACHE);
+	assign cache_read = memread & (cache_line_addr_match != 0) & (state == IN_CACHE || state == DEBUG_DELAY);
+	assign cache_write = ((state == IN_CACHE || state == DEBUG_DELAY) & memwrite & (cache_line_addr_match != 0)) | (state == UPDATE_CACHE);
 
 	/*
 	 *	Regs for multiplexer output
@@ -302,7 +323,7 @@ module data_mem_cached (clk, addr, write_data, memwrite, memread, sign_mask, rea
 	wire[`CACHE_LINE_MAX_BIT:0] cache_write_data_original;
 	reg[`CACHE_LINE_MAX_BIT:0] cache_write_data_updated;
 	
-	assign cache_write_data_original = (state == IN_CACHE) ? accessed_line_data : cache_line_from_memory;
+	assign cache_write_data_original = (state == IN_CACHE || state == DEBUG_DELAY) ? accessed_line_data : cache_line_from_memory;
 	
 	wire [31:0] cache_line_from_memory_unpacked[`CACHE_LINE_SIZE_WORDS - 1:0];
 	
@@ -408,7 +429,7 @@ module data_mem_cached (clk, addr, write_data, memwrite, memread, sign_mask, rea
 				sign_mask_buf <= sign_mask;
 				if (memwrite == 1'b1 || memread == 1'b1) begin
 					if (cache_line_addr_match != 0) begin
-						read_data <= read_buf;
+						read_data_before_delay <= read_buf;
 					end
 					else begin
 						state <= ACCESS_MEMORY;
@@ -428,9 +449,13 @@ module data_mem_cached (clk, addr, write_data, memwrite, memread, sign_mask, rea
 			UPDATE_CACHE: begin
 				clk_stall <= 0;
 				state <= IN_CACHE;
-				read_data <= read_buf;
+				read_data_before_delay <= read_buf;
 			end
 		endcase
+	end
+	
+	always @(posedge clk_delayed) begin
+		read_data <= read_data_before_delay;
 	end
 
 	/*

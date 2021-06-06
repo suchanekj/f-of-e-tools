@@ -59,6 +59,39 @@ module top_sim (clk, led);
 	wire		data_memwrite;
 	wire		data_memread;
 	wire[3:0]	data_sign_mask;
+	
+	reg			divider_reg_0;
+	reg			divider_reg_1;
+	reg			divider_reg_2;
+	wire[1:0]	clk_mf;
+	wire		clk_actual;
+	reg			clk_delayed;
+	
+	assign clk_mf[0] = divider_reg_0;
+			
+	always @(posedge clk) begin
+		divider_reg_0 <= !divider_reg_0;
+		clk_delayed <= clk_actual;
+	end
+	
+	assign clk_mf[1] = divider_reg_1;
+			
+	always @(posedge clk_mf[0]) begin
+		divider_reg_1 <= !divider_reg_1;
+	end
+	
+	assign clk_actual = divider_reg_2;
+			
+	always @(posedge clk_mf[1]) begin
+		divider_reg_2 <= !divider_reg_2;
+	end
+	
+	initial begin
+		divider_reg_0 = 0;
+		divider_reg_1 = 0;
+		divider_reg_2 = 0;
+	end
+	
 
 	cpu processor(
 		.clk(clk_proc),
@@ -78,7 +111,8 @@ module top_sim (clk, led);
 	);
 
 	data_mem_cached data_mem_inst(
-		.clk(clk),
+		.clk(clk_actual),
+		.clk_delayed(clk_delayed),
 		.addr(data_addr),
 		.write_data(data_WrData),
 		.memwrite(data_memwrite), 
@@ -90,5 +124,5 @@ module top_sim (clk, led);
 	);
 
 
-	assign clk_proc = (data_clk_stall) ? 1'b1 : clk;
+	assign clk_proc = (data_clk_stall) ? 1'b1 : clk_actual;
 endmodule

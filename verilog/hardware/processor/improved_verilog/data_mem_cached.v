@@ -211,7 +211,6 @@ module data_mem_cached (clk, addr, write_data, memwrite, memread, sign_mask, rea
 					.dirty(cache_line_dirty[i]),
 					.old(cache_line_old[i])
 				);
-				defparam cache_line_instance.initial_age = i;
 			`else
 				cache_line cache_line_instance(
 					.clk(clk),
@@ -225,8 +224,8 @@ module data_mem_cached (clk, addr, write_data, memwrite, memread, sign_mask, rea
 					.dirty(cache_line_dirty[i]),
 					.old(cache_line_old[i])
 				);
-				defparam cache_line_instance.initial_age = i;
 			`endif
+			defparam cache_line_instance.initial_age = i;
 		end
 	endgenerate
 

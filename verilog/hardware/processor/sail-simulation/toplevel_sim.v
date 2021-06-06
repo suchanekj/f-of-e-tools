@@ -42,11 +42,18 @@
  */
 
 module top_sim (clk, led);
-	input		clk;
+	input 			clk;
 	output [7:0]	led;
 
 	wire		clk_proc;
 	wire		data_clk_stall;
+	//wire 		clk_f;
+	
+	/* Clock division 
+	clk_divisor net_clk(
+		.clk_hf(clk),
+		.clk(clk_f)
+	); */
 	
 	/*
 	 *	Memory interface
@@ -91,7 +98,6 @@ module top_sim (clk, led);
 		divider_reg_1 = 0;
 		divider_reg_2 = 0;
 	end
-	
 
 	cpu processor(
 		.clk(clk_proc),
@@ -105,7 +111,8 @@ module top_sim (clk, led);
 		.data_mem_sign_mask(data_sign_mask)
 	);
 
-	instruction_memory inst_mem( 
+	instruction_RAM3_mem inst_mem( 
+		.clk(clk),
 		.addr(inst_in), 
 		.out(inst_out)
 	);
@@ -122,7 +129,6 @@ module top_sim (clk, led);
 		.led(led),
 		.clk_stall(data_clk_stall)
 	);
-
 
 	assign clk_proc = (data_clk_stall) ? 1'b1 : clk_actual;
 endmodule

@@ -25,22 +25,13 @@ module pll_clk(clk_hf, clk);
 		.PLLOUTCORE(clk_mf[0])
 	);
 	
-	
 	`ifdef CLK_PLL_DIV_REG
-		reg[`CLK_PLL_DIV_REG-1:0] divider_regs;
-		
-		genvar i;
-		for (i = 0; i < `CLK_PLL_DIV_REG; i = i + 1) begin
-			assign clk_mf[i+1] = divider_regs[i];
-			
-			always @(posedge clk_mf[i]) begin
-				divider_regs[i] <= !divider_regs[i];
-			end
-		end
-		assign clk = clk_mf[`CLK_PLL_DIV_REG];
+		clk_divisor clkdivider(
+			.clk_hf(clk_mf[0]),
+			.clk(clk)
+		);
 	`else
 		assign clk = clk_mf[0];
 	`endif
-	
 
 endmodule

@@ -1,20 +1,25 @@
 /*
 	Authored 2018-2019, Ryan Voo.
+
 	All rights reserved.
 	Redistribution and use in source and binary forms, with or without
 	modification, are permitted provided that the following conditions
 	are met:
+
 	*	Redistributions of source code must retain the above
 		copyright notice, this list of conditions and the following
 		disclaimer.
+
 	*	Redistributions in binary form must reproduce the above
 		copyright notice, this list of conditions and the following
 		disclaimer in the documentation and/or other materials
 		provided with the distribution.
+
 	*	Neither the name of the author nor the names of its
 		contributors may be used to endorse or promote products
 		derived from this software without specific prior written
 		permission.
+
 	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 	"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 	LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
@@ -30,68 +35,53 @@
 */
 
 
+
 /*
- *	top.v
+ *	Description:
  *
- *	Top level entity, linking cpu with data and instruction memory.
+ *		This module implements an left shift testbench to verify leftshift_dsp logic
  */
 
-module top_sim (clk, led);
-	input 			clk;
-	output [7:0]	led;
 
-	wire		clk_proc;
-	wire		data_clk_stall;
-	//wire 		clk_f;
-	
-	/* Clock division 
-	clk_divisor net_clk(
-		.clk_hf(clk),
-		.clk(clk_f)
-	); */
-	
-	/*
-	 *	Memory interface
-	 */
-	wire[31:0]	inst_in;
-	wire[31:0]	inst_out;
-	wire[31:0]	data_out;
-	wire[13:0]	data_addr;
-	wire[31:0]	data_WrData;
-	wire		data_memwrite;
-	wire		data_memread;
-	wire[3:0]	data_sign_mask;
-	
-	wire		clk;
-	
-	cpu processor(
-		.clk(clk_proc),
-		.inst_mem_in(inst_in),
-		.inst_mem_out(inst_out),
-		.data_mem_out(data_out),
-		.data_mem_addr(data_addr),
-		.data_mem_WrData(data_WrData),
-		.data_mem_memwrite(data_memwrite),
-		.data_mem_memread(data_memread),
-		.data_mem_sign_mask(data_sign_mask)
+
+module leftshift_dsp_tb();
+	reg[31:0] 	input1;
+	reg[31:0] 	input2;
+	wire[31:0] 	out;
+
+	leftshift_dsp LSDSP(  
+		.input1(input1),
+		.input2(input2),
+		.out(out)
 	);
+	localparam period = 2; //2s
+	always begin
+		$dumpfile ("leftshift_dsp.vcd");
+		$dumpvars;
 
-	instruction_memory inst_mem( 
-		.addr(inst_in), 
-		.out(inst_out)
-	);
+		input1 <= 32'b0101; //5
+		input2 <= 5'h02; //2
+		#period;
 
-	data_mem data_mem_inst(
-		.clk(clk),
-		.addr(data_addr),
-		.write_data(data_WrData),
-		.memwrite(data_memwrite), 
-		.memread(data_memread), 
-		.read_data(data_out),
-		.sign_mask(data_sign_mask),
-		.led(led),
-		.clk_stall(data_clk_stall)
-	);
+		input1 <= 32'b0001; //1
+		input2 <= 5'h04; //4
+		#period
 
-	assign clk_proc = (data_clk_stall) ? 1'b1 : clk;
-endmodule
+		input1 <= 32'b00011; //3
+		input2 <= 5'hF; //15
+		#period
+
+		input1 <= 32'hFABA; //64186
+		input2 <= 5'h1A; // 26
+		#period
+
+		input1 <= 32'h616D2065; //maximum value of A
+		input2 <= 5'h05; // 31 (maximum logical left shift)
+		#period
+
+		input1 <= 32'hFFFFFFFF; //maximum value of A
+		input2 <= 5'h1F; // 31 (maximum logical left shift)
+		#period
+		$finish;
+	end
+	endmodule

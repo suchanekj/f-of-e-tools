@@ -67,6 +67,7 @@ module top_sim (clk, led);
 	wire		data_memread;
 	wire[3:0]	data_sign_mask;
 
+
 	cpu processor(
 		.clk(clk_proc),
 		.inst_mem_in(inst_in),
@@ -79,23 +80,23 @@ module top_sim (clk, led);
 		.data_mem_sign_mask(data_sign_mask)
 	);
 
-	instruction_memory inst_mem( 
+	instruction_RAM3_mem inst_mem( 
+		.clk(clk),
 		.addr(inst_in), 
 		.out(inst_out)
 	);
 
 	data_mem data_mem_inst(
-		.clk(clk),
-		.addr(data_addr),
-		.write_data(data_WrData),
-		.memwrite(data_memwrite), 
-		.memread(data_memread), 
-		.read_data(data_out),
-		.sign_mask(data_sign_mask),
-		.led(led),
-		.clk_stall(data_clk_stall)
-	);
-
+			.clk(clk),
+			.addr(data_addr),
+			.write_data(data_WrData),
+			.memwrite(data_memwrite), 
+			.memread(data_memread), 
+			.read_data(data_out),
+			.sign_mask(data_sign_mask),
+			.led(led),
+			.clk_stall(data_clk_stall)
+		);
 
 	assign clk_proc = (data_clk_stall) ? 1'b1 : clk;
 endmodule

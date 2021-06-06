@@ -7,19 +7,20 @@
 #include <string>
 #include <cstdlib>
 #include <cstdio>
-
 enum
 {
-    kSimulationCycles = 3000000,
+    kSimulationCycles = 1000,
 };
+
 vluint64_t vtime = 0;
 bool clk = false;
 int led = 255;
-double sc_time_stamp ()
+
+double
+sc_time_stamp ()
 {
     return vtime;
 }
-
 
 int main(int argc, char** argv, char** env)
 {
@@ -67,7 +68,7 @@ int main(int argc, char** argv, char** env)
         }
     }
     top->final();
-	
+    
     if (tfp != NULL)
     {
         tfp->close();

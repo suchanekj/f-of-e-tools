@@ -67,9 +67,13 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 	reg [31:0] inputB1;
 	reg [31:0] inputA2;
 	reg [31:0] inputB2;
+	reg [4:0]  inputB3;
 	// reg addsub_in;
 	reg [31:0] add_output;
 	reg [31:0] sub_output;
+	`ifdef USE_LSHIFT_DSP
+		reg [31:0] lshift_output;
+	`endif
 	reg [31:0] andxor_output;
 	reg [31:0] andxor_output1;
 	reg [31:0] andxor_output2;
@@ -90,6 +94,7 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 		inputB1 = 0;
 		inputA2 = 0;
 		inputB2 = 0;
+		inputB3 = 0;
 		addsub_in = 1'b0;
 
 		ALUOut = 32'b0;
@@ -128,7 +133,15 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 			.addsub(1'b0),
 			.out(andxor_output2)
 		);
-	`endif 
+	`endif
+
+	`ifdef USE_LSHIFT_DSP
+		leftshift_dsp left_shift(
+			.input1(inputA),
+			.input2(inputB3),
+			.out(lshift_output)
+		);
+	`endif
 	
 	always @(ALUctl, A, B) begin
 		
@@ -145,6 +158,10 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 			end
 
 		`endif
+
+		`ifdef USE_LSHIFT_DSP
+			inputB3 <= B[4:0];
+		`endif	
 
 		inputA <= A;
 		inputB <= B;
@@ -231,8 +248,13 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 			/*
 			 *	SLL (the fields also match the other SLL variants)
 			 */
-			`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SLL:	ALUOut = A << B[4:0];
-
+			`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SLL:	begin
+				`ifdef USE_LSHIFT_DSP
+					ALUOut = lshift_output;
+				`else	
+					ALUOut = A << B[4:0];
+				`endif 
+			end 
 			/*
 			 *	XOR (the fields also match other XOR variants)
 			 */

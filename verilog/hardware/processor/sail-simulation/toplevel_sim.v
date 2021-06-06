@@ -84,7 +84,7 @@ module top_sim (clk, led);
 		.out(inst_out)
 	);
 
-	data_mem_cached data_mem_inst(
+	data_mem data_mem_inst(
 		.clk(clk),
 		.addr(data_addr),
 		.write_data(data_WrData),

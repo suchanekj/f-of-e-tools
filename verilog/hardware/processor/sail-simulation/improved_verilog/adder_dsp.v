@@ -45,9 +45,10 @@
 
 
 
-module adder_dsp(input1, input2, out);
+module adder_dsp(input1, input2, addsub, out);
 	input [31:0]	input1;
 	input [31:0]	input2;
+	input 			addsub;
 	output [31:0]	out;
 
 	// wire RST_i = 1'b0
@@ -76,8 +77,8 @@ module adder_dsp(input1, input2, out);
 		.OHOLDBOT(),
 		.OLOADTOP(1'b0),	// 0: load sum output
 		.OLOADBOT(1'b0),
-		.ADDSUBTOP(1'b0),	// 0: Add; 1: subtract
-		.ADDSUBBOT(1'b0),	// 0: Add; 1: subtract
+		.ADDSUBTOP(addsub),	// 0: Add; 1: subtract
+		.ADDSUBBOT(addsub),	// 0: Add; 1: subtract
 		.CO(),
 		.CI(),
 		//MAC cascading ports.
@@ -94,7 +95,7 @@ module adder_dsp(input1, input2, out);
 		defparam i_sbmac16.BOTADDSUB_UPPERINPUT = 1'b1 ;		// 1: input D
 		defparam i_sbmac16.BOTADDSUB_LOWERINPUT = 2'b00 ;		// 00: input B
 		defparam i_sbmac16.BOTOUTPUT_SELECT = 2'b00 ;			// default value (00), not registered
-		defparam i_sbmac16.TOPADDSUB_CARRYSELECT = 2'b11 ;		// 11: Cascade CO from lower block
+		defparam i_sbmac16.TOPADDSUB_CARRYSELECT = 2'b10 ;		// 11: Cascade CO from lower block
 		defparam i_sbmac16.TOPADDSUB_UPPERINPUT = 1'b1 ;		// 1: input C
 		defparam i_sbmac16.TOPADDSUB_LOWERINPUT = 2'b00 ;		// 00: input A
 		defparam i_sbmac16.TOPOUTPUT_SELECT = 2'b00 ;  			// default value (00), not registered

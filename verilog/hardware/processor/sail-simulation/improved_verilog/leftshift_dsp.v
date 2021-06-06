@@ -1,20 +1,25 @@
 /*
 	Authored 2018-2019, Ryan Voo.
+
 	All rights reserved.
 	Redistribution and use in source and binary forms, with or without
 	modification, are permitted provided that the following conditions
 	are met:
+
 	*	Redistributions of source code must retain the above
 		copyright notice, this list of conditions and the following
 		disclaimer.
+
 	*	Redistributions in binary form must reproduce the above
 		copyright notice, this list of conditions and the following
 		disclaimer in the documentation and/or other materials
 		provided with the distribution.
+
 	*	Neither the name of the author nor the names of its
 		contributors may be used to endorse or promote products
 		derived from this software without specific prior written
 		permission.
+
 	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 	"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 	LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
@@ -30,68 +35,56 @@
 */
 
 
+
 /*
- *	top.v
+ *	Description:
  *
- *	Top level entity, linking cpu with data and instruction memory.
+ *		This module implements an left shift register for use by the ALU
  */
 
-module top_sim (clk, led);
-	input 			clk;
-	output [7:0]	led;
 
-	wire		clk_proc;
-	wire		data_clk_stall;
-	//wire 		clk_f;
-	
-	/* Clock division 
-	clk_divisor net_clk(
-		.clk_hf(clk),
-		.clk(clk_f)
-	); */
-	
-	/*
-	 *	Memory interface
-	 */
-	wire[31:0]	inst_in;
-	wire[31:0]	inst_out;
-	wire[31:0]	data_out;
-	wire[13:0]	data_addr;
-	wire[31:0]	data_WrData;
-	wire		data_memwrite;
-	wire		data_memread;
-	wire[3:0]	data_sign_mask;
-	
-	wire		clk;
-	
-	cpu processor(
-		.clk(clk_proc),
-		.inst_mem_in(inst_in),
-		.inst_mem_out(inst_out),
-		.data_mem_out(data_out),
-		.data_mem_addr(data_addr),
-		.data_mem_WrData(data_WrData),
-		.data_mem_memwrite(data_memwrite),
-		.data_mem_memread(data_memread),
-		.data_mem_sign_mask(data_sign_mask)
+
+module leftshift_dsp(input1, input2, out);
+	input[31:0] input1;
+	input[31:0] input2;
+	output[31:0] out;
+
+	SB_MAC16 i_sbmac16(  
+		// port interfaces
+		.A(input1[15:0]), // 16x16 mulitplier only
+		.B(input2[15:0]),
+		.C(input1[31:16]),
+		.D(input2[31:16]),
+		.O(out),
+		.CLK(), 	// Asynchronous
+		.CE(1'b0),
+		.IRSTTOP(1'b0), // Default resets are 0 but doesn't matter since unclocked
+		.IRSTBOT(1'b0),
+		.ORSTTOP(1'b0),
+		.ORSTBOT(1'b0),
+		.AHOLD(1'b0),  // Default holds are 0 but doesn't matter since unclocked
+		.BHOLD(1'b0),
+		.CHOLD(1'b0),
+		.DHOLD(1'b0),
+		.OHOLDTOP(1'b0),
+		.OHOLDBOT(1'b0),
+		.OLOADTOP(1'b0),
+		.OLOADBOT(1'b0),
+		.ADDSUBTOP(1'b0), // 0 for add (default)
+		.ADDSUBBOT(1'b0),
+		.CO(),
+		.CI(1'b0), // Default
+		//MAC cascading ports.
+		.ACCUMCI(),
+		.ACCUMCO(),
+		.SIGNEXTIN(1'b0), // Unsigned
+		.SIGNEXTOUT()
 	);
 
-	instruction_memory inst_mem( 
-		.addr(inst_in), 
-		.out(inst_out)
-	);
+	defparam i_sbmac16.TOPOUTPUT_SELECT = 2'b11;
+	defparam i_sbmac16.BOTOUTPUT_SELECT = 2'b11;
+	//defparam i_sbmac16.PIPELINE_16x16_MULT_REG2 = 1'b1;
+	defparam i_sbmac16.A_SIGNED= 1'b0;
+	defparam i_sbmac16.B_SIGNED	= 1'b0;
 
-	data_mem data_mem_inst(
-		.clk(clk),
-		.addr(data_addr),
-		.write_data(data_WrData),
-		.memwrite(data_memwrite), 
-		.memread(data_memread), 
-		.read_data(data_out),
-		.sign_mask(data_sign_mask),
-		.led(led),
-		.clk_stall(data_clk_stall)
-	);
-
-	assign clk_proc = (data_clk_stall) ? 1'b1 : clk;
-endmodule
+	endmodule

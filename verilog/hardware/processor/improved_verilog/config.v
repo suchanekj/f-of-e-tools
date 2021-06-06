@@ -13,9 +13,9 @@
 `define CLK_PLL_DIVF 7'b0111111
 `define CLK_PLL_DIVR 4'b0010
 `define CLK_PLL_DIVQ 3'b110
-`define CLK_PLL_DIV_REG 2  // must be undefined or at least 1
-`define CLK_NOPLL_DIV "0b10"
 
+`define CLK_BASE_DIV "0b00"
+`define CLK_DIV_REG 2  // must be undefined or at least 1
 
 // branch prediction
 

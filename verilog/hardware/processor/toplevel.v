@@ -49,42 +49,49 @@ module top (led);
 	wire		data_clk_stall;
 	
 	wire		clk;
-	reg		ENCLKHF		= 1'b1;	// Plock enable
-	reg		CLKHF_POWERUP	= 1'b1;	// Power up the HFOSC circuit
-<<<<<<< HEAD
 	
 	wire clk_hf;
-
-=======
-	reg ENCLKLF = 1'b1; // Plock enable
-	reg CLKLF_POWERUP = 1'b1; // Power up the LFOSC circuit
->>>>>>> master
+	wire clk_pre_div;
+	
 	/*
 	 *	Use the iCE40's hard primitive for the clock source.
 	 */
-	`ifdef USE_PLL_CLK
-		SB_HFOSC #(.CLKHF_DIV("0b00")) OSCInst0 (
+	`ifdef USE_HFOSC
+		reg		ENCLKHF		= 1'b1;	// Plock enable
+		reg		CLKHF_POWERUP	= 1'b1;	// Power up the HFOSC circuit
+		
+		SB_HFOSC #(.CLKHF_DIV(CLK_BASE_DIV)) OSCInst0 (
 			.CLKHFEN(ENCLKHF),
 			.CLKHFPU(CLKHF_POWERUP),
 			.CLKHF(clk_hf)
 		);
-		
-		pll_clk pll_clk_inst(
-			.clk_hf(clk_hf),
-			.clk(clk)
-		);
-	`elsif USE_HFOSC
-		SB_HFOSC #(.CLKHF_DIV(`CLK_NOPLL_DIV)) OSCInst0 (
-			.CLKHFEN(ENCLKHF),
-			.CLKHFPU(CLKHF_POWERUP),
-			.CLKHF(clk)
-		);
 	`else
+		reg ENCLKLF = 1'b1; // Plock enable
+		reg CLKLF_POWERUP = 1'b1; // Power up the LFOSC circuit
+		
 		SB_LFOSC OSCInst0 (
 			.CLKLFEN(ENCLKLF),
 			.CLKLFPU(CLKLF_POWERUP),
-			.CLKLF(clk)
+			.CLKLF(clk_hf)
 		);
+	`endif
+	 
+	`ifdef USE_PLL_CLK
+		pll_clk pll_clk_inst(
+			.clk_hf(clk_hf),
+			.clk(clk_pre_div)
+		);
+	`else
+		assign clk_pre_div = clk_hf;
+	`endif
+	
+	`ifdef CLK_DIV_REG
+		clk_divisor clkdivider(
+			.clk_hf(clk_pre_div),
+			.clk(clk)
+		);
+	`else
+		assign clk = clk_pre_div;
 	`endif
 
 	/*

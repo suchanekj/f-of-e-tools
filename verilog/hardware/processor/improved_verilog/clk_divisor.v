@@ -2,35 +2,19 @@
 module clk_divisor(clk_hf, clk);
 	input clk_hf;
 	output clk;
-	`ifdef CLL_PLL_DIV_REG
-		reg[`CLK_PLL_DIV_REG-1:0] divider_regs;
-		wire[`CLK_PLL_DIV_REG:0] clk_mf;
+	
+	reg[`CLK_DIV_REG-1:0] divider_regs;
+	wire[`CLK_DIV_REG:0] clk_mf;
+	
+	assign clk_mf[0] = clk_hf;
 		
-		/* FOLLOWING CODE ASSUMES `CLK_PLL_DIV_REG = 2 */
-		initial begin
-			divider_regs[0] = 0;
-			divider_regs[1] = 0;
-			//divider_regs[2] = 0;
-		end
+	genvar i;
+	for (i = 0; i < `CLK_DIV_REG - 1; i = i + 1) begin
+		assign clk_mf[i+1] = divider_regs[i];
 		
-		always @(posedge clk_mf[0]) begin
-			divider_regs[0] <= !divider_regs[0];
+		always @(posedge clk_mf[i]) begin
+			divider_regs[i] <= !divider_regs[i];
 		end
-		always @(posedge clk_mf[1]) begin
-			divider_regs[1] <= !divider_regs[1];
-		end
-		/*
-		always @(posedge clk_mf[2]) begin
-			divider_regs[2] <= !divider_regs[2];
-		end
-		*/
-		assign clk_mf[0] = clk_hf;
-		assign clk_mf[1] = divider_regs[0];
-		assign clk_mf[2] = divider_regs[1];
-		//assign clk_mf[3] = divider_regs[2];
-
-		assign clk = clk_mf[`CLK_PLL_DIV_REG];
-	`else 
-		assign clk = clk_hf;
-	`endif
+	end
+	assign clk = clk_mf[`CLK_DIV_REG ];
 endmodule

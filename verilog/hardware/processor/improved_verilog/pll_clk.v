@@ -3,12 +3,6 @@ module pll_clk(clk_hf, clk);
 	input clk_hf;
 	output clk;
 	
-	`ifdef CLK_PLL_DIV_REG
-		wire[`CLK_PLL_DIV_REG:0] clk_mf;
-	`else
-		wire[0:0] clk_mf;
-	`endif
-	
 	wire locked;
 	
 	SB_PLL40_CORE #(
@@ -22,16 +16,7 @@ module pll_clk(clk_hf, clk);
 		.RESETB(1'b1),
 		.BYPASS(1'b0),
 		.REFERENCECLK(clk_hf),
-		.PLLOUTCORE(clk_mf[0])
+		.PLLOUTCORE(clk)
 	);
-	
-	`ifdef CLK_PLL_DIV_REG
-		clk_divisor clkdivider(
-			.clk_hf(clk_mf[0]),
-			.clk(clk)
-		);
-	`else
-		assign clk = clk_mf[0];
-	`endif
 
 endmodule

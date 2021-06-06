@@ -46,8 +46,8 @@
 
 
 module shift_dsp(input1, input2, out);
-	input [31:0]	input1;
-	input [31:0]	input2;
+	input [15:0]	input1;
+	input [15:0]	input2;
 	output [31:0]	out;
 
 	// A x B (16x16)

@@ -67,6 +67,12 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 	reg [31:0] inputB1;
 	reg [31:0] inputA2;
 	reg [31:0] inputB2;
+	reg [31:0] A_reverse;
+	reg [15:0] shift_input1;
+	reg [15:0] shift_input2;
+	reg [15:0] shift_mul;
+	reg [31:0] shift_output1;
+	reg [31:0] shift_output2;
 	
 	wire addsub_in;
 	wire [31:0] add_inputA;
@@ -78,6 +84,19 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 	reg [31:0] andxor_output1;
 	reg [31:0] andxor_output2;
 	integer i;
+
+	//Function for reversing the number of bits in a parallel bus.
+	function [31:0] bitOrder (
+		input [31:0] data
+	);
+	integer i;
+	begin
+		for (i=0; i < 32; i=i+1) begin : reverse
+			bitOrder[31-i] = data[i]; //Note how the vectors get swapped around here by the index. For i=0, i_out=16, and vice versa.
+		end
+	end
+	endfunction
+
 	/*
 	 *	This uses Yosys's support for nonzero initial values:
 	 *
@@ -136,6 +155,19 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 		);
 	`endif 
 	
+	`ifdef USE_SHIFT_DSP
+		shift_dsp alu_shift1(
+			.input1(shift_input1),
+			.input2(shift_mul),
+			.out(shift_output1)
+		);
+		shift_dsp alu_shift2(
+			.input1(shift_input2),
+			.input2(shift_mul),
+			.out(shift_output2)
+		);
+	`endif
+
 	assign addsub_in = ALUctl[3:0] == `kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SUB;
 	
 	`ifdef USE_ANDXOR_DSP
@@ -145,6 +177,16 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 	`else
 		assign add_inputA = inputA;
 		assign add_inputB = inputB;
+	`endif
+
+	`ifdef USE_SHIFT_DSP
+		assign A_reverse = bitOrder(inputA);
+		assign shift_input1 = (ALUctl[3:0] ==`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SRA) ? A_reverse[31:16]
+							: (ALUctl[3:0] ==`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SLL) ? inputA[31:16]
+							: 0;
+		assign shift_input2 = (ALUctl[3:0] ==`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SRA) ? A_reverse[15:0]
+							: (ALUctl[3:0] ==`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SLL) ? inputA[15:0]
+							: 0;
 	`endif
 	
 	always @(ALUctl, A, B) begin
@@ -162,9 +204,14 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 			end
 
 		`endif
-
+		
 		inputA <= A;
 		inputB <= B;
+
+		`ifdef USE_SHIFT_DSP
+			shift_mul <= B[4:0];
+		`endif 
+
 
 		case (ALUctl[3:0])
 			/*
@@ -233,8 +280,15 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 			/*
 			 *	SRL (the fields also matches the other SRL variants)
 			 */
-			`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SRL:	ALUOut = A >> B[4:0];
-
+			`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SRL:	begin
+				
+				`ifdef USE_SHIFT_DSP
+					ALUOut[31:16] 	= shift_input1[15:0];
+					ALUOut[15:0] 	= shift_input2[15:0];
+				`else
+					ALUOut = A >> B[4:0];
+				`endif
+			end
 			/*
 			 *	SRA (the fields also matches the other SRA variants)
 			 */

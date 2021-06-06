@@ -64,9 +64,15 @@ module cache_line (clk, addr, write_data, memwrite, memread, data, stored_addr, 
 	end
 endmodule
 
-
+`ifdef CACHE_DELAY_OUTPUT
+module data_mem_cached (clk, clk_delayed, addr, write_data, memwrite, memread, sign_mask, read_data, led, clk_stall);
+`else
 module data_mem_cached (clk, addr, write_data, memwrite, memread, sign_mask, read_data, led, clk_stall);
+`endif
 	input			clk;
+	`ifdef CACHE_DELAY_OUTPUT
+		input			clk_delayed;
+	`endif
 	/* 
 	addr is used only to assign bits to addr_buff, which in turn assigns bits to addr_buf_block_addr and addr_buf_byte_offset
 	which require bits 11 to 0 only. Instruction memory substraction in FSM is unaffected by reducing address size bus.
@@ -458,6 +464,10 @@ module data_mem_cached (clk, addr, write_data, memwrite, memread, sign_mask, rea
 			led_reg <= write_data;
 		end
 	end
+	
+	`ifdef CACHE_DELAY_OUTPUT
+		reg [31:0] cache_line_from_memory_extra;
+	`endif
 
 	/*
 	 *	State machine
@@ -473,7 +483,11 @@ module data_mem_cached (clk, addr, write_data, memwrite, memread, sign_mask, rea
 				sign_mask_buf <= sign_mask;
 				if (memwrite == 1'b1 || memread == 1'b1) begin
 					if (cache_line_addr_match != 0) begin
-						read_data <= read_buf;
+						`ifdef CACHE_DELAY_OUTPUT
+							read_data_before_delay <= read_buf;
+						`else
+							read_data <= read_buf;
+						`endif
 					end
 					else begin
 						state <= ACCESS_MEMORY;
@@ -492,10 +506,20 @@ module data_mem_cached (clk, addr, write_data, memwrite, memread, sign_mask, rea
 			UPDATE_CACHE: begin
 				clk_stall <= 0;
 				state <= IN_CACHE;
-				read_data <= read_buf;
+				`ifdef CACHE_DELAY_OUTPUT
+					read_data_before_delay <= read_buf;
+				`else
+					read_data <= read_buf;
+				`endif
 			end
 		endcase
 	end
+	
+	`ifdef CACHE_DELAY_OUTPUT
+		always @(posedge clk_delayed) begin
+			read_data <= read_data_before_delay;
+		end
+	`endif
 
 	/*
 	 *	Test led

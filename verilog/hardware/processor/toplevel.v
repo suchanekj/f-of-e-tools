@@ -112,17 +112,38 @@ module top (led);
 	);
 
 	`ifdef USE_CACHE_MEMORY
-		data_mem_cached data_mem_inst(
-			.clk(clk),
-			.addr(data_addr),
-			.write_data(data_WrData),
-			.memwrite(data_memwrite), 
-			.memread(data_memread), 
-			.read_data(data_out),
-			.sign_mask(data_sign_mask),
-			.led(led),
-			.clk_stall(data_clk_stall)
-		);
+		`ifdef CACHE_DELAY_OUTPUT
+			reg clk_delayed;
+		
+			always @(posedge clk_hf) begin
+				clk_delayed <= clk;
+			end
+		
+			data_mem_cached data_mem_inst(
+				.clk(clk),
+				.clk_delayed(clk_delayed),
+				.addr(data_addr),
+				.write_data(data_WrData),
+				.memwrite(data_memwrite), 
+				.memread(data_memread), 
+				.read_data(data_out),
+				.sign_mask(data_sign_mask),
+				.led(led),
+				.clk_stall(data_clk_stall)
+			);
+		`else
+			data_mem_cached data_mem_inst(
+				.clk(clk),
+				.addr(data_addr),
+				.write_data(data_WrData),
+				.memwrite(data_memwrite), 
+				.memread(data_memread), 
+				.read_data(data_out),
+				.sign_mask(data_sign_mask),
+				.led(led),
+				.clk_stall(data_clk_stall)
+			);
+		`endif
 
 	`else
 		data_mem data_mem_inst(

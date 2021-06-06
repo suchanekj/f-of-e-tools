@@ -60,35 +60,35 @@ void Vtop_sim::traceInitThis__1(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
     if (0 && vcdp && c) {}  // Prevent unused
     // Body
     {
-        vcdp->declBit(c+2297,"clk", false,-1);
-        vcdp->declBus(c+2305,"led", false,-1, 7,0);
-        vcdp->declBit(c+2297,"top_sim clk", false,-1);
-        vcdp->declBus(c+2305,"top_sim led", false,-1, 7,0);
+        vcdp->declBit(c+2777,"clk", false,-1);
+        vcdp->declBus(c+2785,"led", false,-1, 7,0);
+        vcdp->declBit(c+2777,"top_sim clk", false,-1);
+        vcdp->declBus(c+2785,"top_sim led", false,-1, 7,0);
         vcdp->declBit(c+1193,"top_sim clk_proc", false,-1);
         vcdp->declBit(c+1241,"top_sim data_clk_stall", false,-1);
         vcdp->declBus(c+17,"top_sim inst_in", false,-1, 31,0);
         vcdp->declBus(c+25,"top_sim inst_out", false,-1, 31,0);
-        vcdp->declBus(c+2185,"top_sim data_out", false,-1, 31,0);
-        vcdp->declBus(c+1641,"top_sim data_addr", false,-1, 13,0);
-        vcdp->declBus(c+1649,"top_sim data_WrData", false,-1, 31,0);
-        vcdp->declBit(c+1409,"top_sim data_memwrite", false,-1);
-        vcdp->declBit(c+1417,"top_sim data_memread", false,-1);
-        vcdp->declBus(c+1425,"top_sim data_sign_mask", false,-1, 3,0);
+        vcdp->declBus(c+2569,"top_sim data_out", false,-1, 31,0);
+        vcdp->declBus(c+1929,"top_sim data_addr", false,-1, 13,0);
+        vcdp->declBus(c+1937,"top_sim data_WrData", false,-1, 31,0);
+        vcdp->declBit(c+1697,"top_sim data_memwrite", false,-1);
+        vcdp->declBit(c+1705,"top_sim data_memread", false,-1);
+        vcdp->declBus(c+1713,"top_sim data_sign_mask", false,-1, 3,0);
         vcdp->declBit(c+1209,"top_sim divider_reg_0", false,-1);
         vcdp->declBit(c+1225,"top_sim divider_reg_1", false,-1);
         vcdp->declBit(c+1233,"top_sim divider_reg_2", false,-1);
         vcdp->declBus(c+1201,"top_sim clk_mf", false,-1, 1,0);
         vcdp->declBit(c+1233,"top_sim clk_actual", false,-1);
-        vcdp->declBit(c+2177,"top_sim clk_delayed", false,-1);
+        vcdp->declBit(c+2561,"top_sim clk_delayed", false,-1);
         vcdp->declBit(c+1193,"top_sim processor clk", false,-1);
         vcdp->declBus(c+17,"top_sim processor inst_mem_in", false,-1, 31,0);
         vcdp->declBus(c+25,"top_sim processor inst_mem_out", false,-1, 31,0);
-        vcdp->declBus(c+2185,"top_sim processor data_mem_out", false,-1, 31,0);
-        vcdp->declBus(c+1657,"top_sim processor data_mem_addr", false,-1, 31,0);
-        vcdp->declBus(c+1649,"top_sim processor data_mem_WrData", false,-1, 31,0);
-        vcdp->declBit(c+1409,"top_sim processor data_mem_memwrite", false,-1);
-        vcdp->declBit(c+1417,"top_sim processor data_mem_memread", false,-1);
-        vcdp->declBus(c+1425,"top_sim processor data_mem_sign_mask", false,-1, 3,0);
+        vcdp->declBus(c+2569,"top_sim processor data_mem_out", false,-1, 31,0);
+        vcdp->declBus(c+1945,"top_sim processor data_mem_addr", false,-1, 31,0);
+        vcdp->declBus(c+1937,"top_sim processor data_mem_WrData", false,-1, 31,0);
+        vcdp->declBit(c+1697,"top_sim processor data_mem_memwrite", false,-1);
+        vcdp->declBit(c+1705,"top_sim processor data_mem_memread", false,-1);
+        vcdp->declBus(c+1713,"top_sim processor data_mem_sign_mask", false,-1, 3,0);
         vcdp->declBus(c+1137,"top_sim processor pc_mux0", false,-1, 31,0);
         vcdp->declBus(c+1145,"top_sim processor pc_in", false,-1, 31,0);
         vcdp->declBus(c+17,"top_sim processor pc_out", false,-1, 31,0);
@@ -96,7 +96,7 @@ void Vtop_sim::traceInitThis__1(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
         vcdp->declBus(c+41,"top_sim processor inst_mux_out", false,-1, 31,0);
         vcdp->declBus(c+49,"top_sim processor fence_mux_out", false,-1, 31,0);
         vcdp->declQuad(c+57,"top_sim processor if_id_out", false,-1, 63,0);
-        vcdp->declArray(c+1433,"top_sim processor id_ex_out", false,-1, 177,0);
+        vcdp->declArray(c+1721,"top_sim processor id_ex_out", false,-1, 177,0);
         vcdp->declArray(c+73,"top_sim processor ex_mem_out", false,-1, 154,0);
         vcdp->declArray(c+113,"top_sim processor mem_wb_out", false,-1, 116,0);
         vcdp->declBit(c+145,"top_sim processor MemtoReg1", false,-1);
@@ -113,32 +113,32 @@ void Vtop_sim::traceInitThis__1(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
         vcdp->declBit(c+233,"top_sim processor CSRR_signal", false,-1);
         vcdp->declBit(c+241,"top_sim processor CSRRI_signal", false,-1);
         vcdp->declBus(c+249,"top_sim processor cont_mux_out", false,-1, 31,0);
-        vcdp->declBus(c+2097,"top_sim processor regA_out", false,-1, 31,0);
-        vcdp->declBus(c+2105,"top_sim processor regB_out", false,-1, 31,0);
+        vcdp->declBus(c+2481,"top_sim processor regA_out", false,-1, 31,0);
+        vcdp->declBus(c+2489,"top_sim processor regB_out", false,-1, 31,0);
         vcdp->declBus(c+257,"top_sim processor imm_out", false,-1, 31,0);
         vcdp->declBus(c+265,"top_sim processor RegA_mux_out", false,-1, 31,0);
         vcdp->declBus(c+273,"top_sim processor RegB_mux_out", false,-1, 31,0);
         vcdp->declBus(c+281,"top_sim processor RegA_AddrFwdFlush_mux_out", false,-1, 31,0);
         vcdp->declBus(c+289,"top_sim processor RegB_AddrFwdFlush_mux_out", false,-1, 31,0);
-        vcdp->declBus(c+2113,"top_sim processor rdValOut_CSR", false,-1, 31,0);
+        vcdp->declBus(c+2497,"top_sim processor rdValOut_CSR", false,-1, 31,0);
         vcdp->declBus(c+297,"top_sim processor dataMem_sign_mask", false,-1, 3,0);
-        vcdp->declBus(c+1481,"top_sim processor ex_cont_mux_out", false,-1, 31,0);
-        vcdp->declBus(c+1585,"top_sim processor addr_adder_mux_out", false,-1, 31,0);
-        vcdp->declBus(c+1665,"top_sim processor alu_mux_out", false,-1, 31,0);
-        vcdp->declBus(c+1593,"top_sim processor addr_adder_sum", false,-1, 31,0);
+        vcdp->declBus(c+1769,"top_sim processor ex_cont_mux_out", false,-1, 31,0);
+        vcdp->declBus(c+1873,"top_sim processor addr_adder_mux_out", false,-1, 31,0);
+        vcdp->declBus(c+1953,"top_sim processor alu_mux_out", false,-1, 31,0);
+        vcdp->declBus(c+1881,"top_sim processor addr_adder_sum", false,-1, 31,0);
         vcdp->declBus(c+305,"top_sim processor alu_ctl", false,-1, 6,0);
-        vcdp->declBit(c+1673,"top_sim processor alu_branch_enable", false,-1);
-        vcdp->declBus(c+1681,"top_sim processor alu_result", false,-1, 31,0);
-        vcdp->declBus(c+1657,"top_sim processor lui_result", false,-1, 31,0);
+        vcdp->declBit(c+1961,"top_sim processor alu_branch_enable", false,-1);
+        vcdp->declBus(c+1969,"top_sim processor alu_result", false,-1, 31,0);
+        vcdp->declBus(c+1945,"top_sim processor lui_result", false,-1, 31,0);
         vcdp->declBus(c+313,"top_sim processor auipc_mux_out", false,-1, 31,0);
         vcdp->declBus(c+321,"top_sim processor mem_csrr_mux_out", false,-1, 31,0);
         vcdp->declBus(c+329,"top_sim processor wb_mux_out", false,-1, 31,0);
-        vcdp->declBus(c+1689,"top_sim processor reg_dat_mux_out", false,-1, 31,0);
+        vcdp->declBus(c+1977,"top_sim processor reg_dat_mux_out", false,-1, 31,0);
         vcdp->declBus(c+1217,"top_sim processor dataMemOut_fwd_mux_out", false,-1, 31,0);
         vcdp->declBus(c+1121,"top_sim processor mem_fwd1_mux_out", false,-1, 31,0);
         vcdp->declBus(c+1129,"top_sim processor mem_fwd2_mux_out", false,-1, 31,0);
-        vcdp->declBus(c+1697,"top_sim processor wb_fwd1_mux_out", false,-1, 31,0);
-        vcdp->declBus(c+1649,"top_sim processor wb_fwd2_mux_out", false,-1, 31,0);
+        vcdp->declBus(c+1985,"top_sim processor wb_fwd1_mux_out", false,-1, 31,0);
+        vcdp->declBus(c+1937,"top_sim processor wb_fwd2_mux_out", false,-1, 31,0);
         vcdp->declBit(c+1153,"top_sim processor mfwd1", false,-1);
         vcdp->declBit(c+1161,"top_sim processor mfwd2", false,-1);
         vcdp->declBit(c+1169,"top_sim processor wfwd1", false,-1);
@@ -159,14 +159,14 @@ void Vtop_sim::traceInitThis__1(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
         vcdp->declBus(c+425,"top_sim processor pc_mux input1", false,-1, 31,0);
         vcdp->declBit(c+33,"top_sim processor pc_mux select", false,-1);
         vcdp->declBus(c+1145,"top_sim processor pc_mux out", false,-1, 31,0);
-        vcdp->declBus(c+2313,"top_sim processor pc_adder input1", false,-1, 31,0);
+        vcdp->declBus(c+2793,"top_sim processor pc_adder input1", false,-1, 31,0);
         vcdp->declBus(c+17,"top_sim processor pc_adder input2", false,-1, 31,0);
         vcdp->declBus(c+337,"top_sim processor pc_adder out", false,-1, 31,0);
         vcdp->declBit(c+1193,"top_sim processor PC clk", false,-1);
         vcdp->declBus(c+1145,"top_sim processor PC inAddr", false,-1, 31,0);
         vcdp->declBus(c+17,"top_sim processor PC outAddr", false,-1, 31,0);
         vcdp->declBus(c+25,"top_sim processor inst_mux input0", false,-1, 31,0);
-        vcdp->declBus(c+2321,"top_sim processor inst_mux input1", false,-1, 31,0);
+        vcdp->declBus(c+2801,"top_sim processor inst_mux input1", false,-1, 31,0);
         vcdp->declBit(c+393,"top_sim processor inst_mux select", false,-1);
         vcdp->declBus(c+41,"top_sim processor inst_mux out", false,-1, 31,0);
         vcdp->declBus(c+337,"top_sim processor fence_mux input0", false,-1, 31,0);
@@ -190,26 +190,26 @@ void Vtop_sim::traceInitThis__1(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
         vcdp->declBit(c+225,"top_sim processor control_unit Fence", false,-1);
         vcdp->declBit(c+233,"top_sim processor control_unit CSRR", false,-1);
         vcdp->declBus(c+457,"top_sim processor cont_mux input0", false,-1, 31,0);
-        vcdp->declBus(c+2321,"top_sim processor cont_mux input1", false,-1, 31,0);
+        vcdp->declBus(c+2801,"top_sim processor cont_mux input1", false,-1, 31,0);
         vcdp->declBit(c+385,"top_sim processor cont_mux select", false,-1);
         vcdp->declBus(c+249,"top_sim processor cont_mux out", false,-1, 31,0);
         vcdp->declBit(c+1193,"top_sim processor register_files clk", false,-1);
         vcdp->declBit(c+465,"top_sim processor register_files write", false,-1);
         vcdp->declBus(c+473,"top_sim processor register_files wrAddr", false,-1, 4,0);
-        vcdp->declBus(c+1689,"top_sim processor register_files wrData", false,-1, 31,0);
+        vcdp->declBus(c+1977,"top_sim processor register_files wrData", false,-1, 31,0);
         vcdp->declBus(c+481,"top_sim processor register_files rdAddrA", false,-1, 4,0);
-        vcdp->declBus(c+2097,"top_sim processor register_files rdDataA", false,-1, 31,0);
+        vcdp->declBus(c+2481,"top_sim processor register_files rdDataA", false,-1, 31,0);
         vcdp->declBus(c+489,"top_sim processor register_files rdAddrB", false,-1, 4,0);
-        vcdp->declBus(c+2105,"top_sim processor register_files rdDataB", false,-1, 31,0);
+        vcdp->declBus(c+2489,"top_sim processor register_files rdDataB", false,-1, 31,0);
         {int i; for (i=0; i<32; i++) {
                 vcdp->declBus(c+497+i*1,"top_sim processor register_files regfile", true,(i+0), 31,0);}}
-        vcdp->declBus(c+2121,"top_sim processor register_files rdAddrA_buf", false,-1, 4,0);
-        vcdp->declBus(c+2129,"top_sim processor register_files rdAddrB_buf", false,-1, 4,0);
-        vcdp->declBus(c+2137,"top_sim processor register_files regDatA", false,-1, 31,0);
-        vcdp->declBus(c+2145,"top_sim processor register_files regDatB", false,-1, 31,0);
-        vcdp->declBus(c+2153,"top_sim processor register_files wrAddr_buf", false,-1, 31,0);
-        vcdp->declBus(c+2161,"top_sim processor register_files wrData_buf", false,-1, 31,0);
-        vcdp->declBit(c+2169,"top_sim processor register_files write_buf", false,-1);
+        vcdp->declBus(c+2505,"top_sim processor register_files rdAddrA_buf", false,-1, 4,0);
+        vcdp->declBus(c+2513,"top_sim processor register_files rdAddrB_buf", false,-1, 4,0);
+        vcdp->declBus(c+2521,"top_sim processor register_files regDatA", false,-1, 31,0);
+        vcdp->declBus(c+2529,"top_sim processor register_files regDatB", false,-1, 31,0);
+        vcdp->declBus(c+2537,"top_sim processor register_files wrAddr_buf", false,-1, 31,0);
+        vcdp->declBus(c+2545,"top_sim processor register_files wrData_buf", false,-1, 31,0);
+        vcdp->declBit(c+2553,"top_sim processor register_files write_buf", false,-1);
         vcdp->declBus(c+753,"top_sim processor immediate_generator inst", false,-1, 31,0);
         vcdp->declBus(c+257,"top_sim processor immediate_generator imm", false,-1, 31,0);
         vcdp->declBus(c+761,"top_sim processor alu_control FuncCode", false,-1, 3,0);
@@ -223,54 +223,54 @@ void Vtop_sim::traceInitThis__1(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
         vcdp->declBus(c+793,"top_sim processor ControlAndStatus_registers wrAddr_CSR", false,-1, 11,0);
         vcdp->declBus(c+801,"top_sim processor ControlAndStatus_registers wrVal_CSR", false,-1, 31,0);
         vcdp->declBus(c+809,"top_sim processor ControlAndStatus_registers rdAddr_CSR", false,-1, 11,0);
-        vcdp->declBus(c+2113,"top_sim processor ControlAndStatus_registers rdVal_CSR", false,-1, 31,0);
-        vcdp->declBus(c+2097,"top_sim processor RegA_mux input0", false,-1, 31,0);
+        vcdp->declBus(c+2497,"top_sim processor ControlAndStatus_registers rdVal_CSR", false,-1, 31,0);
+        vcdp->declBus(c+2481,"top_sim processor RegA_mux input0", false,-1, 31,0);
         vcdp->declBus(c+817,"top_sim processor RegA_mux input1", false,-1, 31,0);
         vcdp->declBit(c+241,"top_sim processor RegA_mux select", false,-1);
         vcdp->declBus(c+265,"top_sim processor RegA_mux out", false,-1, 31,0);
-        vcdp->declBus(c+2105,"top_sim processor RegB_mux input0", false,-1, 31,0);
-        vcdp->declBus(c+2113,"top_sim processor RegB_mux input1", false,-1, 31,0);
+        vcdp->declBus(c+2489,"top_sim processor RegB_mux input0", false,-1, 31,0);
+        vcdp->declBus(c+2497,"top_sim processor RegB_mux input1", false,-1, 31,0);
         vcdp->declBit(c+233,"top_sim processor RegB_mux select", false,-1);
         vcdp->declBus(c+273,"top_sim processor RegB_mux out", false,-1, 31,0);
         vcdp->declBus(c+817,"top_sim processor RegA_AddrFwdFlush_mux input0", false,-1, 31,0);
-        vcdp->declBus(c+2321,"top_sim processor RegA_AddrFwdFlush_mux input1", false,-1, 31,0);
+        vcdp->declBus(c+2801,"top_sim processor RegA_AddrFwdFlush_mux input1", false,-1, 31,0);
         vcdp->declBit(c+241,"top_sim processor RegA_AddrFwdFlush_mux select", false,-1);
         vcdp->declBus(c+281,"top_sim processor RegA_AddrFwdFlush_mux out", false,-1, 31,0);
         vcdp->declBus(c+825,"top_sim processor RegB_AddrFwdFlush_mux input0", false,-1, 31,0);
-        vcdp->declBus(c+2321,"top_sim processor RegB_AddrFwdFlush_mux input1", false,-1, 31,0);
+        vcdp->declBus(c+2801,"top_sim processor RegB_AddrFwdFlush_mux input1", false,-1, 31,0);
         vcdp->declBit(c+233,"top_sim processor RegB_AddrFwdFlush_mux select", false,-1);
         vcdp->declBus(c+289,"top_sim processor RegB_AddrFwdFlush_mux out", false,-1, 31,0);
         vcdp->declBit(c+1193,"top_sim processor id_ex_reg clk", false,-1);
         vcdp->declArray(c+833,"top_sim processor id_ex_reg data_in", false,-1, 177,0);
-        vcdp->declArray(c+1433,"top_sim processor id_ex_reg data_out", false,-1, 177,0);
-        vcdp->declBus(c+1489,"top_sim processor ex_cont_mux input0", false,-1, 31,0);
-        vcdp->declBus(c+2321,"top_sim processor ex_cont_mux input1", false,-1, 31,0);
+        vcdp->declArray(c+1721,"top_sim processor id_ex_reg data_out", false,-1, 177,0);
+        vcdp->declBus(c+1777,"top_sim processor ex_cont_mux input0", false,-1, 31,0);
+        vcdp->declBus(c+2801,"top_sim processor ex_cont_mux input1", false,-1, 31,0);
         vcdp->declBit(c+33,"top_sim processor ex_cont_mux select", false,-1);
-        vcdp->declBus(c+1481,"top_sim processor ex_cont_mux out", false,-1, 31,0);
-        vcdp->declBus(c+1497,"top_sim processor addr_adder_mux input0", false,-1, 31,0);
-        vcdp->declBus(c+1697,"top_sim processor addr_adder_mux input1", false,-1, 31,0);
-        vcdp->declBit(c+1505,"top_sim processor addr_adder_mux select", false,-1);
-        vcdp->declBus(c+1585,"top_sim processor addr_adder_mux out", false,-1, 31,0);
-        vcdp->declBus(c+1585,"top_sim processor addr_adder input1", false,-1, 31,0);
-        vcdp->declBus(c+1513,"top_sim processor addr_adder input2", false,-1, 31,0);
-        vcdp->declBus(c+1593,"top_sim processor addr_adder out", false,-1, 31,0);
-        vcdp->declBus(c+1649,"top_sim processor alu_mux input0", false,-1, 31,0);
-        vcdp->declBus(c+1513,"top_sim processor alu_mux input1", false,-1, 31,0);
-        vcdp->declBit(c+1521,"top_sim processor alu_mux select", false,-1);
-        vcdp->declBus(c+1665,"top_sim processor alu_mux out", false,-1, 31,0);
-        vcdp->declBus(c+1529,"top_sim processor alu_main ALUctl", false,-1, 6,0);
-        vcdp->declBus(c+1697,"top_sim processor alu_main A", false,-1, 31,0);
-        vcdp->declBus(c+1665,"top_sim processor alu_main B", false,-1, 31,0);
-        vcdp->declBus(c+1681,"top_sim processor alu_main ALUOut", false,-1, 31,0);
-        vcdp->declBit(c+1673,"top_sim processor alu_main Branch_Enable", false,-1);
-        vcdp->declBus(c+2329,"top_sim processor alu_main add_output", false,-1, 31,0);
-        vcdp->declBus(c+2337,"top_sim processor alu_main sub_output", false,-1, 31,0);
-        vcdp->declBus(c+1681,"top_sim processor lui_mux input0", false,-1, 31,0);
-        vcdp->declBus(c+1513,"top_sim processor lui_mux input1", false,-1, 31,0);
-        vcdp->declBit(c+1537,"top_sim processor lui_mux select", false,-1);
-        vcdp->declBus(c+1657,"top_sim processor lui_mux out", false,-1, 31,0);
+        vcdp->declBus(c+1769,"top_sim processor ex_cont_mux out", false,-1, 31,0);
+        vcdp->declBus(c+1785,"top_sim processor addr_adder_mux input0", false,-1, 31,0);
+        vcdp->declBus(c+1985,"top_sim processor addr_adder_mux input1", false,-1, 31,0);
+        vcdp->declBit(c+1793,"top_sim processor addr_adder_mux select", false,-1);
+        vcdp->declBus(c+1873,"top_sim processor addr_adder_mux out", false,-1, 31,0);
+        vcdp->declBus(c+1873,"top_sim processor addr_adder input1", false,-1, 31,0);
+        vcdp->declBus(c+1801,"top_sim processor addr_adder input2", false,-1, 31,0);
+        vcdp->declBus(c+1881,"top_sim processor addr_adder out", false,-1, 31,0);
+        vcdp->declBus(c+1937,"top_sim processor alu_mux input0", false,-1, 31,0);
+        vcdp->declBus(c+1801,"top_sim processor alu_mux input1", false,-1, 31,0);
+        vcdp->declBit(c+1809,"top_sim processor alu_mux select", false,-1);
+        vcdp->declBus(c+1953,"top_sim processor alu_mux out", false,-1, 31,0);
+        vcdp->declBus(c+1817,"top_sim processor alu_main ALUctl", false,-1, 6,0);
+        vcdp->declBus(c+1985,"top_sim processor alu_main A", false,-1, 31,0);
+        vcdp->declBus(c+1953,"top_sim processor alu_main B", false,-1, 31,0);
+        vcdp->declBus(c+1969,"top_sim processor alu_main ALUOut", false,-1, 31,0);
+        vcdp->declBit(c+1961,"top_sim processor alu_main Branch_Enable", false,-1);
+        vcdp->declBus(c+2809,"top_sim processor alu_main add_output", false,-1, 31,0);
+        vcdp->declBus(c+2817,"top_sim processor alu_main sub_output", false,-1, 31,0);
+        vcdp->declBus(c+1969,"top_sim processor lui_mux input0", false,-1, 31,0);
+        vcdp->declBus(c+1801,"top_sim processor lui_mux input1", false,-1, 31,0);
+        vcdp->declBit(c+1825,"top_sim processor lui_mux select", false,-1);
+        vcdp->declBus(c+1945,"top_sim processor lui_mux out", false,-1, 31,0);
         vcdp->declBit(c+1193,"top_sim processor ex_mem_reg clk", false,-1);
-        vcdp->declArray(c+1601,"top_sim processor ex_mem_reg data_in", false,-1, 154,0);
+        vcdp->declArray(c+1889,"top_sim processor ex_mem_reg data_in", false,-1, 154,0);
         vcdp->declArray(c+73,"top_sim processor ex_mem_reg data_out", false,-1, 154,0);
         vcdp->declBit(c+881,"top_sim processor branch_decide Branch", false,-1);
         vcdp->declBit(c+889,"top_sim processor branch_decide Predicted", false,-1);
@@ -295,16 +295,16 @@ void Vtop_sim::traceInitThis__1(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
         vcdp->declBit(c+961,"top_sim processor wb_mux select", false,-1);
         vcdp->declBus(c+329,"top_sim processor wb_mux out", false,-1, 31,0);
         vcdp->declBus(c+1081,"top_sim processor reg_dat_mux input0", false,-1, 31,0);
-        vcdp->declBus(c+1497,"top_sim processor reg_dat_mux input1", false,-1, 31,0);
+        vcdp->declBus(c+1785,"top_sim processor reg_dat_mux input1", false,-1, 31,0);
         vcdp->declBit(c+905,"top_sim processor reg_dat_mux select", false,-1);
-        vcdp->declBus(c+1689,"top_sim processor reg_dat_mux out", false,-1, 31,0);
-        vcdp->declBus(c+1545,"top_sim processor forwarding_unit rs1", false,-1, 4,0);
-        vcdp->declBus(c+1553,"top_sim processor forwarding_unit rs2", false,-1, 4,0);
+        vcdp->declBus(c+1977,"top_sim processor reg_dat_mux out", false,-1, 31,0);
+        vcdp->declBus(c+1833,"top_sim processor forwarding_unit rs1", false,-1, 4,0);
+        vcdp->declBus(c+1841,"top_sim processor forwarding_unit rs2", false,-1, 4,0);
         vcdp->declBus(c+473,"top_sim processor forwarding_unit MEM_RegWriteAddr", false,-1, 4,0);
         vcdp->declBus(c+969,"top_sim processor forwarding_unit WB_RegWriteAddr", false,-1, 4,0);
         vcdp->declBit(c+465,"top_sim processor forwarding_unit MEM_RegWrite", false,-1);
         vcdp->declBit(c+977,"top_sim processor forwarding_unit WB_RegWrite", false,-1);
-        vcdp->declBus(c+1561,"top_sim processor forwarding_unit EX_CSRR_Addr", false,-1, 11,0);
+        vcdp->declBus(c+1849,"top_sim processor forwarding_unit EX_CSRR_Addr", false,-1, 11,0);
         vcdp->declBus(c+985,"top_sim processor forwarding_unit MEM_CSRR_Addr", false,-1, 11,0);
         vcdp->declBus(c+793,"top_sim processor forwarding_unit WB_CSRR_Addr", false,-1, 11,0);
         vcdp->declBit(c+937,"top_sim processor forwarding_unit MEM_CSRR", false,-1);
@@ -313,24 +313,24 @@ void Vtop_sim::traceInitThis__1(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
         vcdp->declBit(c+1161,"top_sim processor forwarding_unit MEM_fwd2", false,-1);
         vcdp->declBit(c+1169,"top_sim processor forwarding_unit WB_fwd1", false,-1);
         vcdp->declBit(c+1177,"top_sim processor forwarding_unit WB_fwd2", false,-1);
-        vcdp->declBus(c+1569,"top_sim processor mem_fwd1_mux input0", false,-1, 31,0);
+        vcdp->declBus(c+1857,"top_sim processor mem_fwd1_mux input0", false,-1, 31,0);
         vcdp->declBus(c+1217,"top_sim processor mem_fwd1_mux input1", false,-1, 31,0);
         vcdp->declBit(c+1153,"top_sim processor mem_fwd1_mux select", false,-1);
         vcdp->declBus(c+1121,"top_sim processor mem_fwd1_mux out", false,-1, 31,0);
-        vcdp->declBus(c+1577,"top_sim processor mem_fwd2_mux input0", false,-1, 31,0);
+        vcdp->declBus(c+1865,"top_sim processor mem_fwd2_mux input0", false,-1, 31,0);
         vcdp->declBus(c+1217,"top_sim processor mem_fwd2_mux input1", false,-1, 31,0);
         vcdp->declBit(c+1161,"top_sim processor mem_fwd2_mux select", false,-1);
         vcdp->declBus(c+1129,"top_sim processor mem_fwd2_mux out", false,-1, 31,0);
         vcdp->declBus(c+1121,"top_sim processor wb_fwd1_mux input0", false,-1, 31,0);
         vcdp->declBus(c+329,"top_sim processor wb_fwd1_mux input1", false,-1, 31,0);
         vcdp->declBit(c+1169,"top_sim processor wb_fwd1_mux select", false,-1);
-        vcdp->declBus(c+1697,"top_sim processor wb_fwd1_mux out", false,-1, 31,0);
+        vcdp->declBus(c+1985,"top_sim processor wb_fwd1_mux out", false,-1, 31,0);
         vcdp->declBus(c+1129,"top_sim processor wb_fwd2_mux input0", false,-1, 31,0);
         vcdp->declBus(c+329,"top_sim processor wb_fwd2_mux input1", false,-1, 31,0);
         vcdp->declBit(c+1177,"top_sim processor wb_fwd2_mux select", false,-1);
-        vcdp->declBus(c+1649,"top_sim processor wb_fwd2_mux out", false,-1, 31,0);
+        vcdp->declBus(c+1937,"top_sim processor wb_fwd2_mux out", false,-1, 31,0);
         vcdp->declBus(c+913,"top_sim processor dataMemOut_fwd_mux input0", false,-1, 31,0);
-        vcdp->declBus(c+2185,"top_sim processor dataMemOut_fwd_mux input1", false,-1, 31,0);
+        vcdp->declBus(c+2569,"top_sim processor dataMemOut_fwd_mux input1", false,-1, 31,0);
         vcdp->declBit(c+993,"top_sim processor dataMemOut_fwd_mux select", false,-1);
         vcdp->declBus(c+1217,"top_sim processor dataMemOut_fwd_mux out", false,-1, 31,0);
         vcdp->declBit(c+1193,"top_sim processor branch_predictor_FSM clk", false,-1);
@@ -355,131 +355,215 @@ void Vtop_sim::traceInitThis__1(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
         vcdp->declBit(c+353,"top_sim processor branch_predictor_mux select", false,-1);
         vcdp->declBus(c+361,"top_sim processor branch_predictor_mux out", false,-1, 31,0);
         vcdp->declBus(c+361,"top_sim processor mistaken_branch_mux input0", false,-1, 31,0);
-        vcdp->declBus(c+1497,"top_sim processor mistaken_branch_mux input1", false,-1, 31,0);
+        vcdp->declBus(c+1785,"top_sim processor mistaken_branch_mux input1", false,-1, 31,0);
         vcdp->declBit(c+377,"top_sim processor mistaken_branch_mux select", false,-1);
         vcdp->declBus(c+1137,"top_sim processor mistaken_branch_mux out", false,-1, 31,0);
         vcdp->declBus(c+321,"top_sim processor mem_regwb_mux input0", false,-1, 31,0);
-        vcdp->declBus(c+2185,"top_sim processor mem_regwb_mux input1", false,-1, 31,0);
+        vcdp->declBus(c+2569,"top_sim processor mem_regwb_mux input1", false,-1, 31,0);
         vcdp->declBit(c+993,"top_sim processor mem_regwb_mux select", false,-1);
         vcdp->declBus(c+1081,"top_sim processor mem_regwb_mux out", false,-1, 31,0);
         vcdp->declBus(c+17,"top_sim inst_mem addr", false,-1, 31,0);
         vcdp->declBus(c+25,"top_sim inst_mem out", false,-1, 31,0);
         vcdp->declBit(c+1233,"top_sim data_mem_inst clk", false,-1);
-        vcdp->declBit(c+2177,"top_sim data_mem_inst clk_delayed", false,-1);
-        vcdp->declBus(c+1641,"top_sim data_mem_inst addr", false,-1, 13,0);
-        vcdp->declBus(c+1649,"top_sim data_mem_inst write_data", false,-1, 31,0);
-        vcdp->declBit(c+1409,"top_sim data_mem_inst memwrite", false,-1);
-        vcdp->declBit(c+1417,"top_sim data_mem_inst memread", false,-1);
-        vcdp->declBus(c+1425,"top_sim data_mem_inst sign_mask", false,-1, 3,0);
-        vcdp->declBus(c+2185,"top_sim data_mem_inst read_data", false,-1, 31,0);
-        vcdp->declBus(c+2305,"top_sim data_mem_inst led", false,-1, 7,0);
+        vcdp->declBit(c+2561,"top_sim data_mem_inst clk_delayed", false,-1);
+        vcdp->declBus(c+1929,"top_sim data_mem_inst addr", false,-1, 13,0);
+        vcdp->declBus(c+1937,"top_sim data_mem_inst write_data", false,-1, 31,0);
+        vcdp->declBit(c+1697,"top_sim data_mem_inst memwrite", false,-1);
+        vcdp->declBit(c+1705,"top_sim data_mem_inst memread", false,-1);
+        vcdp->declBus(c+1713,"top_sim data_mem_inst sign_mask", false,-1, 3,0);
+        vcdp->declBus(c+2569,"top_sim data_mem_inst read_data", false,-1, 31,0);
+        vcdp->declBus(c+2785,"top_sim data_mem_inst led", false,-1, 7,0);
         vcdp->declBit(c+1241,"top_sim data_mem_inst clk_stall", false,-1);
-        vcdp->declBus(c+2193,"top_sim data_mem_inst read_data_before_delay", false,-1, 31,0);
+        vcdp->declBus(c+2577,"top_sim data_mem_inst read_data_before_delay", false,-1, 31,0);
         vcdp->declBus(c+1249,"top_sim data_mem_inst state", false,-1, 31,0);
-        vcdp->declBus(c+2345,"top_sim data_mem_inst IN_CACHE", false,-1, 31,0);
-        vcdp->declBus(c+2353,"top_sim data_mem_inst ACCESS_MEMORY", false,-1, 31,0);
-        vcdp->declBus(c+2361,"top_sim data_mem_inst UPDATE_CACHE", false,-1, 31,0);
-        vcdp->declBus(c+2369,"top_sim data_mem_inst DEBUG_DELAY", false,-1, 31,0);
-        vcdp->declBus(c+2201,"top_sim data_mem_inst led_reg", false,-1, 31,0);
-        vcdp->declBus(c+1785,"top_sim data_mem_inst cache_word", false,-1, 31,0);
+        vcdp->declBus(c+2825,"top_sim data_mem_inst IN_CACHE", false,-1, 31,0);
+        vcdp->declBus(c+2833,"top_sim data_mem_inst ACCESS_MEMORY", false,-1, 31,0);
+        vcdp->declBus(c+2841,"top_sim data_mem_inst UPDATE_CACHE", false,-1, 31,0);
+        vcdp->declBus(c+2849,"top_sim data_mem_inst DEBUG_DELAY", false,-1, 31,0);
+        vcdp->declBus(c+2585,"top_sim data_mem_inst led_reg", false,-1, 31,0);
+        vcdp->declBus(c+2073,"top_sim data_mem_inst cache_word", false,-1, 31,0);
         vcdp->declBus(c+1257,"top_sim data_mem_inst read_word_from_memory", false,-1, 31,0);
-        vcdp->declBus(c+1793,"top_sim data_mem_inst current_read_word", false,-1, 31,0);
-        vcdp->declBus(c+1801,"top_sim data_mem_inst read_buf", false,-1, 31,0);
-        vcdp->declBit(c+2209,"top_sim data_mem_inst memread_buf", false,-1);
-        vcdp->declBit(c+2217,"top_sim data_mem_inst memwrite_buf", false,-1);
-        vcdp->declBit(c+1385,"top_sim data_mem_inst current_memwrite", false,-1);
-        vcdp->declBus(c+2225,"top_sim data_mem_inst write_data_buffer", false,-1, 31,0);
-        vcdp->declBus(c+1809,"top_sim data_mem_inst current_write_data", false,-1, 31,0);
-        vcdp->declBus(c+2233,"top_sim data_mem_inst addr_buf", false,-1, 13,0);
-        vcdp->declBus(c+1817,"top_sim data_mem_inst current_address", false,-1, 13,0);
-        vcdp->declBus(c+2241,"top_sim data_mem_inst sign_mask_buf", false,-1, 3,0);
-        vcdp->declBus(c+1705,"top_sim data_mem_inst current_sign_mask", false,-1, 3,0);
-        vcdp->declBus(c+1825,"top_sim data_mem_inst addr_buf_block_addr", false,-1, 9,0);
-        vcdp->declBus(c+1833,"top_sim data_mem_inst addr_buf_byte_offset", false,-1, 1,0);
-        vcdp->declBus(c+1737,"top_sim data_mem_inst replacement_word", false,-1, 31,0);
-        vcdp->declBus(c+1841,"top_sim data_mem_inst cache_write_data", false,-1, 31,0);
-        vcdp->declBit(c+1849,"top_sim data_mem_inst cache_write", false,-1);
-        vcdp->declBit(c+1857,"top_sim data_mem_inst cache_read", false,-1);
-        {int i; for (i=0; i<2; i++) {
+        vcdp->declBus(c+2081,"top_sim data_mem_inst current_read_word", false,-1, 31,0);
+        vcdp->declBus(c+2089,"top_sim data_mem_inst read_buf", false,-1, 31,0);
+        vcdp->declBit(c+2593,"top_sim data_mem_inst memread_buf", false,-1);
+        vcdp->declBit(c+2601,"top_sim data_mem_inst memwrite_buf", false,-1);
+        vcdp->declBit(c+1673,"top_sim data_mem_inst current_memwrite", false,-1);
+        vcdp->declBus(c+2609,"top_sim data_mem_inst write_data_buffer", false,-1, 31,0);
+        vcdp->declBus(c+2097,"top_sim data_mem_inst current_write_data", false,-1, 31,0);
+        vcdp->declBus(c+2617,"top_sim data_mem_inst addr_buf", false,-1, 13,0);
+        vcdp->declBus(c+2105,"top_sim data_mem_inst current_address", false,-1, 13,0);
+        vcdp->declBus(c+2625,"top_sim data_mem_inst sign_mask_buf", false,-1, 3,0);
+        vcdp->declBus(c+1993,"top_sim data_mem_inst current_sign_mask", false,-1, 3,0);
+        vcdp->declBus(c+2113,"top_sim data_mem_inst addr_buf_block_addr", false,-1, 9,0);
+        vcdp->declBus(c+2121,"top_sim data_mem_inst addr_buf_byte_offset", false,-1, 1,0);
+        vcdp->declBus(c+2025,"top_sim data_mem_inst replacement_word", false,-1, 31,0);
+        vcdp->declBus(c+2129,"top_sim data_mem_inst cache_write_data", false,-1, 31,0);
+        vcdp->declBit(c+2137,"top_sim data_mem_inst cache_write", false,-1);
+        vcdp->declBit(c+2145,"top_sim data_mem_inst cache_read", false,-1);
+        {int i; for (i=0; i<8; i++) {
                 vcdp->declBus(c+1265+i*1,"top_sim data_mem_inst cache_line_data", true,(i+0), 31,0);}}
-        {int i; for (i=0; i<2; i++) {
-                vcdp->declBus(c+1281+i*1,"top_sim data_mem_inst cache_line_stored_addr", true,(i+0), 11,0);}}
-        vcdp->declBus(c+1865,"top_sim data_mem_inst cache_line_addr_match", false,-1, 1,0);
-        vcdp->declBus(c+1297,"top_sim data_mem_inst cache_line_dirty", false,-1, 1,0);
-        vcdp->declBus(c+1305,"top_sim data_mem_inst cache_line_old", false,-1, 1,0);
-        vcdp->declBus(c+1873,"top_sim data_mem_inst accessed_line_age", false,-1, 0,0);
-        {int i; for (i=0; i<2; i++) {
-                vcdp->declBus(c+1313+i*1,"top_sim data_mem_inst cache_line_age", true,(i+0), 0,0);}}
-        vcdp->declBus(c+2249,"top_sim data_mem_inst cache_line_from_memory", false,-1, 31,0);
-        vcdp->declBus(c+1881,"top_sim data_mem_inst accessed_line_data", false,-1, 31,0);
-        vcdp->declBus(c+1889,"top_sim data_mem_inst accessed_line_stored_addr", false,-1, 11,0);
-        vcdp->declBit(c+1393,"top_sim data_mem_inst accessed_line_dirty", false,-1);
+        {int i; for (i=0; i<8; i++) {
+                vcdp->declBus(c+1329+i*1,"top_sim data_mem_inst cache_line_stored_addr", true,(i+0), 11,0);}}
+        vcdp->declBus(c+2153,"top_sim data_mem_inst cache_line_addr_match", false,-1, 7,0);
+        vcdp->declBus(c+1393,"top_sim data_mem_inst cache_line_dirty", false,-1, 7,0);
+        vcdp->declBus(c+1401,"top_sim data_mem_inst cache_line_old", false,-1, 7,0);
+        vcdp->declBus(c+2161,"top_sim data_mem_inst accessed_line_age", false,-1, 2,0);
+        {int i; for (i=0; i<8; i++) {
+                vcdp->declBus(c+1409+i*1,"top_sim data_mem_inst cache_line_age", true,(i+0), 2,0);}}
+        vcdp->declBus(c+2633,"top_sim data_mem_inst cache_line_from_memory", false,-1, 31,0);
+        vcdp->declBus(c+2169,"top_sim data_mem_inst accessed_line_data", false,-1, 31,0);
+        vcdp->declBus(c+2177,"top_sim data_mem_inst accessed_line_stored_addr", false,-1, 11,0);
+        vcdp->declBit(c+1681,"top_sim data_mem_inst accessed_line_dirty", false,-1);
         {int i; for (i=0; i<1; i++) {
-                vcdp->declBus(c+1897+i*1,"top_sim data_mem_inst accessed_line_data_unpacked", true,(i+0), 31,0);}}
-        vcdp->declBus(c+1905,"top_sim data_mem_inst cache_line_selection", false,-1, 1,0);
+                vcdp->declBus(c+2185+i*1,"top_sim data_mem_inst accessed_line_data_unpacked", true,(i+0), 31,0);}}
+        vcdp->declBus(c+2193,"top_sim data_mem_inst cache_line_selection", false,-1, 7,0);
         vcdp->declBus(c+9,"top_sim data_mem_inst l", false,-1, 31,0);
-        vcdp->declBus(c+1913,"top_sim data_mem_inst buf0", false,-1, 7,0);
-        vcdp->declBus(c+1921,"top_sim data_mem_inst buf1", false,-1, 7,0);
-        vcdp->declBus(c+1929,"top_sim data_mem_inst buf2", false,-1, 7,0);
-        vcdp->declBus(c+1937,"top_sim data_mem_inst buf3", false,-1, 7,0);
-        vcdp->declBit(c+1945,"top_sim data_mem_inst bdec_sig0", false,-1);
-        vcdp->declBit(c+1953,"top_sim data_mem_inst bdec_sig1", false,-1);
-        vcdp->declBit(c+1961,"top_sim data_mem_inst bdec_sig2", false,-1);
-        vcdp->declBit(c+1969,"top_sim data_mem_inst bdec_sig3", false,-1);
-        vcdp->declBus(c+1977,"top_sim data_mem_inst byte_r0", false,-1, 7,0);
-        vcdp->declBus(c+1985,"top_sim data_mem_inst byte_r1", false,-1, 7,0);
-        vcdp->declBus(c+1993,"top_sim data_mem_inst byte_r2", false,-1, 7,0);
-        vcdp->declBus(c+2001,"top_sim data_mem_inst byte_r3", false,-1, 7,0);
-        vcdp->declBus(c+2009,"top_sim data_mem_inst halfword_r0", false,-1, 15,0);
-        vcdp->declBus(c+2017,"top_sim data_mem_inst halfword_r1", false,-1, 15,0);
-        vcdp->declBit(c+1713,"top_sim data_mem_inst write_select0", false,-1);
-        vcdp->declBit(c+1721,"top_sim data_mem_inst write_select1", false,-1);
-        vcdp->declBus(c+2025,"top_sim data_mem_inst write_out1", false,-1, 31,0);
-        vcdp->declBus(c+1401,"top_sim data_mem_inst cache_write_data_original", false,-1, 31,0);
-        vcdp->declBus(c+1737,"top_sim data_mem_inst cache_write_data_updated", false,-1, 31,0);
+        vcdp->declBus(c+2201,"top_sim data_mem_inst buf0", false,-1, 7,0);
+        vcdp->declBus(c+2209,"top_sim data_mem_inst buf1", false,-1, 7,0);
+        vcdp->declBus(c+2217,"top_sim data_mem_inst buf2", false,-1, 7,0);
+        vcdp->declBus(c+2225,"top_sim data_mem_inst buf3", false,-1, 7,0);
+        vcdp->declBit(c+2233,"top_sim data_mem_inst bdec_sig0", false,-1);
+        vcdp->declBit(c+2241,"top_sim data_mem_inst bdec_sig1", false,-1);
+        vcdp->declBit(c+2249,"top_sim data_mem_inst bdec_sig2", false,-1);
+        vcdp->declBit(c+2257,"top_sim data_mem_inst bdec_sig3", false,-1);
+        vcdp->declBus(c+2265,"top_sim data_mem_inst byte_r0", false,-1, 7,0);
+        vcdp->declBus(c+2273,"top_sim data_mem_inst byte_r1", false,-1, 7,0);
+        vcdp->declBus(c+2281,"top_sim data_mem_inst byte_r2", false,-1, 7,0);
+        vcdp->declBus(c+2289,"top_sim data_mem_inst byte_r3", false,-1, 7,0);
+        vcdp->declBus(c+2297,"top_sim data_mem_inst halfword_r0", false,-1, 15,0);
+        vcdp->declBus(c+2305,"top_sim data_mem_inst halfword_r1", false,-1, 15,0);
+        vcdp->declBit(c+2001,"top_sim data_mem_inst write_select0", false,-1);
+        vcdp->declBit(c+2009,"top_sim data_mem_inst write_select1", false,-1);
+        vcdp->declBus(c+2313,"top_sim data_mem_inst write_out1", false,-1, 31,0);
+        vcdp->declBus(c+1689,"top_sim data_mem_inst cache_write_data_original", false,-1, 31,0);
+        vcdp->declBus(c+2025,"top_sim data_mem_inst cache_write_data_updated", false,-1, 31,0);
         {int i; for (i=0; i<1; i++) {
-                vcdp->declBus(c+1329+i*1,"top_sim data_mem_inst cache_line_from_memory_unpacked", true,(i+0), 31,0);}}
-        vcdp->declBit(c+2033,"top_sim data_mem_inst select0", false,-1);
-        vcdp->declBit(c+2041,"top_sim data_mem_inst select1", false,-1);
-        vcdp->declBit(c+1729,"top_sim data_mem_inst select2", false,-1);
-        vcdp->declBus(c+1745,"top_sim data_mem_inst out1", false,-1, 31,0);
-        vcdp->declBus(c+1753,"top_sim data_mem_inst out2", false,-1, 31,0);
-        vcdp->declBus(c+1761,"top_sim data_mem_inst out3", false,-1, 31,0);
-        vcdp->declBus(c+1769,"top_sim data_mem_inst out5", false,-1, 31,0);
-        vcdp->declBus(c+1777,"top_sim data_mem_inst out6", false,-1, 31,0);
-        vcdp->declBus(c+2257,"top_sim data_mem_inst cache_line_from_memory_extra", false,-1, 31,0);
-        vcdp->declBus(c+2049,"top_sim data_mem_inst cache_line_adress_0", false,-1, 13,0);
-        vcdp->declBus(c+2057,"top_sim data_mem_inst cache_line_adress_1", false,-1, 13,0);
-        vcdp->declBus(c+2049,"top_sim data_mem_inst cache_line_adress_2", false,-1, 13,0);
-        vcdp->declBus(c+2057,"top_sim data_mem_inst cache_line_adress_3", false,-1, 13,0);
+                vcdp->declBus(c+1473+i*1,"top_sim data_mem_inst cache_line_from_memory_unpacked", true,(i+0), 31,0);}}
+        vcdp->declBit(c+2321,"top_sim data_mem_inst select0", false,-1);
+        vcdp->declBit(c+2329,"top_sim data_mem_inst select1", false,-1);
+        vcdp->declBit(c+2017,"top_sim data_mem_inst select2", false,-1);
+        vcdp->declBus(c+2033,"top_sim data_mem_inst out1", false,-1, 31,0);
+        vcdp->declBus(c+2041,"top_sim data_mem_inst out2", false,-1, 31,0);
+        vcdp->declBus(c+2049,"top_sim data_mem_inst out3", false,-1, 31,0);
+        vcdp->declBus(c+2057,"top_sim data_mem_inst out5", false,-1, 31,0);
+        vcdp->declBus(c+2065,"top_sim data_mem_inst out6", false,-1, 31,0);
+        vcdp->declBus(c+2641,"top_sim data_mem_inst cache_line_from_memory_extra", false,-1, 31,0);
+        vcdp->declBus(c+2337,"top_sim data_mem_inst cache_line_adress_0", false,-1, 13,0);
+        vcdp->declBus(c+2345,"top_sim data_mem_inst cache_line_adress_1", false,-1, 13,0);
+        vcdp->declBus(c+2337,"top_sim data_mem_inst cache_line_adress_2", false,-1, 13,0);
+        vcdp->declBus(c+2345,"top_sim data_mem_inst cache_line_adress_3", false,-1, 13,0);
         vcdp->declBit(c+1233,"top_sim data_mem_inst genblk1[0] cache_line_instance clk", false,-1);
-        vcdp->declBus(c+1817,"top_sim data_mem_inst genblk1[0] cache_line_instance addr", false,-1, 13,0);
-        vcdp->declBus(c+1841,"top_sim data_mem_inst genblk1[0] cache_line_instance write_data", false,-1, 31,0);
-        vcdp->declBit(c+1849,"top_sim data_mem_inst genblk1[0] cache_line_instance memwrite", false,-1);
-        vcdp->declBit(c+1857,"top_sim data_mem_inst genblk1[0] cache_line_instance memread", false,-1);
-        vcdp->declBus(c+1873,"top_sim data_mem_inst genblk1[0] cache_line_instance age_of_accessed", false,-1, 0,0);
-        vcdp->declBus(c+2265,"top_sim data_mem_inst genblk1[0] cache_line_instance data", false,-1, 31,0);
-        vcdp->declBus(c+2273,"top_sim data_mem_inst genblk1[0] cache_line_instance stored_addr", false,-1, 11,0);
-        vcdp->declBus(c+1337,"top_sim data_mem_inst genblk1[0] cache_line_instance age", false,-1, 0,0);
-        vcdp->declBit(c+2065,"top_sim data_mem_inst genblk1[0] cache_line_instance addr_match", false,-1);
-        vcdp->declBit(c+1345,"top_sim data_mem_inst genblk1[0] cache_line_instance dirty", false,-1);
-        vcdp->declBit(c+1353,"top_sim data_mem_inst genblk1[0] cache_line_instance old", false,-1);
-        vcdp->declBus(c+2321,"top_sim data_mem_inst genblk1[0] cache_line_instance initial_age", false,-1, 31,0);
-        vcdp->declBit(c+2073,"top_sim data_mem_inst genblk1[0] cache_line_instance addr_match_dirty_flush", false,-1);
+        vcdp->declBus(c+2105,"top_sim data_mem_inst genblk1[0] cache_line_instance addr", false,-1, 13,0);
+        vcdp->declBus(c+2129,"top_sim data_mem_inst genblk1[0] cache_line_instance write_data", false,-1, 31,0);
+        vcdp->declBit(c+2137,"top_sim data_mem_inst genblk1[0] cache_line_instance memwrite", false,-1);
+        vcdp->declBit(c+2145,"top_sim data_mem_inst genblk1[0] cache_line_instance memread", false,-1);
+        vcdp->declBus(c+2161,"top_sim data_mem_inst genblk1[0] cache_line_instance age_of_accessed", false,-1, 2,0);
+        vcdp->declBus(c+2649,"top_sim data_mem_inst genblk1[0] cache_line_instance data", false,-1, 31,0);
+        vcdp->declBus(c+2657,"top_sim data_mem_inst genblk1[0] cache_line_instance stored_addr", false,-1, 11,0);
+        vcdp->declBus(c+1481,"top_sim data_mem_inst genblk1[0] cache_line_instance age", false,-1, 2,0);
+        vcdp->declBit(c+2353,"top_sim data_mem_inst genblk1[0] cache_line_instance addr_match", false,-1);
+        vcdp->declBit(c+1489,"top_sim data_mem_inst genblk1[0] cache_line_instance dirty", false,-1);
+        vcdp->declBit(c+1497,"top_sim data_mem_inst genblk1[0] cache_line_instance old", false,-1);
+        vcdp->declBus(c+2801,"top_sim data_mem_inst genblk1[0] cache_line_instance initial_age", false,-1, 31,0);
+        vcdp->declBit(c+2361,"top_sim data_mem_inst genblk1[0] cache_line_instance addr_match_dirty_flush", false,-1);
         vcdp->declBit(c+1233,"top_sim data_mem_inst genblk1[1] cache_line_instance clk", false,-1);
-        vcdp->declBus(c+1817,"top_sim data_mem_inst genblk1[1] cache_line_instance addr", false,-1, 13,0);
-        vcdp->declBus(c+1841,"top_sim data_mem_inst genblk1[1] cache_line_instance write_data", false,-1, 31,0);
-        vcdp->declBit(c+1849,"top_sim data_mem_inst genblk1[1] cache_line_instance memwrite", false,-1);
-        vcdp->declBit(c+1857,"top_sim data_mem_inst genblk1[1] cache_line_instance memread", false,-1);
-        vcdp->declBus(c+1873,"top_sim data_mem_inst genblk1[1] cache_line_instance age_of_accessed", false,-1, 0,0);
-        vcdp->declBus(c+2281,"top_sim data_mem_inst genblk1[1] cache_line_instance data", false,-1, 31,0);
-        vcdp->declBus(c+2289,"top_sim data_mem_inst genblk1[1] cache_line_instance stored_addr", false,-1, 11,0);
-        vcdp->declBus(c+1361,"top_sim data_mem_inst genblk1[1] cache_line_instance age", false,-1, 0,0);
-        vcdp->declBit(c+2081,"top_sim data_mem_inst genblk1[1] cache_line_instance addr_match", false,-1);
-        vcdp->declBit(c+1369,"top_sim data_mem_inst genblk1[1] cache_line_instance dirty", false,-1);
-        vcdp->declBit(c+1377,"top_sim data_mem_inst genblk1[1] cache_line_instance old", false,-1);
-        vcdp->declBus(c+2377,"top_sim data_mem_inst genblk1[1] cache_line_instance initial_age", false,-1, 31,0);
-        vcdp->declBit(c+2089,"top_sim data_mem_inst genblk1[1] cache_line_instance addr_match_dirty_flush", false,-1);
+        vcdp->declBus(c+2105,"top_sim data_mem_inst genblk1[1] cache_line_instance addr", false,-1, 13,0);
+        vcdp->declBus(c+2129,"top_sim data_mem_inst genblk1[1] cache_line_instance write_data", false,-1, 31,0);
+        vcdp->declBit(c+2137,"top_sim data_mem_inst genblk1[1] cache_line_instance memwrite", false,-1);
+        vcdp->declBit(c+2145,"top_sim data_mem_inst genblk1[1] cache_line_instance memread", false,-1);
+        vcdp->declBus(c+2161,"top_sim data_mem_inst genblk1[1] cache_line_instance age_of_accessed", false,-1, 2,0);
+        vcdp->declBus(c+2665,"top_sim data_mem_inst genblk1[1] cache_line_instance data", false,-1, 31,0);
+        vcdp->declBus(c+2673,"top_sim data_mem_inst genblk1[1] cache_line_instance stored_addr", false,-1, 11,0);
+        vcdp->declBus(c+1505,"top_sim data_mem_inst genblk1[1] cache_line_instance age", false,-1, 2,0);
+        vcdp->declBit(c+2369,"top_sim data_mem_inst genblk1[1] cache_line_instance addr_match", false,-1);
+        vcdp->declBit(c+1513,"top_sim data_mem_inst genblk1[1] cache_line_instance dirty", false,-1);
+        vcdp->declBit(c+1521,"top_sim data_mem_inst genblk1[1] cache_line_instance old", false,-1);
+        vcdp->declBus(c+2857,"top_sim data_mem_inst genblk1[1] cache_line_instance initial_age", false,-1, 31,0);
+        vcdp->declBit(c+2377,"top_sim data_mem_inst genblk1[1] cache_line_instance addr_match_dirty_flush", false,-1);
+        vcdp->declBit(c+1233,"top_sim data_mem_inst genblk1[2] cache_line_instance clk", false,-1);
+        vcdp->declBus(c+2105,"top_sim data_mem_inst genblk1[2] cache_line_instance addr", false,-1, 13,0);
+        vcdp->declBus(c+2129,"top_sim data_mem_inst genblk1[2] cache_line_instance write_data", false,-1, 31,0);
+        vcdp->declBit(c+2137,"top_sim data_mem_inst genblk1[2] cache_line_instance memwrite", false,-1);
+        vcdp->declBit(c+2145,"top_sim data_mem_inst genblk1[2] cache_line_instance memread", false,-1);
+        vcdp->declBus(c+2161,"top_sim data_mem_inst genblk1[2] cache_line_instance age_of_accessed", false,-1, 2,0);
+        vcdp->declBus(c+2681,"top_sim data_mem_inst genblk1[2] cache_line_instance data", false,-1, 31,0);
+        vcdp->declBus(c+2689,"top_sim data_mem_inst genblk1[2] cache_line_instance stored_addr", false,-1, 11,0);
+        vcdp->declBus(c+1529,"top_sim data_mem_inst genblk1[2] cache_line_instance age", false,-1, 2,0);
+        vcdp->declBit(c+2385,"top_sim data_mem_inst genblk1[2] cache_line_instance addr_match", false,-1);
+        vcdp->declBit(c+1537,"top_sim data_mem_inst genblk1[2] cache_line_instance dirty", false,-1);
+        vcdp->declBit(c+1545,"top_sim data_mem_inst genblk1[2] cache_line_instance old", false,-1);
+        vcdp->declBus(c+2865,"top_sim data_mem_inst genblk1[2] cache_line_instance initial_age", false,-1, 31,0);
+        vcdp->declBit(c+2393,"top_sim data_mem_inst genblk1[2] cache_line_instance addr_match_dirty_flush", false,-1);
+        vcdp->declBit(c+1233,"top_sim data_mem_inst genblk1[3] cache_line_instance clk", false,-1);
+        vcdp->declBus(c+2105,"top_sim data_mem_inst genblk1[3] cache_line_instance addr", false,-1, 13,0);
+        vcdp->declBus(c+2129,"top_sim data_mem_inst genblk1[3] cache_line_instance write_data", false,-1, 31,0);
+        vcdp->declBit(c+2137,"top_sim data_mem_inst genblk1[3] cache_line_instance memwrite", false,-1);
+        vcdp->declBit(c+2145,"top_sim data_mem_inst genblk1[3] cache_line_instance memread", false,-1);
+        vcdp->declBus(c+2161,"top_sim data_mem_inst genblk1[3] cache_line_instance age_of_accessed", false,-1, 2,0);
+        vcdp->declBus(c+2697,"top_sim data_mem_inst genblk1[3] cache_line_instance data", false,-1, 31,0);
+        vcdp->declBus(c+2705,"top_sim data_mem_inst genblk1[3] cache_line_instance stored_addr", false,-1, 11,0);
+        vcdp->declBus(c+1553,"top_sim data_mem_inst genblk1[3] cache_line_instance age", false,-1, 2,0);
+        vcdp->declBit(c+2401,"top_sim data_mem_inst genblk1[3] cache_line_instance addr_match", false,-1);
+        vcdp->declBit(c+1561,"top_sim data_mem_inst genblk1[3] cache_line_instance dirty", false,-1);
+        vcdp->declBit(c+1569,"top_sim data_mem_inst genblk1[3] cache_line_instance old", false,-1);
+        vcdp->declBus(c+2873,"top_sim data_mem_inst genblk1[3] cache_line_instance initial_age", false,-1, 31,0);
+        vcdp->declBit(c+2409,"top_sim data_mem_inst genblk1[3] cache_line_instance addr_match_dirty_flush", false,-1);
+        vcdp->declBit(c+1233,"top_sim data_mem_inst genblk1[4] cache_line_instance clk", false,-1);
+        vcdp->declBus(c+2105,"top_sim data_mem_inst genblk1[4] cache_line_instance addr", false,-1, 13,0);
+        vcdp->declBus(c+2129,"top_sim data_mem_inst genblk1[4] cache_line_instance write_data", false,-1, 31,0);
+        vcdp->declBit(c+2137,"top_sim data_mem_inst genblk1[4] cache_line_instance memwrite", false,-1);
+        vcdp->declBit(c+2145,"top_sim data_mem_inst genblk1[4] cache_line_instance memread", false,-1);
+        vcdp->declBus(c+2161,"top_sim data_mem_inst genblk1[4] cache_line_instance age_of_accessed", false,-1, 2,0);
+        vcdp->declBus(c+2713,"top_sim data_mem_inst genblk1[4] cache_line_instance data", false,-1, 31,0);
+        vcdp->declBus(c+2721,"top_sim data_mem_inst genblk1[4] cache_line_instance stored_addr", false,-1, 11,0);
+        vcdp->declBus(c+1577,"top_sim data_mem_inst genblk1[4] cache_line_instance age", false,-1, 2,0);
+        vcdp->declBit(c+2417,"top_sim data_mem_inst genblk1[4] cache_line_instance addr_match", false,-1);
+        vcdp->declBit(c+1585,"top_sim data_mem_inst genblk1[4] cache_line_instance dirty", false,-1);
+        vcdp->declBit(c+1593,"top_sim data_mem_inst genblk1[4] cache_line_instance old", false,-1);
+        vcdp->declBus(c+2793,"top_sim data_mem_inst genblk1[4] cache_line_instance initial_age", false,-1, 31,0);
+        vcdp->declBit(c+2425,"top_sim data_mem_inst genblk1[4] cache_line_instance addr_match_dirty_flush", false,-1);
+        vcdp->declBit(c+1233,"top_sim data_mem_inst genblk1[5] cache_line_instance clk", false,-1);
+        vcdp->declBus(c+2105,"top_sim data_mem_inst genblk1[5] cache_line_instance addr", false,-1, 13,0);
+        vcdp->declBus(c+2129,"top_sim data_mem_inst genblk1[5] cache_line_instance write_data", false,-1, 31,0);
+        vcdp->declBit(c+2137,"top_sim data_mem_inst genblk1[5] cache_line_instance memwrite", false,-1);
+        vcdp->declBit(c+2145,"top_sim data_mem_inst genblk1[5] cache_line_instance memread", false,-1);
+        vcdp->declBus(c+2161,"top_sim data_mem_inst genblk1[5] cache_line_instance age_of_accessed", false,-1, 2,0);
+        vcdp->declBus(c+2729,"top_sim data_mem_inst genblk1[5] cache_line_instance data", false,-1, 31,0);
+        vcdp->declBus(c+2737,"top_sim data_mem_inst genblk1[5] cache_line_instance stored_addr", false,-1, 11,0);
+        vcdp->declBus(c+1601,"top_sim data_mem_inst genblk1[5] cache_line_instance age", false,-1, 2,0);
+        vcdp->declBit(c+2433,"top_sim data_mem_inst genblk1[5] cache_line_instance addr_match", false,-1);
+        vcdp->declBit(c+1609,"top_sim data_mem_inst genblk1[5] cache_line_instance dirty", false,-1);
+        vcdp->declBit(c+1617,"top_sim data_mem_inst genblk1[5] cache_line_instance old", false,-1);
+        vcdp->declBus(c+2881,"top_sim data_mem_inst genblk1[5] cache_line_instance initial_age", false,-1, 31,0);
+        vcdp->declBit(c+2441,"top_sim data_mem_inst genblk1[5] cache_line_instance addr_match_dirty_flush", false,-1);
+        vcdp->declBit(c+1233,"top_sim data_mem_inst genblk1[6] cache_line_instance clk", false,-1);
+        vcdp->declBus(c+2105,"top_sim data_mem_inst genblk1[6] cache_line_instance addr", false,-1, 13,0);
+        vcdp->declBus(c+2129,"top_sim data_mem_inst genblk1[6] cache_line_instance write_data", false,-1, 31,0);
+        vcdp->declBit(c+2137,"top_sim data_mem_inst genblk1[6] cache_line_instance memwrite", false,-1);
+        vcdp->declBit(c+2145,"top_sim data_mem_inst genblk1[6] cache_line_instance memread", false,-1);
+        vcdp->declBus(c+2161,"top_sim data_mem_inst genblk1[6] cache_line_instance age_of_accessed", false,-1, 2,0);
+        vcdp->declBus(c+2745,"top_sim data_mem_inst genblk1[6] cache_line_instance data", false,-1, 31,0);
+        vcdp->declBus(c+2753,"top_sim data_mem_inst genblk1[6] cache_line_instance stored_addr", false,-1, 11,0);
+        vcdp->declBus(c+1625,"top_sim data_mem_inst genblk1[6] cache_line_instance age", false,-1, 2,0);
+        vcdp->declBit(c+2449,"top_sim data_mem_inst genblk1[6] cache_line_instance addr_match", false,-1);
+        vcdp->declBit(c+1633,"top_sim data_mem_inst genblk1[6] cache_line_instance dirty", false,-1);
+        vcdp->declBit(c+1641,"top_sim data_mem_inst genblk1[6] cache_line_instance old", false,-1);
+        vcdp->declBus(c+2889,"top_sim data_mem_inst genblk1[6] cache_line_instance initial_age", false,-1, 31,0);
+        vcdp->declBit(c+2457,"top_sim data_mem_inst genblk1[6] cache_line_instance addr_match_dirty_flush", false,-1);
+        vcdp->declBit(c+1233,"top_sim data_mem_inst genblk1[7] cache_line_instance clk", false,-1);
+        vcdp->declBus(c+2105,"top_sim data_mem_inst genblk1[7] cache_line_instance addr", false,-1, 13,0);
+        vcdp->declBus(c+2129,"top_sim data_mem_inst genblk1[7] cache_line_instance write_data", false,-1, 31,0);
+        vcdp->declBit(c+2137,"top_sim data_mem_inst genblk1[7] cache_line_instance memwrite", false,-1);
+        vcdp->declBit(c+2145,"top_sim data_mem_inst genblk1[7] cache_line_instance memread", false,-1);
+        vcdp->declBus(c+2161,"top_sim data_mem_inst genblk1[7] cache_line_instance age_of_accessed", false,-1, 2,0);
+        vcdp->declBus(c+2761,"top_sim data_mem_inst genblk1[7] cache_line_instance data", false,-1, 31,0);
+        vcdp->declBus(c+2769,"top_sim data_mem_inst genblk1[7] cache_line_instance stored_addr", false,-1, 11,0);
+        vcdp->declBus(c+1649,"top_sim data_mem_inst genblk1[7] cache_line_instance age", false,-1, 2,0);
+        vcdp->declBit(c+2465,"top_sim data_mem_inst genblk1[7] cache_line_instance addr_match", false,-1);
+        vcdp->declBit(c+1657,"top_sim data_mem_inst genblk1[7] cache_line_instance dirty", false,-1);
+        vcdp->declBit(c+1665,"top_sim data_mem_inst genblk1[7] cache_line_instance old", false,-1);
+        vcdp->declBus(c+2897,"top_sim data_mem_inst genblk1[7] cache_line_instance initial_age", false,-1, 31,0);
+        vcdp->declBit(c+2473,"top_sim data_mem_inst genblk1[7] cache_line_instance addr_match_dirty_flush", false,-1);
     }
 }
 
@@ -488,12 +572,12 @@ void Vtop_sim::traceFullThis__1(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
     int c = code;
     if (0 && vcdp && c) {}  // Prevent unused
     // Variables
-    WData/*159:0*/ __Vtemp206[5];
-    WData/*191:0*/ __Vtemp209[6];
-    WData/*127:0*/ __Vtemp212[4];
-    WData/*95:0*/ __Vtemp213[3];
-    WData/*159:0*/ __Vtemp215[5];
-    WData/*159:0*/ __Vtemp217[5];
+    WData/*159:0*/ __Vtemp780[5];
+    WData/*191:0*/ __Vtemp783[6];
+    WData/*127:0*/ __Vtemp786[4];
+    WData/*95:0*/ __Vtemp787[3];
+    WData/*159:0*/ __Vtemp789[5];
+    WData/*159:0*/ __Vtemp791[5];
     // Body
     {
         vcdp->fullBus(c+1,(vlTOPp->top_sim__DOT__processor__DOT__branch_predictor_FSM__DOT__k),32);
@@ -737,7 +821,7 @@ void Vtop_sim::traceFullThis__1(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
                                                >> 0x2fU)))),32);
         vcdp->fullBus(c+825,((0x1fU & (IData)((vlTOPp->top_sim__DOT__processor__DOT__if_id_out 
                                                >> 0x34U)))),32);
-        __Vtemp206[4U] = ((0xf800000U & ((IData)((vlTOPp->top_sim__DOT__processor__DOT__if_id_out 
+        __Vtemp780[4U] = ((0xf800000U & ((IData)((vlTOPp->top_sim__DOT__processor__DOT__if_id_out 
                                                   >> 0x27U)) 
                                          << 0x17U)) 
                           | ((0xfff80000U & ((0x400000U 
@@ -765,7 +849,7 @@ void Vtop_sim::traceFullThis__1(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
                                                                             : vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__regDatB))))) 
                                                       >> 0x20U)) 
                                              >> 0x14U)))));
-        __Vtemp209[0U] = ((0xfffff000U & ((IData)(vlTOPp->top_sim__DOT__processor__DOT__if_id_out) 
+        __Vtemp783[0U] = ((0xfffff000U & ((IData)(vlTOPp->top_sim__DOT__processor__DOT__if_id_out) 
                                           << 0xcU)) 
                           | ((0xf00U & (vlTOPp->top_sim__DOT__processor__DOT__cont_mux_out 
                                         << 1U)) | (
@@ -773,7 +857,7 @@ void Vtop_sim::traceFullThis__1(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
                                                     << 7U) 
                                                    | (0x7fU 
                                                       & vlTOPp->top_sim__DOT__processor__DOT__cont_mux_out))));
-        __Vtemp209[1U] = ((0xfffU & ((IData)(vlTOPp->top_sim__DOT__processor__DOT__if_id_out) 
+        __Vtemp783[1U] = ((0xfffU & ((IData)(vlTOPp->top_sim__DOT__processor__DOT__if_id_out) 
                                      >> 0x14U)) | (0xfffff000U 
                                                    & (((IData)(vlTOPp->top_sim__DOT__processor__DOT__CSRRI_signal)
                                                         ? 
@@ -790,7 +874,7 @@ void Vtop_sim::traceFullThis__1(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
                                                          ? vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__wrData_buf
                                                          : vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__regDatA)) 
                                                       << 0xcU)));
-        __Vtemp209[2U] = ((0xfffU & (((IData)(vlTOPp->top_sim__DOT__processor__DOT__CSRRI_signal)
+        __Vtemp783[2U] = ((0xfffU & (((IData)(vlTOPp->top_sim__DOT__processor__DOT__CSRRI_signal)
                                        ? (0x1fU & (IData)(
                                                           (vlTOPp->top_sim__DOT__processor__DOT__if_id_out 
                                                            >> 0x2fU)))
@@ -816,7 +900,7 @@ void Vtop_sim::traceFullThis__1(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
                                                                                  ? vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__wrData_buf
                                                                                  : vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__regDatB)))))) 
                                                       << 0xcU)));
-        __Vtemp209[3U] = ((0xfffU & ((IData)((((QData)((IData)(vlTOPp->top_sim__DOT__processor__DOT__imm_out)) 
+        __Vtemp783[3U] = ((0xfffU & ((IData)((((QData)((IData)(vlTOPp->top_sim__DOT__processor__DOT__imm_out)) 
                                                << 0x20U) 
                                               | (QData)((IData)(
                                                                 ((IData)(vlTOPp->top_sim__DOT__processor__DOT__CSRR_signal)
@@ -846,14 +930,14 @@ void Vtop_sim::traceFullThis__1(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
                                                                                  : vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__regDatB))))) 
                                                                >> 0x20U)) 
                                                       << 0xcU)));
-        __Vtemp209[4U] = ((0xf0000000U & (((IData)(vlTOPp->top_sim__DOT__processor__DOT__CSRRI_signal)
+        __Vtemp783[4U] = ((0xf0000000U & (((IData)(vlTOPp->top_sim__DOT__processor__DOT__CSRRI_signal)
                                             ? 0U : 
                                            (0x1fU & (IData)(
                                                             (vlTOPp->top_sim__DOT__processor__DOT__if_id_out 
                                                              >> 0x2fU)))) 
                                           << 0x1cU)) 
-                          | __Vtemp206[4U]);
-        __Vtemp209[5U] = ((0x3ffc0U & ((IData)((vlTOPp->top_sim__DOT__processor__DOT__if_id_out 
+                          | __Vtemp780[4U]);
+        __Vtemp783[5U] = ((0x3ffc0U & ((IData)((vlTOPp->top_sim__DOT__processor__DOT__if_id_out 
                                                 >> 0x34U)) 
                                        << 6U)) | ((0xfffffffeU 
                                                    & (((IData)(vlTOPp->top_sim__DOT__processor__DOT__CSRR_signal)
@@ -873,7 +957,7 @@ void Vtop_sim::traceFullThis__1(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
                                                                     (vlTOPp->top_sim__DOT__processor__DOT__if_id_out 
                                                                      >> 0x2fU)))) 
                                                         >> 4U))));
-        vcdp->fullArray(c+833,(__Vtemp209),178);
+        vcdp->fullArray(c+833,(__Vtemp783),178);
         vcdp->fullBit(c+881,((1U & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[0U] 
                                     >> 6U))));
         vcdp->fullBit(c+889,((1U & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[0U] 
@@ -921,20 +1005,20 @@ void Vtop_sim::traceFullThis__1(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
         vcdp->fullBus(c+1081,(((2U & vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[0U])
                                 ? vlTOPp->top_sim__DOT__data_out
                                 : vlTOPp->top_sim__DOT__processor__DOT__mem_csrr_mux_out)),32);
-        __Vtemp212[0U] = ((0xfffffff0U & ((vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[3U] 
+        __Vtemp786[0U] = ((0xfffffff0U & ((vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[3U] 
                                            << 0x1aU) 
                                           | (0x3fffff0U 
                                              & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[2U] 
                                                 >> 6U)))) 
                           | (0xfU & vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[0U]));
-        __Vtemp212[1U] = ((0xfU & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[3U] 
+        __Vtemp786[1U] = ((0xfU & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[3U] 
                                    >> 6U)) | (0xfffffff0U 
                                               & ((IData)(
                                                          (((QData)((IData)(vlTOPp->top_sim__DOT__data_out)) 
                                                            << 0x20U) 
                                                           | (QData)((IData)(vlTOPp->top_sim__DOT__processor__DOT__mem_csrr_mux_out)))) 
                                                  << 4U)));
-        __Vtemp212[2U] = ((0xfU & ((IData)((((QData)((IData)(vlTOPp->top_sim__DOT__data_out)) 
+        __Vtemp786[2U] = ((0xfU & ((IData)((((QData)((IData)(vlTOPp->top_sim__DOT__data_out)) 
                                              << 0x20U) 
                                             | (QData)((IData)(vlTOPp->top_sim__DOT__processor__DOT__mem_csrr_mux_out)))) 
                                    >> 0x1cU)) | (0xfffffff0U 
@@ -944,7 +1028,7 @@ void Vtop_sim::traceFullThis__1(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
                                                               | (QData)((IData)(vlTOPp->top_sim__DOT__processor__DOT__mem_csrr_mux_out))) 
                                                              >> 0x20U)) 
                                                     << 4U)));
-        __Vtemp212[3U] = ((0x1ffff0U & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[4U] 
+        __Vtemp786[3U] = ((0x1ffff0U & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[4U] 
                                         >> 6U)) | (0xfU 
                                                    & ((IData)(
                                                               ((((QData)((IData)(vlTOPp->top_sim__DOT__data_out)) 
@@ -952,7 +1036,7 @@ void Vtop_sim::traceFullThis__1(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
                                                                 | (QData)((IData)(vlTOPp->top_sim__DOT__processor__DOT__mem_csrr_mux_out))) 
                                                                >> 0x20U)) 
                                                       >> 0x1cU)));
-        vcdp->fullArray(c+1089,(__Vtemp212),117);
+        vcdp->fullArray(c+1089,(__Vtemp786),117);
         vcdp->fullBus(c+1121,(((((0U != (0x1fU & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[4U] 
                                                   >> 0xaU))) 
                                  & ((0x1fU & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[4U] 
@@ -1090,75 +1174,111 @@ void Vtop_sim::traceFullThis__1(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
                               [0U]),32);
         vcdp->fullBus(c+1265,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_data[0]),32);
         vcdp->fullBus(c+1266,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_data[1]),32);
-        vcdp->fullBus(c+1281,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_stored_addr[0]),12);
-        vcdp->fullBus(c+1282,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_stored_addr[1]),12);
-        vcdp->fullBus(c+1297,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_dirty),2);
-        vcdp->fullBus(c+1305,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_old),2);
-        vcdp->fullBit(c+1313,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_age[0]));
-        vcdp->fullBit(c+1314,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_age[1]));
-        vcdp->fullBus(c+1329,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_from_memory_unpacked[0]),32);
-        vcdp->fullBit(c+1337,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__0__KET____DOT__cache_line_instance__age));
-        vcdp->fullBit(c+1345,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__0__KET____DOT__cache_line_instance__dirty));
-        vcdp->fullBit(c+1353,((1U & (~ (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__0__KET____DOT__cache_line_instance__age)))));
-        vcdp->fullBit(c+1361,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__1__KET____DOT__cache_line_instance__age));
-        vcdp->fullBit(c+1369,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__1__KET____DOT__cache_line_instance__dirty));
-        vcdp->fullBit(c+1377,((1U & (~ (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__1__KET____DOT__cache_line_instance__age)))));
-        vcdp->fullBit(c+1385,((1U & ((0U == vlTOPp->top_sim__DOT__data_mem_inst__DOT__state)
+        vcdp->fullBus(c+1267,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_data[2]),32);
+        vcdp->fullBus(c+1268,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_data[3]),32);
+        vcdp->fullBus(c+1269,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_data[4]),32);
+        vcdp->fullBus(c+1270,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_data[5]),32);
+        vcdp->fullBus(c+1271,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_data[6]),32);
+        vcdp->fullBus(c+1272,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_data[7]),32);
+        vcdp->fullBus(c+1329,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_stored_addr[0]),12);
+        vcdp->fullBus(c+1330,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_stored_addr[1]),12);
+        vcdp->fullBus(c+1331,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_stored_addr[2]),12);
+        vcdp->fullBus(c+1332,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_stored_addr[3]),12);
+        vcdp->fullBus(c+1333,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_stored_addr[4]),12);
+        vcdp->fullBus(c+1334,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_stored_addr[5]),12);
+        vcdp->fullBus(c+1335,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_stored_addr[6]),12);
+        vcdp->fullBus(c+1336,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_stored_addr[7]),12);
+        vcdp->fullBus(c+1393,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_dirty),8);
+        vcdp->fullBus(c+1401,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_old),8);
+        vcdp->fullBus(c+1409,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_age[0]),3);
+        vcdp->fullBus(c+1410,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_age[1]),3);
+        vcdp->fullBus(c+1411,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_age[2]),3);
+        vcdp->fullBus(c+1412,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_age[3]),3);
+        vcdp->fullBus(c+1413,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_age[4]),3);
+        vcdp->fullBus(c+1414,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_age[5]),3);
+        vcdp->fullBus(c+1415,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_age[6]),3);
+        vcdp->fullBus(c+1416,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_age[7]),3);
+        vcdp->fullBus(c+1473,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_from_memory_unpacked[0]),32);
+        vcdp->fullBus(c+1481,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__0__KET____DOT__cache_line_instance__age),3);
+        vcdp->fullBit(c+1489,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__0__KET____DOT__cache_line_instance__dirty));
+        vcdp->fullBit(c+1497,((0U == (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__0__KET____DOT__cache_line_instance__age))));
+        vcdp->fullBus(c+1505,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__1__KET____DOT__cache_line_instance__age),3);
+        vcdp->fullBit(c+1513,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__1__KET____DOT__cache_line_instance__dirty));
+        vcdp->fullBit(c+1521,((0U == (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__1__KET____DOT__cache_line_instance__age))));
+        vcdp->fullBus(c+1529,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__2__KET____DOT__cache_line_instance__age),3);
+        vcdp->fullBit(c+1537,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__2__KET____DOT__cache_line_instance__dirty));
+        vcdp->fullBit(c+1545,((0U == (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__2__KET____DOT__cache_line_instance__age))));
+        vcdp->fullBus(c+1553,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__3__KET____DOT__cache_line_instance__age),3);
+        vcdp->fullBit(c+1561,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__3__KET____DOT__cache_line_instance__dirty));
+        vcdp->fullBit(c+1569,((0U == (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__3__KET____DOT__cache_line_instance__age))));
+        vcdp->fullBus(c+1577,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__4__KET____DOT__cache_line_instance__age),3);
+        vcdp->fullBit(c+1585,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__4__KET____DOT__cache_line_instance__dirty));
+        vcdp->fullBit(c+1593,((0U == (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__4__KET____DOT__cache_line_instance__age))));
+        vcdp->fullBus(c+1601,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__5__KET____DOT__cache_line_instance__age),3);
+        vcdp->fullBit(c+1609,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__5__KET____DOT__cache_line_instance__dirty));
+        vcdp->fullBit(c+1617,((0U == (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__5__KET____DOT__cache_line_instance__age))));
+        vcdp->fullBus(c+1625,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__6__KET____DOT__cache_line_instance__age),3);
+        vcdp->fullBit(c+1633,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__6__KET____DOT__cache_line_instance__dirty));
+        vcdp->fullBit(c+1641,((0U == (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__6__KET____DOT__cache_line_instance__age))));
+        vcdp->fullBus(c+1649,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__7__KET____DOT__cache_line_instance__age),3);
+        vcdp->fullBit(c+1657,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__7__KET____DOT__cache_line_instance__dirty));
+        vcdp->fullBit(c+1665,((0U == (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__7__KET____DOT__cache_line_instance__age))));
+        vcdp->fullBit(c+1673,((1U & ((0U == vlTOPp->top_sim__DOT__data_mem_inst__DOT__state)
                                       ? (vlTOPp->top_sim__DOT__processor__DOT__ex_cont_mux_out 
                                          >> 4U) : (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__memwrite_buf)))));
-        vcdp->fullBit(c+1393,((0U != ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_selection) 
+        vcdp->fullBit(c+1681,((0U != ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_selection) 
                                       & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_dirty)))));
-        vcdp->fullBus(c+1401,((((0U == vlTOPp->top_sim__DOT__data_mem_inst__DOT__state) 
+        vcdp->fullBus(c+1689,((((0U == vlTOPp->top_sim__DOT__data_mem_inst__DOT__state) 
                                 | (3U == vlTOPp->top_sim__DOT__data_mem_inst__DOT__state))
                                 ? vlTOPp->top_sim__DOT__data_mem_inst__DOT__accessed_line_data
                                 : vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_from_memory)),32);
-        vcdp->fullBit(c+1409,((1U & (vlTOPp->top_sim__DOT__processor__DOT__ex_cont_mux_out 
+        vcdp->fullBit(c+1697,((1U & (vlTOPp->top_sim__DOT__processor__DOT__ex_cont_mux_out 
                                      >> 4U))));
-        vcdp->fullBit(c+1417,((1U & (vlTOPp->top_sim__DOT__processor__DOT__ex_cont_mux_out 
+        vcdp->fullBit(c+1705,((1U & (vlTOPp->top_sim__DOT__processor__DOT__ex_cont_mux_out 
                                      >> 5U))));
-        vcdp->fullBus(c+1425,((0xfU & ((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[5U] 
+        vcdp->fullBus(c+1713,((0xfU & ((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[5U] 
                                         << 0xdU) | 
                                        (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[4U] 
                                         >> 0x13U)))),4);
-        vcdp->fullArray(c+1433,(vlTOPp->top_sim__DOT__processor__DOT__id_ex_out),178);
-        vcdp->fullBus(c+1481,(vlTOPp->top_sim__DOT__processor__DOT__ex_cont_mux_out),32);
-        vcdp->fullBus(c+1489,((0x1ffU & vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U])),32);
-        vcdp->fullBus(c+1497,(((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[1U] 
+        vcdp->fullArray(c+1721,(vlTOPp->top_sim__DOT__processor__DOT__id_ex_out),178);
+        vcdp->fullBus(c+1769,(vlTOPp->top_sim__DOT__processor__DOT__ex_cont_mux_out),32);
+        vcdp->fullBus(c+1777,((0x1ffU & vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U])),32);
+        vcdp->fullBus(c+1785,(((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[1U] 
                                 << 0x14U) | (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U] 
                                              >> 0xcU))),32);
-        vcdp->fullBit(c+1505,((1U & (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U] 
+        vcdp->fullBit(c+1793,((1U & (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U] 
                                      >> 0xbU))));
-        vcdp->fullBus(c+1513,(((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[4U] 
+        vcdp->fullBus(c+1801,(((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[4U] 
                                 << 0x14U) | (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[3U] 
                                              >> 0xcU))),32);
-        vcdp->fullBit(c+1521,((1U & (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U] 
+        vcdp->fullBit(c+1809,((1U & (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U] 
                                      >> 0xaU))));
-        vcdp->fullBus(c+1529,((0x7fU & ((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[5U] 
+        vcdp->fullBus(c+1817,((0x7fU & ((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[5U] 
                                          << 0x14U) 
                                         | (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[4U] 
                                            >> 0xcU)))),7);
-        vcdp->fullBit(c+1537,((1U & (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U] 
+        vcdp->fullBit(c+1825,((1U & (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U] 
                                      >> 9U))));
-        vcdp->fullBus(c+1545,((0x1fU & ((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[5U] 
+        vcdp->fullBus(c+1833,((0x1fU & ((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[5U] 
                                          << 4U) | (
                                                    vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[4U] 
                                                    >> 0x1cU)))),5);
-        vcdp->fullBus(c+1553,((0x1fU & (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[5U] 
+        vcdp->fullBus(c+1841,((0x1fU & (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[5U] 
                                         >> 1U))),5);
-        vcdp->fullBus(c+1561,((0xfffU & (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[5U] 
+        vcdp->fullBus(c+1849,((0xfffU & (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[5U] 
                                          >> 6U))),12);
-        vcdp->fullBus(c+1569,(((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[2U] 
+        vcdp->fullBus(c+1857,(((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[2U] 
                                 << 0x14U) | (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[1U] 
                                              >> 0xcU))),32);
-        vcdp->fullBus(c+1577,(((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[3U] 
+        vcdp->fullBus(c+1865,(((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[3U] 
                                 << 0x14U) | (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[2U] 
                                              >> 0xcU))),32);
-        vcdp->fullBus(c+1585,(((0x800U & vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U])
+        vcdp->fullBus(c+1873,(((0x800U & vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U])
                                 ? vlTOPp->top_sim__DOT__processor__DOT__wb_fwd1_mux_out
                                 : ((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[1U] 
                                     << 0x14U) | (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U] 
                                                  >> 0xcU)))),32);
-        vcdp->fullBus(c+1593,((((0x800U & vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U])
+        vcdp->fullBus(c+1881,((((0x800U & vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U])
                                  ? vlTOPp->top_sim__DOT__processor__DOT__wb_fwd1_mux_out
                                  : ((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[1U] 
                                      << 0x14U) | (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U] 
@@ -1166,7 +1286,7 @@ void Vtop_sim::traceFullThis__1(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
                                + ((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[4U] 
                                    << 0x14U) | (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[3U] 
                                                 >> 0xcU)))),32);
-        __Vtemp213[1U] = ((0x1ffU & ((IData)((((QData)((IData)(
+        __Vtemp787[1U] = ((0x1ffU & ((IData)((((QData)((IData)(
                                                                (((0x800U 
                                                                   & vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U])
                                                                   ? vlTOPp->top_sim__DOT__processor__DOT__wb_fwd1_mux_out
@@ -1210,7 +1330,7 @@ void Vtop_sim::traceFullThis__1(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
                                                                                 >> 0xcU))))) 
                                                                >> 0x20U)) 
                                                       << 9U)));
-        __Vtemp215[2U] = ((0xfffffc00U & ((IData)((
+        __Vtemp789[2U] = ((0xfffffc00U & ((IData)((
                                                    ((QData)((IData)(vlTOPp->top_sim__DOT__processor__DOT__wb_fwd2_mux_out)) 
                                                     << 0x20U) 
                                                    | (QData)((IData)(vlTOPp->top_sim__DOT__processor__DOT__lui_result)))) 
@@ -1240,7 +1360,7 @@ void Vtop_sim::traceFullThis__1(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
                                                                           >> 0xcU))))) 
                                                    >> 0x20U)) 
                                           >> 0x17U))));
-        __Vtemp217[0U] = ((0xfffffe00U & ((IData)((
+        __Vtemp791[0U] = ((0xfffffe00U & ((IData)((
                                                    ((QData)((IData)(
                                                                     (((0x800U 
                                                                        & vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U])
@@ -1263,9 +1383,9 @@ void Vtop_sim::traceFullThis__1(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
                                                                          >> 0xcU)))))) 
                                           << 9U)) | 
                           (0x1ffU & vlTOPp->top_sim__DOT__processor__DOT__ex_cont_mux_out));
-        __Vtemp217[1U] = __Vtemp213[1U];
-        __Vtemp217[2U] = __Vtemp215[2U];
-        __Vtemp217[3U] = ((0x3ffU & ((IData)((((QData)((IData)(vlTOPp->top_sim__DOT__processor__DOT__wb_fwd2_mux_out)) 
+        __Vtemp791[1U] = __Vtemp787[1U];
+        __Vtemp791[2U] = __Vtemp789[2U];
+        __Vtemp791[3U] = ((0x3ffU & ((IData)((((QData)((IData)(vlTOPp->top_sim__DOT__processor__DOT__wb_fwd2_mux_out)) 
                                                << 0x20U) 
                                               | (QData)((IData)(vlTOPp->top_sim__DOT__processor__DOT__lui_result)))) 
                                      >> 0x16U)) | (0xfffffc00U 
@@ -1275,7 +1395,7 @@ void Vtop_sim::traceFullThis__1(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
                                                                 | (QData)((IData)(vlTOPp->top_sim__DOT__processor__DOT__lui_result))) 
                                                                >> 0x20U)) 
                                                       << 0xaU)));
-        __Vtemp217[4U] = ((0x7ff8000U & (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[5U] 
+        __Vtemp791[4U] = ((0x7ff8000U & (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[5U] 
                                          << 9U)) | 
                           ((0x7c00U & ((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[5U] 
                                         << 0x13U) | 
@@ -1287,28 +1407,28 @@ void Vtop_sim::traceFullThis__1(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
                                                   | (QData)((IData)(vlTOPp->top_sim__DOT__processor__DOT__lui_result))) 
                                                  >> 0x20U)) 
                                         >> 0x16U))));
-        vcdp->fullArray(c+1601,(__Vtemp217),155);
-        vcdp->fullBus(c+1641,((0x3fffU & vlTOPp->top_sim__DOT__processor__DOT__lui_result)),14);
-        vcdp->fullBus(c+1649,(vlTOPp->top_sim__DOT__processor__DOT__wb_fwd2_mux_out),32);
-        vcdp->fullBus(c+1657,(vlTOPp->top_sim__DOT__processor__DOT__lui_result),32);
-        vcdp->fullBus(c+1665,(vlTOPp->top_sim__DOT__processor__DOT__alu_mux_out),32);
-        vcdp->fullBit(c+1673,(vlTOPp->top_sim__DOT__processor__DOT__alu_branch_enable));
-        vcdp->fullBus(c+1681,(vlTOPp->top_sim__DOT__processor__DOT__alu_result),32);
-        vcdp->fullBus(c+1689,(vlTOPp->top_sim__DOT__processor__DOT__reg_dat_mux_out),32);
-        vcdp->fullBus(c+1697,(vlTOPp->top_sim__DOT__processor__DOT__wb_fwd1_mux_out),32);
-        vcdp->fullBus(c+1705,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_sign_mask),4);
-        vcdp->fullBit(c+1713,((1U & ((~ ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_sign_mask) 
+        vcdp->fullArray(c+1889,(__Vtemp791),155);
+        vcdp->fullBus(c+1929,((0x3fffU & vlTOPp->top_sim__DOT__processor__DOT__lui_result)),14);
+        vcdp->fullBus(c+1937,(vlTOPp->top_sim__DOT__processor__DOT__wb_fwd2_mux_out),32);
+        vcdp->fullBus(c+1945,(vlTOPp->top_sim__DOT__processor__DOT__lui_result),32);
+        vcdp->fullBus(c+1953,(vlTOPp->top_sim__DOT__processor__DOT__alu_mux_out),32);
+        vcdp->fullBit(c+1961,(vlTOPp->top_sim__DOT__processor__DOT__alu_branch_enable));
+        vcdp->fullBus(c+1969,(vlTOPp->top_sim__DOT__processor__DOT__alu_result),32);
+        vcdp->fullBus(c+1977,(vlTOPp->top_sim__DOT__processor__DOT__reg_dat_mux_out),32);
+        vcdp->fullBus(c+1985,(vlTOPp->top_sim__DOT__processor__DOT__wb_fwd1_mux_out),32);
+        vcdp->fullBus(c+1993,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_sign_mask),4);
+        vcdp->fullBit(c+2001,((1U & ((~ ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_sign_mask) 
                                          >> 2U)) & 
                                      ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_sign_mask) 
                                       >> 1U)))));
-        vcdp->fullBit(c+1721,((1U & ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_sign_mask) 
+        vcdp->fullBit(c+2009,((1U & ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_sign_mask) 
                                      >> 2U))));
-        vcdp->fullBit(c+1729,((1U & ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_sign_mask) 
+        vcdp->fullBit(c+2017,((1U & ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_sign_mask) 
                                      >> 1U))));
-        vcdp->fullBus(c+1737,(((4U & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_sign_mask))
+        vcdp->fullBus(c+2025,(((4U & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_sign_mask))
                                 ? vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_write_data
                                 : vlTOPp->top_sim__DOT__data_mem_inst__DOT__write_out1)),32);
-        vcdp->fullBus(c+1745,(((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__select0)
+        vcdp->fullBus(c+2033,(((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__select0)
                                 ? ((8U & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_sign_mask))
                                     ? ((0xffffff00U 
                                         & (VL_NEGATE_I((IData)(
@@ -1329,7 +1449,7 @@ void Vtop_sim::traceFullThis__1(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
                                            << 8U)) 
                                        | (0xffU & vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word))
                                     : (0xffU & vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word)))),32);
-        vcdp->fullBus(c+1753,(((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__select0)
+        vcdp->fullBus(c+2041,(((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__select0)
                                 ? ((8U & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_sign_mask))
                                     ? ((0xffffff00U 
                                         & (VL_NEGATE_I((IData)(
@@ -1352,7 +1472,7 @@ void Vtop_sim::traceFullThis__1(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
                                                    >> 0x10U)))
                                     : (0xffU & (vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word 
                                                 >> 0x10U))))),32);
-        vcdp->fullBus(c+1761,(((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__select0)
+        vcdp->fullBus(c+2049,(((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__select0)
                                 ? ((8U & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_sign_mask))
                                     ? ((0xffff0000U 
                                         & (VL_NEGATE_I((IData)(
@@ -1376,7 +1496,7 @@ void Vtop_sim::traceFullThis__1(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
                                            << 0x10U)) 
                                        | (0xffffU & vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word))
                                     : (0xffffU & vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word)))),32);
-        vcdp->fullBus(c+1769,(((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__select1)
+        vcdp->fullBus(c+2057,(((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__select1)
                                 ? ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__select0)
                                     ? ((8U & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_sign_mask))
                                         ? ((0xffffff00U 
@@ -1428,7 +1548,7 @@ void Vtop_sim::traceFullThis__1(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
                                            | (0xffU 
                                               & vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word))
                                         : (0xffU & vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word))))),32);
-        vcdp->fullBus(c+1777,(((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__select1)
+        vcdp->fullBus(c+2065,(((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__select1)
                                 ? vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word
                                 : ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__select0)
                                     ? ((8U & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_sign_mask))
@@ -1458,128 +1578,157 @@ void Vtop_sim::traceFullThis__1(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
                                               & vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word))
                                         : (0xffffU 
                                            & vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word))))),32);
-        vcdp->fullBus(c+1785,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__accessed_line_data_unpacked
+        vcdp->fullBus(c+2073,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__accessed_line_data_unpacked
                               [0U]),32);
-        vcdp->fullBus(c+1793,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word),32);
-        vcdp->fullBus(c+1801,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__read_buf),32);
-        vcdp->fullBus(c+1809,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_write_data),32);
-        vcdp->fullBus(c+1817,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address),14);
-        vcdp->fullBus(c+1825,((0x3ffU & ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
+        vcdp->fullBus(c+2081,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word),32);
+        vcdp->fullBus(c+2089,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__read_buf),32);
+        vcdp->fullBus(c+2097,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_write_data),32);
+        vcdp->fullBus(c+2105,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address),14);
+        vcdp->fullBus(c+2113,((0x3ffU & ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
                                          >> 2U))),10);
-        vcdp->fullBus(c+1833,((3U & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address))),2);
-        vcdp->fullBus(c+1841,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_write_data),32);
-        vcdp->fullBit(c+1849,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_write));
-        vcdp->fullBit(c+1857,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_read));
-        vcdp->fullBus(c+1865,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_addr_match),2);
-        vcdp->fullBit(c+1873,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__accessed_line_age));
-        vcdp->fullBus(c+1881,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__accessed_line_data),32);
-        vcdp->fullBus(c+1889,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__accessed_line_stored_addr),12);
-        vcdp->fullBus(c+1897,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__accessed_line_data_unpacked[0]),32);
-        vcdp->fullBus(c+1905,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_selection),2);
-        vcdp->fullBus(c+1913,((0xffU & vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word)),8);
-        vcdp->fullBus(c+1921,((0xffU & (vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word 
+        vcdp->fullBus(c+2121,((3U & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address))),2);
+        vcdp->fullBus(c+2129,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_write_data),32);
+        vcdp->fullBit(c+2137,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_write));
+        vcdp->fullBit(c+2145,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_read));
+        vcdp->fullBus(c+2153,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_addr_match),8);
+        vcdp->fullBus(c+2161,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__accessed_line_age),3);
+        vcdp->fullBus(c+2169,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__accessed_line_data),32);
+        vcdp->fullBus(c+2177,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__accessed_line_stored_addr),12);
+        vcdp->fullBus(c+2185,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__accessed_line_data_unpacked[0]),32);
+        vcdp->fullBus(c+2193,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_selection),8);
+        vcdp->fullBus(c+2201,((0xffU & vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word)),8);
+        vcdp->fullBus(c+2209,((0xffU & (vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word 
                                         >> 8U))),8);
-        vcdp->fullBus(c+1929,((0xffU & (vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word 
+        vcdp->fullBus(c+2217,((0xffU & (vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word 
                                         >> 0x10U))),8);
-        vcdp->fullBus(c+1937,((0xffU & (vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word 
+        vcdp->fullBus(c+2225,((0xffU & (vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word 
                                         >> 0x18U))),8);
-        vcdp->fullBit(c+1945,((1U & ((~ ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
+        vcdp->fullBit(c+2233,((1U & ((~ ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
                                          >> 1U)) & 
                                      (~ (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address))))));
-        vcdp->fullBit(c+1953,((1U & ((~ ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
+        vcdp->fullBit(c+2241,((1U & ((~ ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
                                          >> 1U)) & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address)))));
-        vcdp->fullBit(c+1961,((1U & (((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
+        vcdp->fullBit(c+2249,((1U & (((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
                                       >> 1U) & (~ (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address))))));
-        vcdp->fullBit(c+1969,((1U & (((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
+        vcdp->fullBit(c+2257,((1U & (((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
                                       >> 1U) & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address)))));
-        vcdp->fullBus(c+1977,((0xffU & ((1U & ((~ ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
+        vcdp->fullBus(c+2265,((0xffU & ((1U & ((~ ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
                                                    >> 1U)) 
                                                & (~ (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address))))
                                          ? vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_write_data
                                          : vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word))),8);
-        vcdp->fullBus(c+1985,((0xffU & ((1U & ((~ ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
+        vcdp->fullBus(c+2273,((0xffU & ((1U & ((~ ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
                                                    >> 1U)) 
                                                & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address)))
                                          ? vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_write_data
                                          : (vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word 
                                             >> 8U)))),8);
-        vcdp->fullBus(c+1993,((0xffU & ((1U & (((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
+        vcdp->fullBus(c+2281,((0xffU & ((1U & (((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
                                                 >> 1U) 
                                                & (~ (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address))))
                                          ? vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_write_data
                                          : (vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word 
                                             >> 0x10U)))),8);
-        vcdp->fullBus(c+2001,((0xffU & ((1U & (((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
+        vcdp->fullBus(c+2289,((0xffU & ((1U & (((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
                                                 >> 1U) 
                                                & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address)))
                                          ? vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_write_data
                                          : (vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word 
                                             >> 0x18U)))),8);
-        vcdp->fullBus(c+2009,((0xffffU & ((2U & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address))
+        vcdp->fullBus(c+2297,((0xffffU & ((2U & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address))
                                            ? vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word
                                            : vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_write_data))),16);
-        vcdp->fullBus(c+2017,((0xffffU & ((2U & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address))
+        vcdp->fullBus(c+2305,((0xffffU & ((2U & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address))
                                            ? vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_write_data
                                            : (vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word 
                                               >> 0x10U)))),16);
-        vcdp->fullBus(c+2025,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__write_out1),32);
-        vcdp->fullBit(c+2033,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__select0));
-        vcdp->fullBit(c+2041,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__select1));
-        vcdp->fullBus(c+2049,((0x3ffU & ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
+        vcdp->fullBus(c+2313,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__write_out1),32);
+        vcdp->fullBit(c+2321,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__select0));
+        vcdp->fullBit(c+2329,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__select1));
+        vcdp->fullBus(c+2337,((0x3ffU & ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
                                          >> 2U))),14);
-        vcdp->fullBus(c+2057,((0x3fffU & ((0x3ffU & 
+        vcdp->fullBus(c+2345,((0x3fffU & ((0x3ffU & 
                                            ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
                                             >> 2U)) 
                                           - (IData)(0x1000U)))),14);
-        vcdp->fullBit(c+2065,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__0__KET____DOT__cache_line_instance__addr_match));
-        vcdp->fullBit(c+2073,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__genblk1__BRA__0__KET____DOT__cache_line_instance__DOT__addr_match_dirty_flush));
-        vcdp->fullBit(c+2081,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__1__KET____DOT__cache_line_instance__addr_match));
-        vcdp->fullBit(c+2089,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__genblk1__BRA__1__KET____DOT__cache_line_instance__DOT__addr_match_dirty_flush));
-        vcdp->fullBus(c+2097,(((((vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__wrAddr_buf 
+        vcdp->fullBit(c+2353,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__0__KET____DOT__cache_line_instance__addr_match));
+        vcdp->fullBit(c+2361,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__genblk1__BRA__0__KET____DOT__cache_line_instance__DOT__addr_match_dirty_flush));
+        vcdp->fullBit(c+2369,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__1__KET____DOT__cache_line_instance__addr_match));
+        vcdp->fullBit(c+2377,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__genblk1__BRA__1__KET____DOT__cache_line_instance__DOT__addr_match_dirty_flush));
+        vcdp->fullBit(c+2385,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__2__KET____DOT__cache_line_instance__addr_match));
+        vcdp->fullBit(c+2393,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__genblk1__BRA__2__KET____DOT__cache_line_instance__DOT__addr_match_dirty_flush));
+        vcdp->fullBit(c+2401,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__3__KET____DOT__cache_line_instance__addr_match));
+        vcdp->fullBit(c+2409,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__genblk1__BRA__3__KET____DOT__cache_line_instance__DOT__addr_match_dirty_flush));
+        vcdp->fullBit(c+2417,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__4__KET____DOT__cache_line_instance__addr_match));
+        vcdp->fullBit(c+2425,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__genblk1__BRA__4__KET____DOT__cache_line_instance__DOT__addr_match_dirty_flush));
+        vcdp->fullBit(c+2433,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__5__KET____DOT__cache_line_instance__addr_match));
+        vcdp->fullBit(c+2441,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__genblk1__BRA__5__KET____DOT__cache_line_instance__DOT__addr_match_dirty_flush));
+        vcdp->fullBit(c+2449,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__6__KET____DOT__cache_line_instance__addr_match));
+        vcdp->fullBit(c+2457,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__genblk1__BRA__6__KET____DOT__cache_line_instance__DOT__addr_match_dirty_flush));
+        vcdp->fullBit(c+2465,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__7__KET____DOT__cache_line_instance__addr_match));
+        vcdp->fullBit(c+2473,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__genblk1__BRA__7__KET____DOT__cache_line_instance__DOT__addr_match_dirty_flush));
+        vcdp->fullBus(c+2481,(((((vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__wrAddr_buf 
                                   == (IData)(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__rdAddrA_buf)) 
                                  & (IData)(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__write_buf)) 
                                 & (0U != vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__wrAddr_buf))
                                 ? vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__wrData_buf
                                 : vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__regDatA)),32);
-        vcdp->fullBus(c+2105,(((((vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__wrAddr_buf 
+        vcdp->fullBus(c+2489,(((((vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__wrAddr_buf 
                                   == (IData)(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__rdAddrB_buf)) 
                                  & (IData)(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__write_buf)) 
                                 & (0U != vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__wrAddr_buf))
                                 ? vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__wrData_buf
                                 : vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__regDatB)),32);
-        vcdp->fullBus(c+2113,(vlTOPp->top_sim__DOT__processor__DOT__rdValOut_CSR),32);
-        vcdp->fullBus(c+2121,(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__rdAddrA_buf),5);
-        vcdp->fullBus(c+2129,(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__rdAddrB_buf),5);
-        vcdp->fullBus(c+2137,(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__regDatA),32);
-        vcdp->fullBus(c+2145,(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__regDatB),32);
-        vcdp->fullBus(c+2153,(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__wrAddr_buf),32);
-        vcdp->fullBus(c+2161,(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__wrData_buf),32);
-        vcdp->fullBit(c+2169,(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__write_buf));
-        vcdp->fullBit(c+2177,(vlTOPp->top_sim__DOT__clk_delayed));
-        vcdp->fullBus(c+2185,(vlTOPp->top_sim__DOT__data_out),32);
-        vcdp->fullBus(c+2193,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__read_data_before_delay),32);
-        vcdp->fullBus(c+2201,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__led_reg),32);
-        vcdp->fullBit(c+2209,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__memread_buf));
-        vcdp->fullBit(c+2217,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__memwrite_buf));
-        vcdp->fullBus(c+2225,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__write_data_buffer),32);
-        vcdp->fullBus(c+2233,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__addr_buf),14);
-        vcdp->fullBus(c+2241,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__sign_mask_buf),4);
-        vcdp->fullBus(c+2249,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_from_memory),32);
-        vcdp->fullBus(c+2257,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_from_memory_extra),32);
-        vcdp->fullBus(c+2265,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__0__KET____DOT__cache_line_instance__data),32);
-        vcdp->fullBus(c+2273,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__0__KET____DOT__cache_line_instance__stored_addr),12);
-        vcdp->fullBus(c+2281,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__1__KET____DOT__cache_line_instance__data),32);
-        vcdp->fullBus(c+2289,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__1__KET____DOT__cache_line_instance__stored_addr),12);
-        vcdp->fullBit(c+2297,(vlTOPp->clk));
-        vcdp->fullBus(c+2305,(vlTOPp->led),8);
-        vcdp->fullBus(c+2313,(4U),32);
-        vcdp->fullBus(c+2321,(0U),32);
-        vcdp->fullBus(c+2329,(vlTOPp->top_sim__DOT__processor__DOT__alu_main__DOT__add_output),32);
-        vcdp->fullBus(c+2337,(vlTOPp->top_sim__DOT__processor__DOT__alu_main__DOT__sub_output),32);
-        vcdp->fullBus(c+2345,(0U),32);
-        vcdp->fullBus(c+2353,(1U),32);
-        vcdp->fullBus(c+2361,(2U),32);
-        vcdp->fullBus(c+2369,(3U),32);
-        vcdp->fullBus(c+2377,(1U),32);
+        vcdp->fullBus(c+2497,(vlTOPp->top_sim__DOT__processor__DOT__rdValOut_CSR),32);
+        vcdp->fullBus(c+2505,(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__rdAddrA_buf),5);
+        vcdp->fullBus(c+2513,(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__rdAddrB_buf),5);
+        vcdp->fullBus(c+2521,(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__regDatA),32);
+        vcdp->fullBus(c+2529,(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__regDatB),32);
+        vcdp->fullBus(c+2537,(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__wrAddr_buf),32);
+        vcdp->fullBus(c+2545,(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__wrData_buf),32);
+        vcdp->fullBit(c+2553,(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__write_buf));
+        vcdp->fullBit(c+2561,(vlTOPp->top_sim__DOT__clk_delayed));
+        vcdp->fullBus(c+2569,(vlTOPp->top_sim__DOT__data_out),32);
+        vcdp->fullBus(c+2577,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__read_data_before_delay),32);
+        vcdp->fullBus(c+2585,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__led_reg),32);
+        vcdp->fullBit(c+2593,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__memread_buf));
+        vcdp->fullBit(c+2601,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__memwrite_buf));
+        vcdp->fullBus(c+2609,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__write_data_buffer),32);
+        vcdp->fullBus(c+2617,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__addr_buf),14);
+        vcdp->fullBus(c+2625,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__sign_mask_buf),4);
+        vcdp->fullBus(c+2633,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_from_memory),32);
+        vcdp->fullBus(c+2641,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_from_memory_extra),32);
+        vcdp->fullBus(c+2649,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__0__KET____DOT__cache_line_instance__data),32);
+        vcdp->fullBus(c+2657,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__0__KET____DOT__cache_line_instance__stored_addr),12);
+        vcdp->fullBus(c+2665,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__1__KET____DOT__cache_line_instance__data),32);
+        vcdp->fullBus(c+2673,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__1__KET____DOT__cache_line_instance__stored_addr),12);
+        vcdp->fullBus(c+2681,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__2__KET____DOT__cache_line_instance__data),32);
+        vcdp->fullBus(c+2689,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__2__KET____DOT__cache_line_instance__stored_addr),12);
+        vcdp->fullBus(c+2697,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__3__KET____DOT__cache_line_instance__data),32);
+        vcdp->fullBus(c+2705,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__3__KET____DOT__cache_line_instance__stored_addr),12);
+        vcdp->fullBus(c+2713,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__4__KET____DOT__cache_line_instance__data),32);
+        vcdp->fullBus(c+2721,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__4__KET____DOT__cache_line_instance__stored_addr),12);
+        vcdp->fullBus(c+2729,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__5__KET____DOT__cache_line_instance__data),32);
+        vcdp->fullBus(c+2737,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__5__KET____DOT__cache_line_instance__stored_addr),12);
+        vcdp->fullBus(c+2745,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__6__KET____DOT__cache_line_instance__data),32);
+        vcdp->fullBus(c+2753,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__6__KET____DOT__cache_line_instance__stored_addr),12);
+        vcdp->fullBus(c+2761,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__7__KET____DOT__cache_line_instance__data),32);
+        vcdp->fullBus(c+2769,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__7__KET____DOT__cache_line_instance__stored_addr),12);
+        vcdp->fullBit(c+2777,(vlTOPp->clk));
+        vcdp->fullBus(c+2785,(vlTOPp->led),8);
+        vcdp->fullBus(c+2793,(4U),32);
+        vcdp->fullBus(c+2801,(0U),32);
+        vcdp->fullBus(c+2809,(vlTOPp->top_sim__DOT__processor__DOT__alu_main__DOT__add_output),32);
+        vcdp->fullBus(c+2817,(vlTOPp->top_sim__DOT__processor__DOT__alu_main__DOT__sub_output),32);
+        vcdp->fullBus(c+2825,(0U),32);
+        vcdp->fullBus(c+2833,(1U),32);
+        vcdp->fullBus(c+2841,(2U),32);
+        vcdp->fullBus(c+2849,(3U),32);
+        vcdp->fullBus(c+2857,(1U),32);
+        vcdp->fullBus(c+2865,(2U),32);
+        vcdp->fullBus(c+2873,(3U),32);
+        vcdp->fullBus(c+2881,(5U),32);
+        vcdp->fullBus(c+2889,(6U),32);
+        vcdp->fullBus(c+2897,(7U),32);
     }
 }

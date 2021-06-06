@@ -10,7 +10,7 @@
 
 enum
 {
-    kSimulationCycles = 3000000,
+    kSimulationCycles = 1000,
 };
 vluint64_t vtime = 0;
 bool clk = false;

@@ -75,6 +75,10 @@ module leftshift_dsp_tb();
 		input2 <= 5'h1A; // 26
 		#period
 
+		input1 <= 32'h616D2065; //maximum value of A
+		input2 <= 5'h05; // 31 (maximum logical left shift)
+		#period
+
 		input1 <= 32'hFFFFFFFF; //maximum value of A
 		input2 <= 5'h1F; // 31 (maximum logical left shift)
 		#period

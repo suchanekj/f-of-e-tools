@@ -32,14 +32,18 @@
 `define USE_CACHE_MEMORY // the above has to be used too - might not work at 12MHz yet
 
 // Only works for the settings below - one cache line containing one word
-//`define MULTIPLE_CACHE_LINES
+`define MULTIPLE_CACHE_LINES
 //`define MULTIPLE_WORDS_PER_LINE
-`define CACHE_DELAY_OUTPUT
+//`define CACHE_DELAY_OUTPUT
+
+`define CACHE_READ_IN_ONE_CYCLE  // needs to be defined iff either is defined below
+`define CACHE_READ_BUFFER_AT_NEGEDGE
+//`define CACHE_READ_BUFFER_AT_DOUBLE_CLOCK
 
 `define CACHE_LINE_MAX_BIT 31
 `define CACHE_LINE_SIZE_WORDS 1
 `define CACHE_LINE_SIZE_BYTES_LOG 2
-`define CACHE_LINE_NUMBER 1
-`define CACHE_LINE_NUMBER_LOG 0
+`define CACHE_LINE_NUMBER 4
+`define CACHE_LINE_NUMBER_LOG 2
 
 `define MEMORY_SIZE_LINES 1023

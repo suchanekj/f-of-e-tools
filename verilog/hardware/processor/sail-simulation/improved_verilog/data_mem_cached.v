@@ -47,9 +47,10 @@ module cache_line (clk, addr, write_data, memwrite, memread, age_of_accessed, da
 endmodule
 
 
-module data_mem_cached (clk, clk_delayed, addr, write_data, memwrite, memread, sign_mask, read_data, led, clk_stall);
+module data_mem_cached (clk, clk_delayed, clk_double, addr, write_data, memwrite, memread, sign_mask, read_data, led, clk_stall);
 	input			clk;
 	input			clk_delayed;
+	input			clk_double;
 	/* 
 	addr is used only to assign bits to addr_buff, which in turn assigns bits to addr_buf_block_addr and addr_buf_byte_offset
 	which require bits 11 to 0 only. Instruction memory substraction in FSM is unaffected by reducing address size bus.
@@ -438,10 +439,11 @@ module data_mem_cached (clk, clk_delayed, addr, write_data, memwrite, memread, s
 				end
 			end
 			ACCESS_MEMORY: begin
+				/*
 				if (!accessed_line_dirty) begin
-					// doesn't use defines properly !!!!!!!!!!!!!!!!!
 					data_block[accessed_line_stored_addr[9:`CACHE_LINE_SIZE_BYTES_LOG - 2] - 32'h1000] <= accessed_line_data;
 				end
+				*/
 				cache_line_from_memory <= data_block[current_address[11:`CACHE_LINE_SIZE_BYTES_LOG] - 32'h1000];
 				cache_line_from_memory_extra <= data_block[addr_buf_block_addr - 32'h1000];
 				state <= UPDATE_CACHE;
@@ -452,6 +454,23 @@ module data_mem_cached (clk, clk_delayed, addr, write_data, memwrite, memread, s
 				read_data_before_delay <= read_buf;
 			end
 		endcase
+	end
+	
+	always @(posedge clk_double) begin
+		if (state == ACCESS_MEMORY && clk_delayed == 1'b1) begin
+			if (!accessed_line_dirty) begin
+				data_block[accessed_line_stored_addr[9:`CACHE_LINE_SIZE_BYTES_LOG - 2] - 32'h1000] <= accessed_line_data;
+			end
+		end
+		/*
+		if (state == UPDATE_CACHE && clk_delayed == 1'b1) begin
+			if (!accessed_line_dirty) begin
+				data_block[accessed_line_stored_addr[9:`CACHE_LINE_SIZE_BYTES_LOG - 2] - 32'h1000] <= accessed_line_data;
+			end
+			cache_line_from_memory <= data_block[current_address[11:`CACHE_LINE_SIZE_BYTES_LOG] - 32'h1000];
+			cache_line_from_memory_extra <= data_block[addr_buf_block_addr - 32'h1000];
+		end
+		*/
 	end
 	
 	always @(posedge clk_delayed) begin

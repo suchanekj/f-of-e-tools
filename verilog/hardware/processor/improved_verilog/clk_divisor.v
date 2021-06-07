@@ -1,6 +1,13 @@
 
-module clk_divisor(clk_hf, clk);
+module clk_divisor(clk_hf,
+		`ifdef CACHE_READ_BUFFER_AT_DOUBLE_CLOCK
+			clk_double,
+		`endif
+		clk);
 	input clk_hf;
+	`ifdef CACHE_READ_BUFFER_AT_DOUBLE_CLOCK
+		output clk_double;
+	`endif
 	output clk;
 	
 	reg[`CLK_DIV_REG-1:0] divider_regs;
@@ -17,4 +24,8 @@ module clk_divisor(clk_hf, clk);
 		end
 	end
 	assign clk = clk_mf[`CLK_DIV_REG ];
+	
+	`ifdef CACHE_READ_BUFFER_AT_DOUBLE_CLOCK
+		assign clk_double = clk_mf[`CLK_DIV_REG - 1];
+	`endif
 endmodule

@@ -50,8 +50,12 @@ module top (led);
 	
 	wire		clk;
 	
-	wire clk_hf;
-	wire clk_pre_div;
+	wire 		clk_hf;
+	wire 		clk_pre_div;
+	
+	`ifdef CACHE_READ_BUFFER_AT_DOUBLE_CLOCK
+		wire	clk_double;
+	`endif
 	
 	/*
 	 *	Use the iCE40's hard primitive for the clock source.
@@ -60,7 +64,7 @@ module top (led);
 		reg		ENCLKHF		= 1'b1;	// Plock enable
 		reg		CLKHF_POWERUP	= 1'b1;	// Power up the HFOSC circuit
 		
-		SB_HFOSC #(.CLKHF_DIV(CLK_BASE_DIV)) OSCInst0 (
+		SB_HFOSC #(.CLKHF_DIV(`CLK_BASE_DIV)) OSCInst0 (
 			.CLKHFEN(ENCLKHF),
 			.CLKHFPU(CLKHF_POWERUP),
 			.CLKHF(clk_hf)
@@ -88,6 +92,9 @@ module top (led);
 	`ifdef CLK_DIV_REG
 		clk_divisor clkdivider(
 			.clk_hf(clk_pre_div),
+			`ifdef CACHE_READ_BUFFER_AT_DOUBLE_CLOCK
+				.clk_double(clk_double),
+			`endif
 			.clk(clk)
 		);
 	`else
@@ -136,32 +143,25 @@ module top (led);
 			always @(posedge clk_hf) begin
 				clk_delayed <= clk;
 			end
-		
-			data_mem_cached data_mem_inst(
-				.clk(clk),
-				.clk_delayed(clk_delayed),
-				.addr(data_addr),
-				.write_data(data_WrData),
-				.memwrite(data_memwrite), 
-				.memread(data_memread), 
-				.read_data(data_out),
-				.sign_mask(data_sign_mask),
-				.led(led),
-				.clk_stall(data_clk_stall)
-			);
-		`else
-			data_mem_cached data_mem_inst(
-				.clk(clk),
-				.addr(data_addr),
-				.write_data(data_WrData),
-				.memwrite(data_memwrite), 
-				.memread(data_memread), 
-				.read_data(data_out),
-				.sign_mask(data_sign_mask),
-				.led(led),
-				.clk_stall(data_clk_stall)
-			);
 		`endif
+		
+		data_mem_cached data_mem_inst(
+			.clk(clk),
+			`ifdef CACHE_DELAY_OUTPUT
+				.clk_delayed(clk_delayed),
+			`endif
+			`ifdef CACHE_READ_BUFFER_AT_DOUBLE_CLOCK
+				.clk_double(clk_double),
+			`endif
+			.addr(data_addr),
+			.write_data(data_WrData),
+			.memwrite(data_memwrite), 
+			.memread(data_memread), 
+			.read_data(data_out),
+			.sign_mask(data_sign_mask),
+			.led(led),
+			.clk_stall(data_clk_stall)
+		);
 
 	`else
 		data_mem data_mem_inst(

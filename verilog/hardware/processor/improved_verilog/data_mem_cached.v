@@ -64,14 +64,20 @@ module cache_line (clk, addr, write_data, memwrite, memread, data, stored_addr, 
 	end
 endmodule
 
+module data_mem_cached (clk,
 `ifdef CACHE_DELAY_OUTPUT
-module data_mem_cached (clk, clk_delayed, addr, write_data, memwrite, memread, sign_mask, read_data, led, clk_stall);
-`else
-module data_mem_cached (clk, addr, write_data, memwrite, memread, sign_mask, read_data, led, clk_stall);
+		clk_delayed,
 `endif
+`ifdef CACHE_READ_BUFFER_AT_DOUBLE_CLOCK
+		clk_double,
+`endif
+		addr, write_data, memwrite, memread, sign_mask, read_data, led, clk_stall);
 	input			clk;
 	`ifdef CACHE_DELAY_OUTPUT
 		input			clk_delayed;
+	`endif
+	`ifdef CACHE_READ_BUFFER_AT_DOUBLE_CLOCK
+		input			clk_double;
 	`endif
 	/* 
 	addr is used only to assign bits to addr_buff, which in turn assigns bits to addr_buf_block_addr and addr_buf_byte_offset
@@ -490,19 +496,24 @@ module data_mem_cached (clk, addr, write_data, memwrite, memread, sign_mask, rea
 						`endif
 					end
 					else begin
-						state <= ACCESS_MEMORY;
+						`ifndef CACHE_READ_IN_ONE_CYCLE
+							state <= ACCESS_MEMORY;
+						`else
+							state <= UPDATE_CACHE;
+						`endif
 						clk_stall <= 1;
 					end
 				end
 			end
+			`ifndef CACHE_READ_IN_ONE_CYCLE
 			ACCESS_MEMORY: begin
 				if (!accessed_line_dirty) begin
-					// doesn't use defines properly !!!!!!!!!!!!!!!!!
 					data_block[accessed_line_stored_addr[9:`CACHE_LINE_SIZE_BYTES_LOG - 2] - 32'h1000] <= accessed_line_data;
 				end
 				cache_line_from_memory <= data_block[current_address[11:`CACHE_LINE_SIZE_BYTES_LOG] - 32'h1000];
 				state <= UPDATE_CACHE;
 			end
+			`endif
 			UPDATE_CACHE: begin
 				clk_stall <= 0;
 				state <= IN_CACHE;
@@ -514,6 +525,27 @@ module data_mem_cached (clk, addr, write_data, memwrite, memread, sign_mask, rea
 			end
 		endcase
 	end
+	
+	`ifdef CACHE_READ_IN_ONE_CYCLE
+		`ifdef CACHE_READ_BUFFER_AT_NEGEDGE
+		always @(posedge clk_double) begin
+			`ifdef CACHE_DELAY_OUTPUT
+			if (state == UPDATE_CACHE && clk_delayed == 1'b1) begin
+			`else
+			if (state == UPDATE_CACHE && clk == 1'b1) begin
+			`endif
+		`elsif CACHE_READ_BUFFER_AT_DOUBLE_CLOCK
+		always @(negedge clk) begin
+			if (state == UPDATE_CACHE) begin
+		`endif
+				if (!accessed_line_dirty) begin
+					data_block[accessed_line_stored_addr[9:`CACHE_LINE_SIZE_BYTES_LOG - 2] - 32'h1000] <= accessed_line_data;
+				end
+				cache_line_from_memory <= data_block[current_address[11:`CACHE_LINE_SIZE_BYTES_LOG] - 32'h1000];
+				cache_line_from_memory_extra <= data_block[addr_buf_block_addr - 32'h1000];
+			end
+		end
+	`endif
 	
 	`ifdef CACHE_DELAY_OUTPUT
 		always @(posedge clk_delayed) begin

@@ -112,8 +112,7 @@ module top (led);
 		.data_mem_sign_mask(data_sign_mask)
 	);
 
-	instruction_RAM3_mem inst_mem(
-		.clk(clk_proc),
+	instruction_memory inst_mem(
 		.addr(inst_in), 
 		.out(inst_out)
 	);

@@ -56,6 +56,7 @@ module cpu(
 	 *	Input Clock
 	 */
 	input clk;
+
 	/*
 	 *	instruction memory input
 	 */
@@ -66,7 +67,7 @@ module cpu(
 	 *	Data Memory
 	 */
 	input [31:0]		data_mem_out;
-	`ifdef `USE_SMALL_DATA_ADDR
+	`ifdef USE_SMALL_DATA_ADDR
 		// Reduction of bits to reflect changes in data_mem.v
 		output [13:0]		data_mem_addr; 
 	`else
@@ -197,17 +198,42 @@ module cpu(
 			.out(pc_in)
 		);
 
-	`ifdef USE_ADDER_DSP
+	`ifdef USE_COMBIADDER_DSP
+		adder_dsp_cpu combi_adder(
+			.input1a(16'b100),
+			.input2a(pc_out[15:0]),
+			.input1b(addr_adder_mux_out[15:0]),
+			.input2b(id_ex_out[123:108]),
+			.outa(pc_adder_out[15:0]),
+			.outb(addr_adder_sum[15:0])
+		);
+		
+	`elsif USE_ADDER_DSP
 		adder_dsp pc_adder(
 			.input1(32'b100),
 			.input2(pc_out),
+			.addsub(1'b0),
 			.out(pc_adder_out)
 		);
+
+		adder_dsp addr_adder(
+			.input1(addr_adder_mux_out),
+			.input2(id_ex_out[139:108]),
+			.addsub(1'b0),
+			.out(addr_adder_sum)
+		);
+
 	`else
 		adder pc_adder(
 			.input1(32'b100),
 			.input2(pc_out),
 			.out(pc_adder_out)
+		);
+
+		adder addr_adder(
+			.input1(addr_adder_mux_out),
+			.input2(id_ex_out[139:108]),
+			.out(addr_adder_sum)
 		);
 	`endif
 
@@ -354,20 +380,7 @@ module cpu(
 			.out(addr_adder_mux_out)
 		);
 
-	`ifdef USE_ADDER_DSP
-		adder_dsp addr_adder(
-			.input1(addr_adder_mux_out),
-			.input2(id_ex_out[139:108]),
-			.out(addr_adder_sum)
-		);
-	`else
-		adder addr_adder(
-			.input1(addr_adder_mux_out),
-			.input2(id_ex_out[139:108]),
-			.out(addr_adder_sum)
-		);
-	`endif
-	
+	// addr_adder used to be here
 
 	mux2to1 alu_mux(
 			.input0(wb_fwd2_mux_out),
@@ -580,7 +593,7 @@ module cpu(
 	assign inst_mem_in = pc_out;
 
 	//Data Memory Connections
-	`ifdef `USE_SMALL_DATA_ADDR
+	`ifdef USE_SMALL_DATA_ADDR
 		// Reduction in bits consistent with data_mem.v
 		assign data_mem_addr = lui_result[13:0];
 	`else

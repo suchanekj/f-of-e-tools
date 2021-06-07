@@ -1,40 +1,3 @@
-/*
-	Authored 2018-2019, Ryan Voo.
-
-	All rights reserved.
-	Redistribution and use in source and binary forms, with or without
-	modification, are permitted provided that the following conditions
-	are met:
-
-	*	Redistributions of source code must retain the above
-		copyright notice, this list of conditions and the following
-		disclaimer.
-
-	*	Redistributions in binary form must reproduce the above
-		copyright notice, this list of conditions and the following
-		disclaimer in the documentation and/or other materials
-		provided with the distribution.
-
-	*	Neither the name of the author nor the names of its
-		contributors may be used to endorse or promote products
-		derived from this software without specific prior written
-		permission.
-
-	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
-	FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
-	COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
-	INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
-	BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-	LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-	CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-	LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
-	ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-	POSSIBILITY OF SUCH DAMAGE.
-*/
-
-
 
 `include "../include/rv32i-defines.v"
 `include "../include/sail-core-defines.v"
@@ -67,7 +30,11 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 	reg [31:0] inputB1;
 	reg [31:0] inputA2;
 	reg [31:0] inputB2;
-	// reg addsub_in;
+	
+	wire addsub_in;
+	wire [31:0] add_input1;
+	wire [31:0] add_input2;
+	
 	reg [31:0] add_output;
 	reg [31:0] sub_output;
 	reg [31:0] andxor_output;
@@ -90,7 +57,7 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 		inputB1 = 0;
 		inputA2 = 0;
 		inputB2 = 0;
-		addsub_in = 1'b0;
+		//addsub_in = 1'b0;
 
 		ALUOut = 32'b0;
 		Branch_Enable = 1'b0;
@@ -98,29 +65,31 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 
 	`ifdef USE_ADDER_DSP
 		adder_dsp alu_adder(
-			.input1(inputA),
-			.input2(inputB),
-			.addsub(1'b0),
+			.input1(add_input1),
+			.input2(add_input2),
+			.addsub(addsub_in),
 			.out(add_output)
 		);
-	`endif 
-
-	`ifdef USE_SUBTRACTOR_DSP
-		subtractor_dsp alu_subtractor(
-			.input1(inputB),
-			.input2(inputA),
-			.out(sub_output)
-		);
+	`else
+		`ifdef USE_SUBTRACTOR_DSP
+			subtractor_dsp alu_subtractor(
+				.input1(inputB),
+				.input2(inputA),
+				.out(sub_output)
+			);
+		`endif 
 	`endif 
 
 	`ifdef USE_ANDXOR_DSP
 
-		adder_dsp alu_andxor1(
-			.input1(inputA1),
-			.input2(inputB1),
-			.addsub(1'b0),
-			.out(andxor_output1)
-		);
+		`ifndef USE_ADDER_DSP
+			adder_dsp alu_andxor1(
+				.input1(inputA1),
+				.input2(inputB1),
+				.addsub(1'b0),
+				.out(andxor_output1)
+			);
+		`endif 
 
 		adder_dsp alu_andxor2(
 			.input1(inputA2),
@@ -129,6 +98,17 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 			.out(andxor_output2)
 		);
 	`endif 
+	
+	assign addsub_in = ALUctl[3:0] == `kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SUB;
+	
+	`ifdef USE_ANDXOR_DSP
+		assign add_input1 = (ALUctl[3:0] == `kSAIL_MICROARCHITECTURE_ALUCTL_3to0_AND || ALUctl[3:0] == `kSAIL_MICROARCHITECTURE_ALUCTL_3to0_XOR) ? inputA1 : inputB;
+		
+		assign add_input2 = (ALUctl[3:0] == `kSAIL_MICROARCHITECTURE_ALUCTL_3to0_AND || ALUctl[3:0] == `kSAIL_MICROARCHITECTURE_ALUCTL_3to0_XOR) ? inputB1 : inputA;
+	`else
+		assign add_input1 = inputB;
+		assign add_input2 = inputA;
+	`endif
 	
 	always @(ALUctl, A, B) begin
 		
@@ -156,28 +136,19 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 			`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_AND:	begin
 			
 				`ifdef USE_ANDXOR_DSP
-					/*
-					addsub_in <= 1'b0;
-
-					for (i=0; i < 16; i = i + 1) begin
-						inputA[2*i] <= A[i];
-						inputB[2*i] <= B[i];
-					end
-
-					for (i=0; i < 16; i = i + 1) begin
-						inputA[2*i] <= A[i+16];
-						inputB[2*i] <= B[i+16];
-					end
-					*/
-					for (i=0; i < 16; i = i + 1) begin
-						ALUOut[i] = andxor_output1[2*i+1];
-					end
+					`ifdef USE_ADDER_DSP
+						for (i=0; i < 16; i = i + 1) begin
+							ALUOut[i] = add_output[2*i+1];
+						end
+					`else
+						for (i=0; i < 16; i = i + 1) begin
+							ALUOut[i] = andxor_output1[2*i+1];
+						end
+					`endif
 
 					for (i=0; i < 16; i = i + 1) begin
 						ALUOut[i+16] = andxor_output2[2*i+1];
 					end
-					
-					// ALUOut = and_output;
 				`else 
 					ALUOut = A & B;
 				`endif 
@@ -207,7 +178,11 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 				`ifdef USE_SUBTRACTOR_DSP
 					// addsub_in <= 1'b1;
 					// ALUOut = add_output;
-					ALUOut = sub_output;
+					`ifdef USE_ADDER_DSP
+						ALUOut = add_output;
+					`else 
+						ALUOut = sub_output;
+					`endif 
 				`else 
 					ALUOut = A - B;
 				`endif 
@@ -239,18 +214,22 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 			`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_XOR:	begin
 			
 				`ifdef USE_ANDXOR_DSP
-				
-					for (i=0; i < 16; i = i + 1) begin
-						ALUOut[i] = andxor_output1[2*i];
-					end
+					`ifdef USE_ADDER_DSP
+						for (i=0; i < 16; i = i + 1) begin
+							ALUOut[i] = add_output[2*i];
+						end
+					`else
+						for (i=0; i < 16; i = i + 1) begin
+							ALUOut[i] = andxor_output1[2*i];
+						end
+					`endif
 
 					for (i=0; i < 16; i = i + 1) begin
 						ALUOut[i+16] = andxor_output2[2*i];
 					end
-
-				`else 
+				`else
 					ALUOut = A ^ B;
-				`endif 
+				`endif
 			end
 			/*
 			 *	CSRRW  only

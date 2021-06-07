@@ -35,16 +35,10 @@
 */
 
 
-module branch_predictor_tb();
+module instruction_RAM_mem_tb();
 
-reg clk = 0;
-reg actual_branch_decision;
-reg branch_decode_sig;
-reg branch_mem_sig;
-reg [31:0] in_addr;
-reg [31:0] offset;
-wire [31:0] branch_addr;
-wire prediction;
+reg [31:0]		addr;
+wire [31:0]		out;
 /*
 wire [1:0] check0;
 wire [1:0] check1;
@@ -52,15 +46,9 @@ wire [1:0] check2;
 wire [1:0] check3;
 wire [1:0] check4;
 */
-branch_predictor bp(
-	.clk(clk),
-	.actual_branch_decision(actual_branch_decision),
-	.branch_decode_sig(branch_decode_sig),
-	.branch_mem_sig(branch_mem_sig),
-	.in_addr(in_addr),
-	.offset(offset),
-	.branch_addr(branch_addr),
-	.prediction(prediction)
+instruction_memory irm(
+	.addr(addr), 
+	.out(out)
 	/*
 	.check0(check0),
 	.check1(check1),
@@ -72,46 +60,44 @@ branch_predictor bp(
 localparam period = 2;  //2s
 
 //simulation
-always begin
-	#1 clk = ~clk;
-end
-always @(posedge clk) 
+initial begin
+	addr = 32'h0;
+end	
+always 
 begin
-	$dumpfile ("branch_predictor.vcd");
+	$dumpfile ("instruction_mem.vcd");
 	$dumpvars;
 
 	//write bytes
-	in_addr = 00000000000000000000000010000100;
-	offset = 32'b0;
-	branch_decode_sig = 1'b1;
-	branch_mem_sig = 1'b1;
+	addr = 32'h08;
 	#period;
-
-	actual_branch_decision = 1'b1; //Branch taken
+	addr = 32'h0C;
 
 	#period;
-	actual_branch_decision = 1'b0; //Branch not taken
+	addr = 32'h10;
 
 	#period;
-	actual_branch_decision = 1'b1;
+	addr = 32'h14;
 
 	#period;
-	actual_branch_decision = 1'b0;
-
-	#period;
-	actual_branch_decision = 1'b1;
+	addr = 32'h3DC;
 	#period;
 
-	actual_branch_decision = 1'b1;
+	addr = 32'h3E0;
 	#period;
 	
-	actual_branch_decision = 1'b0;
+	addr = 32'h3E4;
 	#period;
 
-	actual_branch_decision = 1'b1;
+	addr = 32'h3E8;
 	#period;
 	
-	actual_branch_decision = 1'b1;
+	addr = 32'h3EC;
+	#period;
+	addr = 32'h3F0;
+	#period;
+
+	addr = 32'h3F4;
 	#period;
 	$finish;
 

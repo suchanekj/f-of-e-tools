@@ -35,88 +35,53 @@
 */
 
 
-module branch_predictor_tb();
 
-reg clk = 0;
-reg actual_branch_decision;
-reg branch_decode_sig;
-reg branch_mem_sig;
-reg [31:0] in_addr;
-reg [31:0] offset;
-wire [31:0] branch_addr;
-wire prediction;
 /*
-wire [1:0] check0;
-wire [1:0] check1;
-wire [1:0] check2;
-wire [1:0] check3;
-wire [1:0] check4;
-*/
-branch_predictor bp(
-	.clk(clk),
-	.actual_branch_decision(actual_branch_decision),
-	.branch_decode_sig(branch_decode_sig),
-	.branch_mem_sig(branch_mem_sig),
-	.in_addr(in_addr),
-	.offset(offset),
-	.branch_addr(branch_addr),
-	.prediction(prediction)
-	/*
-	.check0(check0),
-	.check1(check1),
-	.check2(check2),
-	.check3(check3),
-	.check4(check4)
-	*/
-);
-localparam period = 2;  //2s
-
-//simulation
-always begin
-	#1 clk = ~clk;
-end
-always @(posedge clk) 
-begin
-	$dumpfile ("branch_predictor.vcd");
-	$dumpvars;
-
-	//write bytes
-	in_addr = 00000000000000000000000010000100;
-	offset = 32'b0;
-	branch_decode_sig = 1'b1;
-	branch_mem_sig = 1'b1;
-	#period;
-
-	actual_branch_decision = 1'b1; //Branch taken
-
-	#period;
-	actual_branch_decision = 1'b0; //Branch not taken
-
-	#period;
-	actual_branch_decision = 1'b1;
-
-	#period;
-	actual_branch_decision = 1'b0;
-
-	#period;
-	actual_branch_decision = 1'b1;
-	#period;
-
-	actual_branch_decision = 1'b1;
-	#period;
-	
-	actual_branch_decision = 1'b0;
-	#period;
-
-	actual_branch_decision = 1'b1;
-	#period;
-	
-	actual_branch_decision = 1'b1;
-	#period;
-	$finish;
-
-end
-
-endmodule
+ *	Description:
+ *
+ *		This module implements an left shift testbench to verify leftshift_dsp logic
+ */
 
 
+
+module leftshift_dsp_tb();
+	reg[31:0] 	input1;
+	reg[31:0] 	input2;
+	wire[31:0] 	out;
+
+	leftshift_dsp LSDSP(  
+		.input1(input1),
+		.input2(input2),
+		.out(out)
+	);
+	localparam period = 2; //2s
+	always begin
+		$dumpfile ("leftshift_dsp.vcd");
+		$dumpvars;
+
+		input1 <= 32'b0101; //5
+		input2 <= 5'h02; //2
+		#period;
+
+		input1 <= 32'b0001; //1
+		input2 <= 5'h04; //4
+		#period
+
+		input1 <= 32'b00011; //3
+		input2 <= 5'hF; //15
+		#period
+
+		input1 <= 32'hFABA; //64186
+		input2 <= 5'h1A; // 26
+		#period
+
+		input1 <= 32'h616D2065; //maximum value of A
+		input2 <= 5'h05; // 31 (maximum logical left shift)
+		#period
+
+		input1 <= 32'hFFFFFFFF; //maximum value of A
+		input2 <= 5'h1F; // 31 (maximum logical left shift)
+		#period
+		$finish;
+	end
+	endmodule

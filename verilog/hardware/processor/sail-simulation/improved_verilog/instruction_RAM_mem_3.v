@@ -54,7 +54,7 @@ module instruction_RAM3_mem(addr, out, clk);
 	 *	(Bad practice: The constant should be a `define).
 	 */
 	 
-	reg [31:0]		instruction_memory[0:2**10-1]; // Redefine memory size to fit into 30 SB_RAM40_4K modules
+	reg [31:0]		instruction_memory[0:2**10 - 1]; // Redefine memory size to fit into 30 SB_RAM40_4K modules (based on CSR)
 
 	/*
 	 *	According to the "iCE40 SPRAM Usage Guide" (TN1314 Version 1.0), page 5:
@@ -78,7 +78,7 @@ module instruction_RAM3_mem(addr, out, clk);
 	end
 
 	always @(posedge clk) begin
-    	out <= instruction_memory[addr >> 2]; // Make synchronous read to infer RAM
+    	out <= instruction_memory[addr>>2]; // Make synchronous read to infer RAM
   	end
 
 endmodule

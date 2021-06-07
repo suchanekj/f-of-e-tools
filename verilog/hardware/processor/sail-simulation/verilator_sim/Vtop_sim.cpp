@@ -2237,37 +2237,33 @@ VL_INLINE_OPT void Vtop_sim::_sequent__TOP__8(Vtop_sim__Syms* __restrict vlSymsp
             if (vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_addr_match) {
                 vlTOPp->top_sim__DOT__data_out = vlTOPp->top_sim__DOT__data_mem_inst__DOT__read_buf;
             } else {
-                __Vdly__top_sim__DOT__data_mem_inst__DOT__state = 1U;
+                __Vdly__top_sim__DOT__data_mem_inst__DOT__state = 2U;
+                vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_from_memory 
+                    = ((0x3feU >= (0x3ffU & ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
+                                             >> 2U)))
+                        ? vlTOPp->top_sim__DOT__data_mem_inst__DOT__data_block
+                       [(0x3ffU & ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
+                                   >> 2U))] : 0U);
                 vlTOPp->top_sim__DOT__data_clk_stall = 1U;
+                if ((0U == ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_selection) 
+                            & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_dirty)))) {
+                    vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vlvbound1 
+                        = vlTOPp->top_sim__DOT__data_mem_inst__DOT__accessed_line_data;
+                    if ((0x3feU >= (0x3ffU & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__accessed_line_stored_addr)))) {
+                        __Vdlyvval__top_sim__DOT__data_mem_inst__DOT__data_block__v0 
+                            = vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vlvbound1;
+                        __Vdlyvset__top_sim__DOT__data_mem_inst__DOT__data_block__v0 = 1U;
+                        __Vdlyvdim0__top_sim__DOT__data_mem_inst__DOT__data_block__v0 
+                            = (0x3ffU & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__accessed_line_stored_addr));
+                    }
+                }
             }
         }
     } else {
-        if ((1U == vlTOPp->top_sim__DOT__data_mem_inst__DOT__state)) {
-            vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_from_memory 
-                = ((0x3feU >= (0x3ffU & ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
-                                         >> 2U))) ? 
-                   vlTOPp->top_sim__DOT__data_mem_inst__DOT__data_block
-                   [(0x3ffU & ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
-                               >> 2U))] : 0U);
-            __Vdly__top_sim__DOT__data_mem_inst__DOT__state = 2U;
-            if ((0U == ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_selection) 
-                        & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_dirty)))) {
-                vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vlvbound1 
-                    = vlTOPp->top_sim__DOT__data_mem_inst__DOT__accessed_line_data;
-                if ((0x3feU >= (0x3ffU & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__accessed_line_stored_addr)))) {
-                    __Vdlyvval__top_sim__DOT__data_mem_inst__DOT__data_block__v0 
-                        = vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vlvbound1;
-                    __Vdlyvset__top_sim__DOT__data_mem_inst__DOT__data_block__v0 = 1U;
-                    __Vdlyvdim0__top_sim__DOT__data_mem_inst__DOT__data_block__v0 
-                        = (0x3ffU & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__accessed_line_stored_addr));
-                }
-            }
-        } else {
-            if ((2U == vlTOPp->top_sim__DOT__data_mem_inst__DOT__state)) {
-                vlTOPp->top_sim__DOT__data_clk_stall = 0U;
-                __Vdly__top_sim__DOT__data_mem_inst__DOT__state = 0U;
-                vlTOPp->top_sim__DOT__data_out = vlTOPp->top_sim__DOT__data_mem_inst__DOT__read_buf;
-            }
+        if ((2U == vlTOPp->top_sim__DOT__data_mem_inst__DOT__state)) {
+            vlTOPp->top_sim__DOT__data_clk_stall = 0U;
+            __Vdly__top_sim__DOT__data_mem_inst__DOT__state = 0U;
+            vlTOPp->top_sim__DOT__data_out = vlTOPp->top_sim__DOT__data_mem_inst__DOT__read_buf;
         }
     }
     if (__Vdlyvset__top_sim__DOT__data_mem_inst__DOT__data_block__v0) {

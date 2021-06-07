@@ -500,6 +500,12 @@ module data_mem_cached (clk,
 							state <= ACCESS_MEMORY;
 						`else
 							state <= UPDATE_CACHE;
+							`ifdef CACHE_READ_BUFFER_AT_INITIAL_STATE
+								if (!accessed_line_dirty) begin
+									data_block[accessed_line_stored_addr[9:`CACHE_LINE_SIZE_BYTES_LOG - 2] - 32'h1000] <= accessed_line_data;
+								end
+								cache_line_from_memory <= data_block[current_address[11:`CACHE_LINE_SIZE_BYTES_LOG] - 32'h1000];
+							`endif
 						`endif
 						clk_stall <= 1;
 					end
@@ -527,24 +533,26 @@ module data_mem_cached (clk,
 	end
 	
 	`ifdef CACHE_READ_IN_ONE_CYCLE
-		`ifdef CACHE_READ_BUFFER_AT_NEGEDGE
-		always @(posedge clk_double) begin
-			`ifdef CACHE_DELAY_OUTPUT
-			if (state == UPDATE_CACHE && clk_delayed == 1'b1) begin
-			`else
-			if (state == UPDATE_CACHE && clk == 1'b1) begin
+		`ifndef CACHE_READ_BUFFER_AT_INITIAL_STATE
+			`ifdef CACHE_READ_BUFFER_AT_NEGEDGE
+			always @(posedge clk_double) begin
+				`ifdef CACHE_DELAY_OUTPUT
+				if (state == UPDATE_CACHE && clk_delayed == 1'b1) begin
+				`else
+				if (state == UPDATE_CACHE && clk == 1'b1) begin
+				`endif
+			`elsif CACHE_READ_BUFFER_AT_DOUBLE_CLOCK
+			always @(negedge clk) begin
+				if (state == UPDATE_CACHE) begin
 			`endif
-		`elsif CACHE_READ_BUFFER_AT_DOUBLE_CLOCK
-		always @(negedge clk) begin
-			if (state == UPDATE_CACHE) begin
-		`endif
-				if (!accessed_line_dirty) begin
-					data_block[accessed_line_stored_addr[9:`CACHE_LINE_SIZE_BYTES_LOG - 2] - 32'h1000] <= accessed_line_data;
+					if (!accessed_line_dirty) begin
+						data_block[accessed_line_stored_addr[9:`CACHE_LINE_SIZE_BYTES_LOG - 2] - 32'h1000] <= accessed_line_data;
+					end
+					cache_line_from_memory <= data_block[current_address[11:`CACHE_LINE_SIZE_BYTES_LOG] - 32'h1000];
+					cache_line_from_memory_extra <= data_block[addr_buf_block_addr - 32'h1000];
 				end
-				cache_line_from_memory <= data_block[current_address[11:`CACHE_LINE_SIZE_BYTES_LOG] - 32'h1000];
-				cache_line_from_memory_extra <= data_block[addr_buf_block_addr - 32'h1000];
 			end
-		end
+		`endif
 	`endif
 	
 	`ifdef CACHE_DELAY_OUTPUT

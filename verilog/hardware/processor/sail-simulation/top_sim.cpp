@@ -9,7 +9,7 @@
 #include <cstdio>
 enum
 {
-    kSimulationCycles = 1000,
+    kSimulationCycles = 10000,
 };
 
 vluint64_t vtime = 0;
@@ -29,6 +29,7 @@ int main(int argc, char** argv, char** env)
     Verilated::commandArgs(argc, argv);
     Vtop_sim* top = new Vtop_sim;
     
+    top->eval();
     top->eval();
     
     if (vcdTrace)
@@ -51,6 +52,7 @@ int main(int argc, char** argv, char** env)
         clk = not clk;
         top->clk = int(clk);
         top->eval();
+		
         if (tfp != NULL)
         {
             tfp->dump (vtime);

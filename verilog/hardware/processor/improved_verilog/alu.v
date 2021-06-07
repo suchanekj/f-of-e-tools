@@ -67,13 +67,36 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 	reg [31:0] inputB1;
 	reg [31:0] inputA2;
 	reg [31:0] inputB2;
-	// reg addsub_in;
+	reg [31:0] A_reverse;
+	reg [15:0] shift_input1;
+	reg [15:0] shift_input2;
+	reg [15:0] shift_mul;
+	reg [31:0] shift_output1;
+	reg [31:0] shift_output2;
+	
+	wire addsub_in;
+	wire [31:0] add_inputA;
+	wire [31:0] add_inputB;
+	
 	reg [31:0] add_output;
 	reg [31:0] sub_output;
 	reg [31:0] andxor_output;
 	reg [31:0] andxor_output1;
 	reg [31:0] andxor_output2;
 	integer i;
+
+	//Function for reversing the number of bits in a parallel bus.
+	function [31:0] bitOrder (
+		input [31:0] data
+	);
+	integer u;
+	begin
+		for (u=0; u < 32; u=u+1) begin : reverse
+			bitOrder[31-u] = data[u]; //Note how the vectors get swapped around here by the index. For i=0, i_out=16, and vice versa.
+		end
+	end
+	endfunction
+
 	/*
 	 *	This uses Yosys's support for nonzero initial values:
 	 *
@@ -90,7 +113,7 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 		inputB1 = 0;
 		inputA2 = 0;
 		inputB2 = 0;
-		addsub_in = 1'b0;
+		//addsub_in = 1'b0;
 
 		ALUOut = 32'b0;
 		Branch_Enable = 1'b0;
@@ -98,29 +121,31 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 
 	`ifdef USE_ADDER_DSP
 		adder_dsp alu_adder(
-			.input1(inputA),
-			.input2(inputB),
-			.addsub(1'b0),
+			.input1(add_inputA),
+			.input2(add_inputB),
+			.addsub(addsub_in),
 			.out(add_output)
 		);
-	`endif 
-
-	`ifdef USE_SUBTRACTOR_DSP
-		subtractor_dsp alu_subtractor(
-			.input1(inputB),
-			.input2(inputA),
-			.out(sub_output)
-		);
+	`else
+		`ifdef USE_SUBTRACTOR_DSP
+			subtractor_dsp alu_subtractor(
+				.input1(inputB),
+				.input2(inputA),
+				.out(sub_output)
+			);
+		`endif 
 	`endif 
 
 	`ifdef USE_ANDXOR_DSP
 
-		adder_dsp alu_andxor1(
-			.input1(inputA1),
-			.input2(inputB1),
-			.addsub(1'b0),
-			.out(andxor_output1)
-		);
+		`ifndef USE_ADDER_DSP
+			adder_dsp alu_andxor1(
+				.input1(inputA1),
+				.input2(inputB1),
+				.addsub(1'b0),
+				.out(andxor_output1)
+			);
+		`endif 
 
 		adder_dsp alu_andxor2(
 			.input1(inputA2),
@@ -129,6 +154,31 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 			.out(andxor_output2)
 		);
 	`endif 
+	
+	`ifdef USE_SHIFT_DSP
+		shift_dsp alu_shift1(
+			.input1(shift_input1),
+			.input2(shift_mul),
+			.out(shift_output1)
+		);
+		shift_dsp alu_shift2(
+			.input1(shift_input2),
+			.input2(shift_mul),
+			.out(shift_output2)
+		);
+	`endif
+
+	assign addsub_in = ALUctl[3:0] == `kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SUB;
+	
+	`ifdef USE_ANDXOR_DSP
+		assign add_inputA = (ALUctl[3:0] == `kSAIL_MICROARCHITECTURE_ALUCTL_3to0_AND || ALUctl[3:0] == `kSAIL_MICROARCHITECTURE_ALUCTL_3to0_XOR) ? inputA1 : inputA;
+		
+		assign add_inputB = (ALUctl[3:0] == `kSAIL_MICROARCHITECTURE_ALUCTL_3to0_AND || ALUctl[3:0] == `kSAIL_MICROARCHITECTURE_ALUCTL_3to0_XOR) ? inputB1 : inputB;
+	`else
+		assign add_inputA = inputA;
+		assign add_inputB = inputB;
+	`endif
+
 	
 	always @(ALUctl, A, B) begin
 		
@@ -145,9 +195,19 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 			end
 
 		`endif
+		`ifdef USE_SHIFT_DSP
+			A_reverse = bitOrder(inputA);
+			shift_mul = 16'b1 << B[4:0];
+			shift_input1 = (ALUctl[3:0] ==`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SRA) ? A_reverse[31:16]
+								: (ALUctl[3:0] ==`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SLL) ? inputA[31:16]
+								: 0;
+			shift_input2 = (ALUctl[3:0] ==`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SRA) ? A_reverse[15:0]
+								: (ALUctl[3:0] ==`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SLL) ? inputA[15:0]
+								: 0;
+		`endif
 
-		inputA <= A;
-		inputB <= B;
+		inputA = A;
+		inputB = B;
 
 		case (ALUctl[3:0])
 			/*
@@ -156,28 +216,19 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 			`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_AND:	begin
 			
 				`ifdef USE_ANDXOR_DSP
-					/*
-					addsub_in <= 1'b0;
-
-					for (i=0; i < 16; i = i + 1) begin
-						inputA[2*i] <= A[i];
-						inputB[2*i] <= B[i];
-					end
-
-					for (i=0; i < 16; i = i + 1) begin
-						inputA[2*i] <= A[i+16];
-						inputB[2*i] <= B[i+16];
-					end
-					*/
-					for (i=0; i < 16; i = i + 1) begin
-						ALUOut[i] = andxor_output1[2*i+1];
-					end
+					`ifdef USE_ADDER_DSP
+						for (i=0; i < 16; i = i + 1) begin
+							ALUOut[i] = add_output[2*i+1];
+						end
+					`else
+						for (i=0; i < 16; i = i + 1) begin
+							ALUOut[i] = andxor_output1[2*i+1];
+						end
+					`endif
 
 					for (i=0; i < 16; i = i + 1) begin
 						ALUOut[i+16] = andxor_output2[2*i+1];
 					end
-					
-					// ALUOut = and_output;
 				`else 
 					ALUOut = A & B;
 				`endif 
@@ -207,7 +258,11 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 				`ifdef USE_SUBTRACTOR_DSP
 					// addsub_in <= 1'b1;
 					// ALUOut = add_output;
-					ALUOut = sub_output;
+					`ifdef USE_ADDER_DSP
+						ALUOut = add_output;
+					`else 
+						ALUOut = sub_output;
+					`endif 
 				`else 
 					ALUOut = A - B;
 				`endif 
@@ -222,16 +277,28 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 			 *	SRL (the fields also matches the other SRL variants)
 			 */
 			`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SRL:	ALUOut = A >> B[4:0];
-
 			/*
 			 *	SRA (the fields also matches the other SRA variants)
 			 */
-			`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SRA:	ALUOut = A >>> B[4:0];
-
+			`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SRA:	begin
+				`ifdef USE_SHIFT_DSP
+					ALUOut[31:16] 	= shift_output2[15:0];
+					ALUOut[15:0] 	= shift_output1[15:0];
+				`else
+					ALUOut = A >>> B[4:0];
+				`endif
+			end
 			/*
 			 *	SLL (the fields also match the other SLL variants)
 			 */
-			`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SLL:	ALUOut = A << B[4:0];
+			`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SLL:	begin
+				`ifdef USE_SHIFT_DSP
+					ALUOut[31:16] 	= shift_output1[15:0];
+					ALUOut[15:0] 	= shift_output2[15:0];
+				`else
+					ALUOut = A << B[4:0];
+				`endif
+			end
 
 			/*
 			 *	XOR (the fields also match other XOR variants)
@@ -239,18 +306,22 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 			`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_XOR:	begin
 			
 				`ifdef USE_ANDXOR_DSP
-				
-					for (i=0; i < 16; i = i + 1) begin
-						ALUOut[i] = andxor_output1[2*i];
-					end
+					`ifdef USE_ADDER_DSP
+						for (i=0; i < 16; i = i + 1) begin
+							ALUOut[i] = add_output[2*i];
+						end
+					`else
+						for (i=0; i < 16; i = i + 1) begin
+							ALUOut[i] = andxor_output1[2*i];
+						end
+					`endif
 
 					for (i=0; i < 16; i = i + 1) begin
 						ALUOut[i+16] = andxor_output2[2*i];
 					end
-
-				`else 
+				`else
 					ALUOut = A ^ B;
-				`endif 
+				`endif
 			end
 			/*
 			 *	CSRRW  only

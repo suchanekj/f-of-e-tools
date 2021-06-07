@@ -60,7 +60,7 @@ module top (led);
 	/*
 	 *	Use the iCE40's hard primitive for the clock source.
 	 */
-	`ifdef USE_HFOSC
+	/*`ifdef USE_HFOSC
 		reg		ENCLKHF		= 1'b1;	// Plock enable
 		reg		CLKHF_POWERUP	= 1'b1;	// Power up the HFOSC circuit
 		
@@ -99,24 +99,55 @@ module top (led);
 		);
 	`else
 		assign clk = clk_pre_div;
-	`endif
+	`endif*/
 	
-	/*reg		ENCLKHF		= 1'b1;	// Plock enable
+	reg		ENCLKHF		= 1'b1;	// Plock enable
 	reg		CLKHF_POWERUP	= 1'b1;	// Power up the HFOSC circuit
+	
+	/*SB_HFOSC #(.CLKHF_DIV("0b11")) OSCInst0 (
+		.CLKHFEN(ENCLKHF),
+		.CLKHFPU(CLKHF_POWERUP),
+		.CLKHF(clk)
+	);*/
 	
 	SB_HFOSC #(.CLKHF_DIV("0b00")) OSCInst0 (
 		.CLKHFEN(ENCLKHF),
 		.CLKHFPU(CLKHF_POWERUP),
-		.CLKHF(clk_pre_div)
+		.CLKHF(clk_hf)
 	);
 	
-	clk_divisor clkdivider(
-		.clk_hf(clk_pre_div),
-		`ifdef CACHE_READ_BUFFER_AT_DOUBLE_CLOCK
-			.clk_double(clk_double),
-		`endif
-		.clk(clk)
-	);*/
+	reg			divider_reg_0;
+	reg			divider_reg_1;
+	reg			divider_reg_2;
+	wire[1:0]	clk_mf;
+	
+	assign clk_mf[0] = divider_reg_0;
+			
+	always @(posedge clk_hf) begin
+		divider_reg_0 <= !divider_reg_0;
+	end
+	
+	assign clk_mf[1] = divider_reg_1;
+			
+	always @(posedge clk_mf[0]) begin
+		divider_reg_1 <= !divider_reg_1;
+	end
+	
+	assign clk = divider_reg_2;
+			
+	always @(posedge clk_mf[1]) begin
+		divider_reg_2 <= !divider_reg_2;
+	end
+	
+	initial begin
+		divider_reg_0 = 0;
+		divider_reg_1 = 0;
+		divider_reg_2 = 0;
+	end
+	
+	`ifdef CACHE_READ_BUFFER_AT_DOUBLE_CLOCK
+		assign clk_double = clk_mf[1];
+	`endif
 
 	/*
 	 *	Memory interface

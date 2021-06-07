@@ -15,13 +15,14 @@
 `define CLK_PLL_DIVQ 3'b110
 
 `define CLK_BASE_DIV "0b00"
-`define CLK_DIV_REG 3  // must be undefined or at least 1
+//`define CLK_DIV_REG_2
+`define CLK_DIV_REG_3
 
 // branch prediction
 
-//`define USE_CORRELATING
+`define USE_CORRELATING
 //`define USE_ONE_BIT //Cannot be defined if USE_CORRELATING is defined too!
-//`define USE_BRANCH // USE_CORRELATING must be defined too!
+`define USE_BRANCH // USE_CORRELATING must be defined too!
 //`define USE_STATIC //Cannot be defined if USE_CORRELATING is defined too!
 
 // memory
@@ -29,12 +30,12 @@
 `define USE_SMALL_DATA_ADDR // Suspect it has no effect -> "WARNING resizing ..." when running yosys
 `define USE_MEMORY_OPTIMIZATIONS
 
-//`define USE_CACHE_MEMORY // the above has to be used too - might not work at 12MHz yet
+`define USE_CACHE_MEMORY // the above has to be used too - might not work at 12MHz yet
 
 // Only works for the settings below - one cache line containing one word
-//`define MULTIPLE_CACHE_LINES
+`define MULTIPLE_CACHE_LINES
 //`define MULTIPLE_WORDS_PER_LINE
-//`define CACHE_DELAY_OUTPUT
+`define CACHE_DELAY_OUTPUT
 
 //`define CACHE_READ_IN_ONE_CYCLE  // needs to be defined iff either is defined below
 //`define CACHE_READ_BUFFER_AT_NEGEDGE
@@ -43,7 +44,7 @@
 `define CACHE_LINE_MAX_BIT 31
 `define CACHE_LINE_SIZE_WORDS 1
 `define CACHE_LINE_SIZE_BYTES_LOG 2
-`define CACHE_LINE_NUMBER 1
-`define CACHE_LINE_NUMBER_LOG 0
+`define CACHE_LINE_NUMBER 4
+`define CACHE_LINE_NUMBER_LOG 2
 
 `define MEMORY_SIZE_LINES 1023

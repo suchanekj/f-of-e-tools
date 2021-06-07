@@ -10,22 +10,65 @@ module clk_divisor(clk_hf,
 	`endif
 	output clk;
 	
-	reg[`CLK_DIV_REG-1:0] divider_regs;
-	wire[`CLK_DIV_REG:0] clk_mf;
-	
-	assign clk_mf[0] = clk_hf;
+	`ifdef CLK_DIV_REG_3
+		reg			divider_reg_0;
+		reg			divider_reg_1;
+		reg			divider_reg_2;
+		wire[1:0]	clk_mf;
 		
-	genvar i;
-	for (i = 0; i < `CLK_DIV_REG - 1; i = i + 1) begin
-		assign clk_mf[i+1] = divider_regs[i];
-		
-		always @(posedge clk_mf[i]) begin
-			divider_regs[i] <= !divider_regs[i];
+		assign clk_mf[0] = divider_reg_0;
+				
+		always @(posedge clk_hf) begin
+			divider_reg_0 <= !divider_reg_0;
 		end
-	end
-	assign clk = clk_mf[`CLK_DIV_REG ];
+		
+		assign clk_mf[1] = divider_reg_1;
+				
+		always @(posedge clk_mf[0]) begin
+			divider_reg_1 <= !divider_reg_1;
+		end
+		
+		assign clk = divider_reg_2;
+				
+		always @(posedge clk_mf[1]) begin
+			divider_reg_2 <= !divider_reg_2;
+		end
+		
+		initial begin
+			divider_reg_0 = 0;
+			divider_reg_1 = 0;
+			divider_reg_2 = 0;
+		end
+		
+		`ifdef CACHE_READ_BUFFER_AT_DOUBLE_CLOCK
+			assign clk_double = clk_mf[1];
+		`endif
+		
+	`elsif CLK_DIV_REG_2
 	
-	`ifdef CACHE_READ_BUFFER_AT_DOUBLE_CLOCK
-		assign clk_double = clk_mf[`CLK_DIV_REG - 1];
+		reg			divider_reg_0;
+		reg			divider_reg_1;
+		wire[0:0]	clk_mf;
+		
+		assign clk_mf[0] = divider_reg_0;
+				
+		always @(posedge clk_hf) begin
+			divider_reg_0 <= !divider_reg_0;
+		end
+		
+		assign clk = divider_reg_1;
+				
+		always @(posedge clk_mf[0]) begin
+			divider_reg_1 <= !divider_reg_1;
+		end
+		
+		initial begin
+			divider_reg_0 = 0;
+			divider_reg_1 = 0;
+		end
+		
+		`ifdef CACHE_READ_BUFFER_AT_DOUBLE_CLOCK
+			assign clk_double = clk_mf[0];
+		`endif
 	`endif
 endmodule

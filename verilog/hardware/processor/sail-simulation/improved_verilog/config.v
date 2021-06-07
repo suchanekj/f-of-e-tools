@@ -3,7 +3,7 @@
 `define USE_ADDER_DSP
 `define USE_SUBTRACTOR_DSP
 `define USE_ANDXOR_DSP
-//`define USE_COMBIADDER_DSP
+`define USE_COMBIADDER_DSP
 `define USE_SHIFT_DSP
  
 // Clock
@@ -17,7 +17,7 @@
 
 `define CLK_BASE_DIV "0b00"
 //`define CLK_DIV_REG_2
-`define CLK_DIV_REG 2
+`define CLK_DIV_REG_3
 
 // branch prediction
 
@@ -33,12 +33,11 @@
 
 `define USE_CACHE_MEMORY // the above has to be used too - might not work at 12MHz yet
 
-// Only works for the settings below - one cache line containing one word
 `define MULTIPLE_CACHE_LINES
 //`define MULTIPLE_WORDS_PER_LINE
 `define CACHE_DELAY_OUTPUT
 
-`define CACHE_READ_IN_ONE_CYCLE  // needs to be defined iff either is defined below
+`define CACHE_READ_IN_ONE_CYCLE  // needs to be defined iff any is defined below
 //`define CACHE_READ_BUFFER_AT_NEGEDGE
 //`define CACHE_READ_BUFFER_AT_DOUBLE_CLOCK
 `define CACHE_READ_BUFFER_AT_INITIAL_STATE

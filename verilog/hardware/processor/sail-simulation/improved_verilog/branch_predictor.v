@@ -48,10 +48,7 @@ module branch_predictor(
 		in_addr,
 		offset,
 		branch_addr,
-		prediction,
-		check0,
-		check1,
-		check2
+		prediction
 	);
 
 	/*
@@ -70,17 +67,7 @@ module branch_predictor(
 	 */
 	output [31:0]	branch_addr;
 	output		prediction;
-    
-	output [1:0]	check0;
 	
-	output [1:0]	check1;
-	output [1:0]	check2;
-	/*
-	output [1:0]	check3;
-	output [1:0]	check4;
-    */
-
-
 	/*
 	 *	internal state (2,2) branch predictor
 	 */
@@ -117,13 +104,6 @@ module branch_predictor(
 	 *	therefore can use branch_mem_sig as every branch is followed by
 	 *	a bubble, so a 0 to 1 transition
 	 */
-	/*
-	assign check0 = LPT[2'b0_0];
-	assign check1 = LPT[2'b0_1];
-	assign check2 = LPT[2'b1_0];
-	assign check3 = LPT[2'b1_1];
-	assign check4 = LPT[LHT[branch_addr[1:0]]];
-	*/
 	always @(posedge clk) begin
 		`ifdef USE_BRANCH
 			if (branch_mem_sig_reg) begin
@@ -147,14 +127,8 @@ module branch_predictor(
 	end
 	`ifdef USE_BRANCH
 		assign prediction = LPT[LHT[branch_addr[5:4]]][1] & branch_decode_sig;
-		assign check0 = branch_addr[5:4];
-		assign check1 = LHT[branch_addr[5:4]];
-		assign check2 = LPT[LHT[branch_addr[5:4]]];
 	`else
 		assign prediction = LPT[LHT[in_addr[5:4]]][1] & branch_decode_sig;
-		assign check0 = in_addr[5:4];
-		assign check1 = LHT[in_addr[5:4]];
-		assign check2 = LPT[LHT[in_addr[5:4]]];
 	`endif
 	assign branch_addr = in_addr + offset;
 endmodule

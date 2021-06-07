@@ -66,7 +66,7 @@ module cpu(
 	 *	Data Memory
 	 */
 	input [31:0]		data_mem_out;
-	`ifdef `USE_SMALL_DATA_ADDR
+	`ifdef USE_SMALL_DATA_ADDR
 		// Reduction of bits to reflect changes in data_mem.v
 		output [13:0]		data_mem_addr; 
 	`else
@@ -560,7 +560,7 @@ module cpu(
 	assign inst_mem_in = pc_out; // Speed up access when RAM is synchronous read since the pc_out <= pc_in !!
 
 	//Data Memory Connections
-	`ifdef `USE_SMALL_DATA_ADDR
+	`ifdef USE_SMALL_DATA_ADDR
 		// Reduction in bits consistent with data_mem.v
 		assign data_mem_addr = lui_result[13:0];
 	`else

@@ -10,16 +10,16 @@
 
 enum
 {
-    kSimulationCycles = 1000000,
+    kSimulationCycles = 3000000,
 };
 vluint64_t vtime = 0;
 bool clk = false;
 int led = 255;
-double sc_time_stamp ()
+double
+sc_time_stamp ()
 {
     return vtime;
 }
-
 
 int main(int argc, char** argv, char** env)
 {
@@ -28,6 +28,7 @@ int main(int argc, char** argv, char** env)
     Verilated::commandArgs(argc, argv);
     Vtop_sim* top = new Vtop_sim;
     
+    top->eval();
     top->eval();
     
     if (vcdTrace)
@@ -50,6 +51,7 @@ int main(int argc, char** argv, char** env)
         clk = not clk;
         top->clk = int(clk);
         top->eval();
+		
         if (tfp != NULL)
         {
             tfp->dump (vtime);

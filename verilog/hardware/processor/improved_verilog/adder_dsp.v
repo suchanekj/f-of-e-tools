@@ -95,7 +95,7 @@ module adder_dsp(input1, input2, addsub, out);
 		defparam i_sbmac16.BOTADDSUB_UPPERINPUT = 1'b1 ;		// 1: input D
 		defparam i_sbmac16.BOTADDSUB_LOWERINPUT = 2'b00 ;		// 00: input B
 		defparam i_sbmac16.BOTOUTPUT_SELECT = 2'b00 ;			// default value (00), not registered
-		defparam i_sbmac16.TOPADDSUB_CARRYSELECT = 2'b10 ;		// 11: Cascade ACCUMCO from lower block
+		defparam i_sbmac16.TOPADDSUB_CARRYSELECT = 2'b10 ;		// 10: Cascade ACCUMCO from lower block
 		defparam i_sbmac16.TOPADDSUB_UPPERINPUT = 1'b1 ;		// 1: input C
 		defparam i_sbmac16.TOPADDSUB_LOWERINPUT = 2'b00 ;		// 00: input A
 		defparam i_sbmac16.TOPOUTPUT_SELECT = 2'b00 ;  			// default value (00), not registered

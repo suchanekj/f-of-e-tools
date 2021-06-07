@@ -67,6 +67,14 @@ module top_sim (clk, led);
 	wire		data_memread;
 	wire[3:0]	data_sign_mask;
 	
+	wire clk_actual;
+	
+	clk_divisor clkdivider(
+		.clk_hf(clk),
+		.clk(clk_actual)
+	);
+	
+	/*
 	reg			divider_reg_0;
 	reg			divider_reg_1;
 	reg			divider_reg_2;
@@ -97,7 +105,7 @@ module top_sim (clk, led);
 		divider_reg_0 = 0;
 		divider_reg_1 = 0;
 		divider_reg_2 = 0;
-	end
+	end */
 
 	cpu processor(
 		.clk(clk_proc),
@@ -118,8 +126,6 @@ module top_sim (clk, led);
 
 	data_mem_cached data_mem_inst(
 		.clk(clk_actual),
-		.clk_delayed(clk_delayed),
-		.clk_double(clk_mf[1]),
 		.addr(data_addr),
 		.write_data(data_WrData),
 		.memwrite(data_memwrite),

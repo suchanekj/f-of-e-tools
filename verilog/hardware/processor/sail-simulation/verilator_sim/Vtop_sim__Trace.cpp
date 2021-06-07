@@ -35,21 +35,21 @@ void Vtop_sim::traceChgThis(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd* vc
         if (VL_UNLIKELY((1U & ((vlTOPp->__Vm_traceActivity 
                                 | (vlTOPp->__Vm_traceActivity 
                                    >> 1U)) | (vlTOPp->__Vm_traceActivity 
-                                              >> 8U))))) {
+                                              >> 6U))))) {
             vlTOPp->traceChgThis__4(vlSymsp, vcdp, code);
-        }
-        if (VL_UNLIKELY((1U & (((vlTOPp->__Vm_traceActivity 
-                                 | (vlTOPp->__Vm_traceActivity 
-                                    >> 1U)) | (vlTOPp->__Vm_traceActivity 
-                                               >> 0xaU)) 
-                               | (vlTOPp->__Vm_traceActivity 
-                                  >> 0xbU))))) {
-            vlTOPp->traceChgThis__5(vlSymsp, vcdp, code);
         }
         if (VL_UNLIKELY((1U & ((vlTOPp->__Vm_traceActivity 
                                 | (vlTOPp->__Vm_traceActivity 
                                    >> 1U)) | (vlTOPp->__Vm_traceActivity 
-                                              >> 0xbU))))) {
+                                              >> 7U))))) {
+            vlTOPp->traceChgThis__5(vlSymsp, vcdp, code);
+        }
+        if (VL_UNLIKELY((1U & (((vlTOPp->__Vm_traceActivity 
+                                 | (vlTOPp->__Vm_traceActivity 
+                                    >> 1U)) | (vlTOPp->__Vm_traceActivity 
+                                               >> 7U)) 
+                               | (vlTOPp->__Vm_traceActivity 
+                                  >> 8U))))) {
             vlTOPp->traceChgThis__6(vlSymsp, vcdp, code);
         }
         if (VL_UNLIKELY((1U & (vlTOPp->__Vm_traceActivity 
@@ -62,94 +62,60 @@ void Vtop_sim::traceChgThis(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd* vc
                                   >> 3U))))) {
             vlTOPp->traceChgThis__8(vlSymsp, vcdp, code);
         }
-        if (VL_UNLIKELY((1U & ((vlTOPp->__Vm_traceActivity 
-                                | (vlTOPp->__Vm_traceActivity 
-                                   >> 3U)) | (vlTOPp->__Vm_traceActivity 
-                                              >> 4U))))) {
+        if (VL_UNLIKELY((1U & (vlTOPp->__Vm_traceActivity 
+                               | (vlTOPp->__Vm_traceActivity 
+                                  >> 6U))))) {
             vlTOPp->traceChgThis__9(vlSymsp, vcdp, code);
         }
-        if (VL_UNLIKELY((1U & (vlTOPp->__Vm_traceActivity 
-                               | (vlTOPp->__Vm_traceActivity 
-                                  >> 4U))))) {
+        if (VL_UNLIKELY((1U & ((vlTOPp->__Vm_traceActivity 
+                                | (vlTOPp->__Vm_traceActivity 
+                                   >> 6U)) | (vlTOPp->__Vm_traceActivity 
+                                              >> 7U))))) {
             vlTOPp->traceChgThis__10(vlSymsp, vcdp, code);
         }
-        if (VL_UNLIKELY((1U & (vlTOPp->__Vm_traceActivity 
+        if (VL_UNLIKELY((1U & (((vlTOPp->__Vm_traceActivity 
+                                 | (vlTOPp->__Vm_traceActivity 
+                                    >> 6U)) | (vlTOPp->__Vm_traceActivity 
+                                               >> 7U)) 
                                | (vlTOPp->__Vm_traceActivity 
-                                  >> 5U))))) {
+                                  >> 8U))))) {
             vlTOPp->traceChgThis__11(vlSymsp, vcdp, code);
         }
-        if (VL_UNLIKELY((1U & (vlTOPp->__Vm_traceActivity 
-                               | (vlTOPp->__Vm_traceActivity 
-                                  >> 7U))))) {
+        if (VL_UNLIKELY((1U & ((vlTOPp->__Vm_traceActivity 
+                                | (vlTOPp->__Vm_traceActivity 
+                                   >> 6U)) | (vlTOPp->__Vm_traceActivity 
+                                              >> 8U))))) {
             vlTOPp->traceChgThis__12(vlSymsp, vcdp, code);
         }
         if (VL_UNLIKELY((1U & (vlTOPp->__Vm_traceActivity 
                                | (vlTOPp->__Vm_traceActivity 
-                                  >> 9U))))) {
+                                  >> 7U))))) {
             vlTOPp->traceChgThis__13(vlSymsp, vcdp, code);
         }
         if (VL_UNLIKELY((1U & ((vlTOPp->__Vm_traceActivity 
                                 | (vlTOPp->__Vm_traceActivity 
-                                   >> 9U)) | (vlTOPp->__Vm_traceActivity 
-                                              >> 0xbU))))) {
+                                   >> 7U)) | (vlTOPp->__Vm_traceActivity 
+                                              >> 8U))))) {
             vlTOPp->traceChgThis__14(vlSymsp, vcdp, code);
         }
-        if (VL_UNLIKELY((1U & ((vlTOPp->__Vm_traceActivity 
-                                | (vlTOPp->__Vm_traceActivity 
-                                   >> 9U)) | (vlTOPp->__Vm_traceActivity 
-                                              >> 0xeU))))) {
+        if (VL_UNLIKELY((1U & (vlTOPp->__Vm_traceActivity 
+                               | (vlTOPp->__Vm_traceActivity 
+                                  >> 8U))))) {
             vlTOPp->traceChgThis__15(vlSymsp, vcdp, code);
         }
-        if (VL_UNLIKELY((1U & (vlTOPp->__Vm_traceActivity 
-                               | (vlTOPp->__Vm_traceActivity 
-                                  >> 0xaU))))) {
+        if (VL_UNLIKELY((2U & vlTOPp->__Vm_traceActivity))) {
             vlTOPp->traceChgThis__16(vlSymsp, vcdp, code);
         }
-        if (VL_UNLIKELY((1U & (vlTOPp->__Vm_traceActivity 
-                               | (vlTOPp->__Vm_traceActivity 
-                                  >> 0xbU))))) {
+        if (VL_UNLIKELY((0x10U & vlTOPp->__Vm_traceActivity))) {
             vlTOPp->traceChgThis__17(vlSymsp, vcdp, code);
         }
-        if (VL_UNLIKELY((1U & ((vlTOPp->__Vm_traceActivity 
-                                | (vlTOPp->__Vm_traceActivity 
-                                   >> 0xbU)) | (vlTOPp->__Vm_traceActivity 
-                                                >> 0xcU))))) {
+        if (VL_UNLIKELY((0x20U & vlTOPp->__Vm_traceActivity))) {
             vlTOPp->traceChgThis__18(vlSymsp, vcdp, code);
         }
-        if (VL_UNLIKELY((1U & (vlTOPp->__Vm_traceActivity 
-                               | (vlTOPp->__Vm_traceActivity 
-                                  >> 0xcU))))) {
+        if (VL_UNLIKELY((0x40U & vlTOPp->__Vm_traceActivity))) {
             vlTOPp->traceChgThis__19(vlSymsp, vcdp, code);
         }
-        if (VL_UNLIKELY((1U & (vlTOPp->__Vm_traceActivity 
-                               | (vlTOPp->__Vm_traceActivity 
-                                  >> 0xdU))))) {
-            vlTOPp->traceChgThis__20(vlSymsp, vcdp, code);
-        }
-        if (VL_UNLIKELY((1U & ((vlTOPp->__Vm_traceActivity 
-                                | (vlTOPp->__Vm_traceActivity 
-                                   >> 0xdU)) | (vlTOPp->__Vm_traceActivity 
-                                                >> 0xeU))))) {
-            vlTOPp->traceChgThis__21(vlSymsp, vcdp, code);
-        }
-        if (VL_UNLIKELY((1U & (vlTOPp->__Vm_traceActivity 
-                               | (vlTOPp->__Vm_traceActivity 
-                                  >> 0xeU))))) {
-            vlTOPp->traceChgThis__22(vlSymsp, vcdp, code);
-        }
-        if (VL_UNLIKELY((2U & vlTOPp->__Vm_traceActivity))) {
-            vlTOPp->traceChgThis__23(vlSymsp, vcdp, code);
-        }
-        if (VL_UNLIKELY((0x40U & vlTOPp->__Vm_traceActivity))) {
-            vlTOPp->traceChgThis__24(vlSymsp, vcdp, code);
-        }
-        if (VL_UNLIKELY((0x100U & vlTOPp->__Vm_traceActivity))) {
-            vlTOPp->traceChgThis__25(vlSymsp, vcdp, code);
-        }
-        if (VL_UNLIKELY((0x200U & vlTOPp->__Vm_traceActivity))) {
-            vlTOPp->traceChgThis__26(vlSymsp, vcdp, code);
-        }
-        vlTOPp->traceChgThis__27(vlSymsp, vcdp, code);
+        vlTOPp->traceChgThis__20(vlSymsp, vcdp, code);
     }
     // Final
     vlTOPp->__Vm_traceActivity = 0U;
@@ -171,8 +137,8 @@ void Vtop_sim::traceChgThis__3(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd*
     int c = code;
     if (0 && vcdp && c) {}  // Prevent unused
     // Variables
-    WData/*159:0*/ __Vtemp222[5];
-    WData/*191:0*/ __Vtemp225[6];
+    WData/*159:0*/ __Vtemp132[5];
+    WData/*191:0*/ __Vtemp135[6];
     // Body
     {
         vcdp->chgBus(c+17,(vlTOPp->top_sim__DOT__processor__DOT__pc_out),32);
@@ -410,7 +376,7 @@ void Vtop_sim::traceChgThis__3(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd*
                                               >> 0x2fU)))),32);
         vcdp->chgBus(c+825,((0x1fU & (IData)((vlTOPp->top_sim__DOT__processor__DOT__if_id_out 
                                               >> 0x34U)))),32);
-        __Vtemp222[4U] = ((0xf800000U & ((IData)((vlTOPp->top_sim__DOT__processor__DOT__if_id_out 
+        __Vtemp132[4U] = ((0xf800000U & ((IData)((vlTOPp->top_sim__DOT__processor__DOT__if_id_out 
                                                   >> 0x27U)) 
                                          << 0x17U)) 
                           | ((0xfff80000U & ((0x400000U 
@@ -438,7 +404,7 @@ void Vtop_sim::traceChgThis__3(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd*
                                                                             : vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__regDatB))))) 
                                                       >> 0x20U)) 
                                              >> 0x14U)))));
-        __Vtemp225[0U] = ((0xfffff000U & ((IData)(vlTOPp->top_sim__DOT__processor__DOT__if_id_out) 
+        __Vtemp135[0U] = ((0xfffff000U & ((IData)(vlTOPp->top_sim__DOT__processor__DOT__if_id_out) 
                                           << 0xcU)) 
                           | ((0xf00U & (vlTOPp->top_sim__DOT__processor__DOT__cont_mux_out 
                                         << 1U)) | (
@@ -446,7 +412,7 @@ void Vtop_sim::traceChgThis__3(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd*
                                                     << 7U) 
                                                    | (0x7fU 
                                                       & vlTOPp->top_sim__DOT__processor__DOT__cont_mux_out))));
-        __Vtemp225[1U] = ((0xfffU & ((IData)(vlTOPp->top_sim__DOT__processor__DOT__if_id_out) 
+        __Vtemp135[1U] = ((0xfffU & ((IData)(vlTOPp->top_sim__DOT__processor__DOT__if_id_out) 
                                      >> 0x14U)) | (0xfffff000U 
                                                    & (((IData)(vlTOPp->top_sim__DOT__processor__DOT__CSRRI_signal)
                                                         ? 
@@ -463,7 +429,7 @@ void Vtop_sim::traceChgThis__3(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd*
                                                          ? vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__wrData_buf
                                                          : vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__regDatA)) 
                                                       << 0xcU)));
-        __Vtemp225[2U] = ((0xfffU & (((IData)(vlTOPp->top_sim__DOT__processor__DOT__CSRRI_signal)
+        __Vtemp135[2U] = ((0xfffU & (((IData)(vlTOPp->top_sim__DOT__processor__DOT__CSRRI_signal)
                                        ? (0x1fU & (IData)(
                                                           (vlTOPp->top_sim__DOT__processor__DOT__if_id_out 
                                                            >> 0x2fU)))
@@ -489,7 +455,7 @@ void Vtop_sim::traceChgThis__3(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd*
                                                                                  ? vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__wrData_buf
                                                                                  : vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__regDatB)))))) 
                                                       << 0xcU)));
-        __Vtemp225[3U] = ((0xfffU & ((IData)((((QData)((IData)(vlTOPp->top_sim__DOT__processor__DOT__imm_out)) 
+        __Vtemp135[3U] = ((0xfffU & ((IData)((((QData)((IData)(vlTOPp->top_sim__DOT__processor__DOT__imm_out)) 
                                                << 0x20U) 
                                               | (QData)((IData)(
                                                                 ((IData)(vlTOPp->top_sim__DOT__processor__DOT__CSRR_signal)
@@ -519,14 +485,14 @@ void Vtop_sim::traceChgThis__3(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd*
                                                                                  : vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__regDatB))))) 
                                                                >> 0x20U)) 
                                                       << 0xcU)));
-        __Vtemp225[4U] = ((0xf0000000U & (((IData)(vlTOPp->top_sim__DOT__processor__DOT__CSRRI_signal)
+        __Vtemp135[4U] = ((0xf0000000U & (((IData)(vlTOPp->top_sim__DOT__processor__DOT__CSRRI_signal)
                                             ? 0U : 
                                            (0x1fU & (IData)(
                                                             (vlTOPp->top_sim__DOT__processor__DOT__if_id_out 
                                                              >> 0x2fU)))) 
                                           << 0x1cU)) 
-                          | __Vtemp222[4U]);
-        __Vtemp225[5U] = ((0x3ffc0U & ((IData)((vlTOPp->top_sim__DOT__processor__DOT__if_id_out 
+                          | __Vtemp132[4U]);
+        __Vtemp135[5U] = ((0x3ffc0U & ((IData)((vlTOPp->top_sim__DOT__processor__DOT__if_id_out 
                                                 >> 0x34U)) 
                                        << 6U)) | ((0xfffffffeU 
                                                    & (((IData)(vlTOPp->top_sim__DOT__processor__DOT__CSRR_signal)
@@ -546,7 +512,7 @@ void Vtop_sim::traceChgThis__3(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd*
                                                                     (vlTOPp->top_sim__DOT__processor__DOT__if_id_out 
                                                                      >> 0x2fU)))) 
                                                         >> 4U))));
-        vcdp->chgArray(c+833,(__Vtemp225),178);
+        vcdp->chgArray(c+833,(__Vtemp135),178);
         vcdp->chgBit(c+881,((1U & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[0U] 
                                    >> 6U))));
         vcdp->chgBit(c+889,((1U & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[0U] 
@@ -599,26 +565,26 @@ void Vtop_sim::traceChgThis__4(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd*
     int c = code;
     if (0 && vcdp && c) {}  // Prevent unused
     // Variables
-    WData/*127:0*/ __Vtemp228[4];
+    WData/*127:0*/ __Vtemp138[4];
     // Body
     {
         vcdp->chgBus(c+1081,(((2U & vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[0U])
                                ? vlTOPp->top_sim__DOT__data_out
                                : vlTOPp->top_sim__DOT__processor__DOT__mem_csrr_mux_out)),32);
-        __Vtemp228[0U] = ((0xfffffff0U & ((vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[3U] 
+        __Vtemp138[0U] = ((0xfffffff0U & ((vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[3U] 
                                            << 0x1aU) 
                                           | (0x3fffff0U 
                                              & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[2U] 
                                                 >> 6U)))) 
                           | (0xfU & vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[0U]));
-        __Vtemp228[1U] = ((0xfU & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[3U] 
+        __Vtemp138[1U] = ((0xfU & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[3U] 
                                    >> 6U)) | (0xfffffff0U 
                                               & ((IData)(
                                                          (((QData)((IData)(vlTOPp->top_sim__DOT__data_out)) 
                                                            << 0x20U) 
                                                           | (QData)((IData)(vlTOPp->top_sim__DOT__processor__DOT__mem_csrr_mux_out)))) 
                                                  << 4U)));
-        __Vtemp228[2U] = ((0xfU & ((IData)((((QData)((IData)(vlTOPp->top_sim__DOT__data_out)) 
+        __Vtemp138[2U] = ((0xfU & ((IData)((((QData)((IData)(vlTOPp->top_sim__DOT__data_out)) 
                                              << 0x20U) 
                                             | (QData)((IData)(vlTOPp->top_sim__DOT__processor__DOT__mem_csrr_mux_out)))) 
                                    >> 0x1cU)) | (0xfffffff0U 
@@ -628,7 +594,7 @@ void Vtop_sim::traceChgThis__4(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd*
                                                               | (QData)((IData)(vlTOPp->top_sim__DOT__processor__DOT__mem_csrr_mux_out))) 
                                                              >> 0x20U)) 
                                                     << 4U)));
-        __Vtemp228[3U] = ((0x1ffff0U & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[4U] 
+        __Vtemp138[3U] = ((0x1ffff0U & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[4U] 
                                         >> 6U)) | (0xfU 
                                                    & ((IData)(
                                                               ((((QData)((IData)(vlTOPp->top_sim__DOT__data_out)) 
@@ -636,7 +602,7 @@ void Vtop_sim::traceChgThis__4(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd*
                                                                 | (QData)((IData)(vlTOPp->top_sim__DOT__processor__DOT__mem_csrr_mux_out))) 
                                                                >> 0x20U)) 
                                                       >> 0x1cU)));
-        vcdp->chgArray(c+1089,(__Vtemp228),117);
+        vcdp->chgArray(c+1089,(__Vtemp138),117);
     }
 }
 
@@ -646,48 +612,7 @@ void Vtop_sim::traceChgThis__5(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd*
     if (0 && vcdp && c) {}  // Prevent unused
     // Body
     {
-        vcdp->chgBus(c+1121,(((((0U != (0x1fU & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[4U] 
-                                                 >> 0xaU))) 
-                                & ((0x1fU & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[4U] 
-                                             >> 0xaU)) 
-                                   == (0x1fU & ((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[5U] 
-                                                 << 4U) 
-                                                | (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[4U] 
-                                                   >> 0x1cU))))) 
-                               & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[0U] 
-                                  >> 2U)) ? vlTOPp->top_sim__DOT__processor__DOT__dataMemOut_fwd_mux_out
-                               : ((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[2U] 
-                                   << 0x14U) | (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[1U] 
-                                                >> 0xcU)))),32);
-        vcdp->chgBus(c+1129,((((((0U != (0x1fU & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[4U] 
-                                                  >> 0xaU))) 
-                                 & ((0x1fU & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[4U] 
-                                              >> 0xaU)) 
-                                    == (0x1fU & (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[5U] 
-                                                 >> 1U)))) 
-                                & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[0U] 
-                                   >> 2U)) | (((0xfffU 
-                                                & (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[5U] 
-                                                   >> 6U)) 
-                                               == (0xfffU 
-                                                   & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[4U] 
-                                                      >> 0xfU))) 
-                                              & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[0U] 
-                                                 >> 3U)))
-                               ? vlTOPp->top_sim__DOT__processor__DOT__dataMemOut_fwd_mux_out
-                               : ((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[3U] 
-                                   << 0x14U) | (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[2U] 
-                                                >> 0xcU)))),32);
-    }
-}
-
-void Vtop_sim::traceChgThis__6(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
-    Vtop_sim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    int c = code;
-    if (0 && vcdp && c) {}  // Prevent unused
-    // Body
-    {
-        vcdp->chgBus(c+1137,(((IData)(vlTOPp->top_sim__DOT__processor__DOT__mistake_trigger)
+        vcdp->chgBus(c+1121,(((IData)(vlTOPp->top_sim__DOT__processor__DOT__mistake_trigger)
                                ? ((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[1U] 
                                    << 0x14U) | (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U] 
                                                 >> 0xcU))
@@ -697,7 +622,7 @@ void Vtop_sim::traceChgThis__6(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd*
                                        ? vlTOPp->top_sim__DOT__processor__DOT__pc_out
                                        : ((IData)(4U) 
                                           + vlTOPp->top_sim__DOT__processor__DOT__pc_out))))),32);
-        vcdp->chgBus(c+1145,(((IData)(vlTOPp->top_sim__DOT__processor__DOT__pcsrc)
+        vcdp->chgBus(c+1129,(((IData)(vlTOPp->top_sim__DOT__processor__DOT__pcsrc)
                                ? ((vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[2U] 
                                    << 0x17U) | (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[1U] 
                                                 >> 9U))
@@ -712,7 +637,7 @@ void Vtop_sim::traceChgThis__6(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd*
                                         ? vlTOPp->top_sim__DOT__processor__DOT__pc_out
                                         : ((IData)(4U) 
                                            + vlTOPp->top_sim__DOT__processor__DOT__pc_out)))))),32);
-        vcdp->chgBit(c+1153,((((0U != (0x1fU & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[4U] 
+        vcdp->chgBit(c+1137,((((0U != (0x1fU & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[4U] 
                                                 >> 0xaU))) 
                                & ((0x1fU & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[4U] 
                                             >> 0xaU)) 
@@ -722,7 +647,7 @@ void Vtop_sim::traceChgThis__6(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd*
                                                   >> 0x1cU))))) 
                               & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[0U] 
                                  >> 2U))));
-        vcdp->chgBit(c+1161,(((((0U != (0x1fU & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[4U] 
+        vcdp->chgBit(c+1145,(((((0U != (0x1fU & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[4U] 
                                                  >> 0xaU))) 
                                 & ((0x1fU & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[4U] 
                                              >> 0xaU)) 
@@ -737,7 +662,7 @@ void Vtop_sim::traceChgThis__6(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd*
                                                      >> 0xfU))) 
                                              & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[0U] 
                                                 >> 3U)))));
-        vcdp->chgBit(c+1169,(((((0U != (0x1fU & (vlTOPp->top_sim__DOT__processor__DOT__mem_wb_out[3U] 
+        vcdp->chgBit(c+1153,(((((0U != (0x1fU & (vlTOPp->top_sim__DOT__processor__DOT__mem_wb_out[3U] 
                                                  >> 4U))) 
                                 & ((0x1fU & (vlTOPp->top_sim__DOT__processor__DOT__mem_wb_out[3U] 
                                              >> 4U)) 
@@ -751,7 +676,7 @@ void Vtop_sim::traceChgThis__6(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd*
                                                >> 0xaU)))) 
                               & (vlTOPp->top_sim__DOT__processor__DOT__mem_wb_out[0U] 
                                  >> 2U))));
-        vcdp->chgBit(c+1177,((((((0U != (0x1fU & (vlTOPp->top_sim__DOT__processor__DOT__mem_wb_out[3U] 
+        vcdp->chgBit(c+1161,((((((0U != (0x1fU & (vlTOPp->top_sim__DOT__processor__DOT__mem_wb_out[3U] 
                                                   >> 4U))) 
                                  & ((0x1fU & (vlTOPp->top_sim__DOT__processor__DOT__mem_wb_out[3U] 
                                               >> 4U)) 
@@ -779,6 +704,47 @@ void Vtop_sim::traceChgThis__6(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd*
     }
 }
 
+void Vtop_sim::traceChgThis__6(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
+    Vtop_sim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    int c = code;
+    if (0 && vcdp && c) {}  // Prevent unused
+    // Body
+    {
+        vcdp->chgBus(c+1169,(((((0U != (0x1fU & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[4U] 
+                                                 >> 0xaU))) 
+                                & ((0x1fU & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[4U] 
+                                             >> 0xaU)) 
+                                   == (0x1fU & ((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[5U] 
+                                                 << 4U) 
+                                                | (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[4U] 
+                                                   >> 0x1cU))))) 
+                               & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[0U] 
+                                  >> 2U)) ? vlTOPp->top_sim__DOT__processor__DOT__dataMemOut_fwd_mux_out
+                               : ((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[2U] 
+                                   << 0x14U) | (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[1U] 
+                                                >> 0xcU)))),32);
+        vcdp->chgBus(c+1177,((((((0U != (0x1fU & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[4U] 
+                                                  >> 0xaU))) 
+                                 & ((0x1fU & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[4U] 
+                                              >> 0xaU)) 
+                                    == (0x1fU & (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[5U] 
+                                                 >> 1U)))) 
+                                & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[0U] 
+                                   >> 2U)) | (((0xfffU 
+                                                & (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[5U] 
+                                                   >> 6U)) 
+                                               == (0xfffU 
+                                                   & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[4U] 
+                                                      >> 0xfU))) 
+                                              & (vlTOPp->top_sim__DOT__processor__DOT__ex_mem_out[0U] 
+                                                 >> 3U)))
+                               ? vlTOPp->top_sim__DOT__processor__DOT__dataMemOut_fwd_mux_out
+                               : ((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[3U] 
+                                   << 0x14U) | (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[2U] 
+                                                >> 0xcU)))),32);
+    }
+}
+
 void Vtop_sim::traceChgThis__7(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
     Vtop_sim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     int c = code;
@@ -796,7 +762,8 @@ void Vtop_sim::traceChgThis__8(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd*
     // Body
     {
         vcdp->chgBit(c+1193,(vlTOPp->top_sim__DOT__clk_proc));
-        vcdp->chgBit(c+1201,(vlTOPp->top_sim__DOT____Vcellinp__data_mem_inst__clk_double));
+        vcdp->chgBit(c+1201,(vlTOPp->top_sim__DOT__clk_actual));
+        vcdp->chgBus(c+1209,(vlTOPp->top_sim__DOT__clkdivider__DOT__clk_mf),3);
     }
 }
 
@@ -806,7 +773,14 @@ void Vtop_sim::traceChgThis__9(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd*
     if (0 && vcdp && c) {}  // Prevent unused
     // Body
     {
-        vcdp->chgBus(c+1209,(vlTOPp->top_sim__DOT__clk_mf),2);
+        vcdp->chgBit(c+1217,(vlTOPp->top_sim__DOT__data_clk_stall));
+        vcdp->chgBus(c+1225,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__state),32);
+        vcdp->chgBus(c+1233,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_from_memory_unpacked
+                             [0U]),32);
+        vcdp->chgBus(c+1241,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_data[0]),32);
+        vcdp->chgBus(c+1249,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_stored_addr[0]),12);
+        vcdp->chgBit(c+1257,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_dirty));
+        vcdp->chgBus(c+1265,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_from_memory_unpacked[0]),32);
     }
 }
 
@@ -816,7 +790,9 @@ void Vtop_sim::traceChgThis__10(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
     if (0 && vcdp && c) {}  // Prevent unused
     // Body
     {
-        vcdp->chgBit(c+1217,(vlTOPp->top_sim__DOT__divider_reg_0));
+        vcdp->chgBit(c+1273,((1U & ((0U == vlTOPp->top_sim__DOT__data_mem_inst__DOT__state)
+                                     ? (vlTOPp->top_sim__DOT__processor__DOT__ex_cont_mux_out 
+                                        >> 4U) : (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__memwrite_buf)))));
     }
 }
 
@@ -826,7 +802,15 @@ void Vtop_sim::traceChgThis__11(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
     if (0 && vcdp && c) {}  // Prevent unused
     // Body
     {
-        vcdp->chgBit(c+1225,(vlTOPp->top_sim__DOT__divider_reg_1));
+        vcdp->chgBus(c+1281,(((1U & ((0U == vlTOPp->top_sim__DOT__data_mem_inst__DOT__state)
+                                      ? (vlTOPp->top_sim__DOT__processor__DOT__ex_cont_mux_out 
+                                         >> 4U) : (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__memwrite_buf)))
+                               ? ((4U & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_sign_mask))
+                                   ? vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_write_data
+                                   : vlTOPp->top_sim__DOT__data_mem_inst__DOT__write_out1)
+                               : ((0U == vlTOPp->top_sim__DOT__data_mem_inst__DOT__state)
+                                   ? vlTOPp->top_sim__DOT__data_mem_inst__DOT__accessed_line_data
+                                   : vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_from_memory))),32);
     }
 }
 
@@ -836,7 +820,11 @@ void Vtop_sim::traceChgThis__12(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
     if (0 && vcdp && c) {}  // Prevent unused
     // Body
     {
-        vcdp->chgBit(c+1233,(vlTOPp->top_sim__DOT__divider_reg_2));
+        vcdp->chgBit(c+1289,((0U != ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_selection) 
+                                     & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_dirty)))));
+        vcdp->chgBus(c+1297,(((0U == vlTOPp->top_sim__DOT__data_mem_inst__DOT__state)
+                               ? vlTOPp->top_sim__DOT__data_mem_inst__DOT__accessed_line_data
+                               : vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_from_memory)),32);
     }
 }
 
@@ -846,25 +834,46 @@ void Vtop_sim::traceChgThis__13(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
     if (0 && vcdp && c) {}  // Prevent unused
     // Body
     {
-        vcdp->chgBit(c+1241,(vlTOPp->top_sim__DOT__data_clk_stall));
-        vcdp->chgBus(c+1249,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__state),32);
-        vcdp->chgBus(c+1257,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_from_memory_unpacked
-                             [0U]),32);
-        vcdp->chgBus(c+1265,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_data[0]),32);
-        vcdp->chgBus(c+1266,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_data[1]),32);
-        vcdp->chgBus(c+1281,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_stored_addr[0]),12);
-        vcdp->chgBus(c+1282,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_stored_addr[1]),12);
-        vcdp->chgBus(c+1297,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_dirty),2);
-        vcdp->chgBus(c+1305,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_old),2);
-        vcdp->chgBit(c+1313,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_age[0]));
-        vcdp->chgBit(c+1314,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_age[1]));
-        vcdp->chgBus(c+1329,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_from_memory_unpacked[0]),32);
-        vcdp->chgBit(c+1337,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__0__KET____DOT__cache_line_instance__age));
-        vcdp->chgBit(c+1345,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__0__KET____DOT__cache_line_instance__dirty));
-        vcdp->chgBit(c+1353,((1U & (~ (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__0__KET____DOT__cache_line_instance__age)))));
-        vcdp->chgBit(c+1361,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__1__KET____DOT__cache_line_instance__age));
-        vcdp->chgBit(c+1369,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__1__KET____DOT__cache_line_instance__dirty));
-        vcdp->chgBit(c+1377,((1U & (~ (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__1__KET____DOT__cache_line_instance__age)))));
+        vcdp->chgBit(c+1305,((1U & (vlTOPp->top_sim__DOT__processor__DOT__ex_cont_mux_out 
+                                    >> 4U))));
+        vcdp->chgBit(c+1313,((1U & (vlTOPp->top_sim__DOT__processor__DOT__ex_cont_mux_out 
+                                    >> 5U))));
+        vcdp->chgBus(c+1321,((0xfU & ((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[5U] 
+                                       << 0xdU) | (
+                                                   vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[4U] 
+                                                   >> 0x13U)))),4);
+        vcdp->chgArray(c+1329,(vlTOPp->top_sim__DOT__processor__DOT__id_ex_out),178);
+        vcdp->chgBus(c+1377,(vlTOPp->top_sim__DOT__processor__DOT__ex_cont_mux_out),32);
+        vcdp->chgBus(c+1385,((0x1ffU & vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U])),32);
+        vcdp->chgBus(c+1393,(((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[1U] 
+                               << 0x14U) | (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U] 
+                                            >> 0xcU))),32);
+        vcdp->chgBit(c+1401,((1U & (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U] 
+                                    >> 0xbU))));
+        vcdp->chgBus(c+1409,(((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[4U] 
+                               << 0x14U) | (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[3U] 
+                                            >> 0xcU))),32);
+        vcdp->chgBit(c+1417,((1U & (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U] 
+                                    >> 0xaU))));
+        vcdp->chgBus(c+1425,((0x7fU & ((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[5U] 
+                                        << 0x14U) | 
+                                       (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[4U] 
+                                        >> 0xcU)))),7);
+        vcdp->chgBit(c+1433,((1U & (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U] 
+                                    >> 9U))));
+        vcdp->chgBus(c+1441,((0x1fU & ((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[5U] 
+                                        << 4U) | (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[4U] 
+                                                  >> 0x1cU)))),5);
+        vcdp->chgBus(c+1449,((0x1fU & (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[5U] 
+                                       >> 1U))),5);
+        vcdp->chgBus(c+1457,((0xfffU & (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[5U] 
+                                        >> 6U))),12);
+        vcdp->chgBus(c+1465,(((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[2U] 
+                               << 0x14U) | (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[1U] 
+                                            >> 0xcU))),32);
+        vcdp->chgBus(c+1473,(((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[3U] 
+                               << 0x14U) | (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[2U] 
+                                            >> 0xcU))),32);
     }
 }
 
@@ -872,104 +881,18 @@ void Vtop_sim::traceChgThis__14(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
     Vtop_sim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     int c = code;
     if (0 && vcdp && c) {}  // Prevent unused
-    // Body
-    {
-        vcdp->chgBit(c+1385,((1U & ((0U == vlTOPp->top_sim__DOT__data_mem_inst__DOT__state)
-                                     ? (vlTOPp->top_sim__DOT__processor__DOT__ex_cont_mux_out 
-                                        >> 4U) : (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__memwrite_buf)))));
-    }
-}
-
-void Vtop_sim::traceChgThis__15(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
-    Vtop_sim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    int c = code;
-    if (0 && vcdp && c) {}  // Prevent unused
-    // Body
-    {
-        vcdp->chgBit(c+1393,((0U != ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_selection) 
-                                     & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_dirty)))));
-        vcdp->chgBus(c+1401,((((0U == vlTOPp->top_sim__DOT__data_mem_inst__DOT__state) 
-                               | (3U == vlTOPp->top_sim__DOT__data_mem_inst__DOT__state))
-                               ? vlTOPp->top_sim__DOT__data_mem_inst__DOT__accessed_line_data
-                               : vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_from_memory)),32);
-    }
-}
-
-void Vtop_sim::traceChgThis__16(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
-    Vtop_sim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    int c = code;
-    if (0 && vcdp && c) {}  // Prevent unused
-    // Body
-    {
-        vcdp->chgBus(c+1409,(vlTOPp->top_sim__DOT__processor__DOT__dataMemOut_fwd_mux_out),32);
-    }
-}
-
-void Vtop_sim::traceChgThis__17(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
-    Vtop_sim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    int c = code;
-    if (0 && vcdp && c) {}  // Prevent unused
-    // Body
-    {
-        vcdp->chgBit(c+1417,((1U & (vlTOPp->top_sim__DOT__processor__DOT__ex_cont_mux_out 
-                                    >> 4U))));
-        vcdp->chgBit(c+1425,((1U & (vlTOPp->top_sim__DOT__processor__DOT__ex_cont_mux_out 
-                                    >> 5U))));
-        vcdp->chgBus(c+1433,((0xfU & ((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[5U] 
-                                       << 0xdU) | (
-                                                   vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[4U] 
-                                                   >> 0x13U)))),4);
-        vcdp->chgArray(c+1441,(vlTOPp->top_sim__DOT__processor__DOT__id_ex_out),178);
-        vcdp->chgBus(c+1489,(vlTOPp->top_sim__DOT__processor__DOT__ex_cont_mux_out),32);
-        vcdp->chgBus(c+1497,((0x1ffU & vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U])),32);
-        vcdp->chgBus(c+1505,(((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[1U] 
-                               << 0x14U) | (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U] 
-                                            >> 0xcU))),32);
-        vcdp->chgBit(c+1513,((1U & (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U] 
-                                    >> 0xbU))));
-        vcdp->chgBus(c+1521,(((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[4U] 
-                               << 0x14U) | (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[3U] 
-                                            >> 0xcU))),32);
-        vcdp->chgBit(c+1529,((1U & (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U] 
-                                    >> 0xaU))));
-        vcdp->chgBus(c+1537,((0x7fU & ((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[5U] 
-                                        << 0x14U) | 
-                                       (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[4U] 
-                                        >> 0xcU)))),7);
-        vcdp->chgBit(c+1545,((1U & (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U] 
-                                    >> 9U))));
-        vcdp->chgBus(c+1553,((0x1fU & ((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[5U] 
-                                        << 4U) | (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[4U] 
-                                                  >> 0x1cU)))),5);
-        vcdp->chgBus(c+1561,((0x1fU & (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[5U] 
-                                       >> 1U))),5);
-        vcdp->chgBus(c+1569,((0xfffU & (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[5U] 
-                                        >> 6U))),12);
-        vcdp->chgBus(c+1577,(((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[2U] 
-                               << 0x14U) | (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[1U] 
-                                            >> 0xcU))),32);
-        vcdp->chgBus(c+1585,(((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[3U] 
-                               << 0x14U) | (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[2U] 
-                                            >> 0xcU))),32);
-    }
-}
-
-void Vtop_sim::traceChgThis__18(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
-    Vtop_sim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    int c = code;
-    if (0 && vcdp && c) {}  // Prevent unused
     // Variables
-    WData/*95:0*/ __Vtemp229[3];
-    WData/*159:0*/ __Vtemp231[5];
-    WData/*159:0*/ __Vtemp233[5];
+    WData/*95:0*/ __Vtemp139[3];
+    WData/*159:0*/ __Vtemp141[5];
+    WData/*159:0*/ __Vtemp143[5];
     // Body
     {
-        vcdp->chgBus(c+1593,(((0x800U & vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U])
+        vcdp->chgBus(c+1481,(((0x800U & vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U])
                                ? vlTOPp->top_sim__DOT__processor__DOT__wb_fwd1_mux_out
                                : ((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[1U] 
                                    << 0x14U) | (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U] 
                                                 >> 0xcU)))),32);
-        vcdp->chgBus(c+1601,((((0x800U & vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U])
+        vcdp->chgBus(c+1489,((((0x800U & vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U])
                                 ? vlTOPp->top_sim__DOT__processor__DOT__wb_fwd1_mux_out
                                 : ((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[1U] 
                                     << 0x14U) | (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U] 
@@ -977,7 +900,7 @@ void Vtop_sim::traceChgThis__18(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
                               + ((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[4U] 
                                   << 0x14U) | (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[3U] 
                                                >> 0xcU)))),32);
-        __Vtemp229[1U] = ((0x1ffU & ((IData)((((QData)((IData)(
+        __Vtemp139[1U] = ((0x1ffU & ((IData)((((QData)((IData)(
                                                                (((0x800U 
                                                                   & vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U])
                                                                   ? vlTOPp->top_sim__DOT__processor__DOT__wb_fwd1_mux_out
@@ -1021,7 +944,7 @@ void Vtop_sim::traceChgThis__18(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
                                                                                 >> 0xcU))))) 
                                                                >> 0x20U)) 
                                                       << 9U)));
-        __Vtemp231[2U] = ((0xfffffc00U & ((IData)((
+        __Vtemp141[2U] = ((0xfffffc00U & ((IData)((
                                                    ((QData)((IData)(vlTOPp->top_sim__DOT__processor__DOT__wb_fwd2_mux_out)) 
                                                     << 0x20U) 
                                                    | (QData)((IData)(vlTOPp->top_sim__DOT__processor__DOT__lui_result)))) 
@@ -1051,7 +974,7 @@ void Vtop_sim::traceChgThis__18(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
                                                                           >> 0xcU))))) 
                                                    >> 0x20U)) 
                                           >> 0x17U))));
-        __Vtemp233[0U] = ((0xfffffe00U & ((IData)((
+        __Vtemp143[0U] = ((0xfffffe00U & ((IData)((
                                                    ((QData)((IData)(
                                                                     (((0x800U 
                                                                        & vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[0U])
@@ -1074,9 +997,9 @@ void Vtop_sim::traceChgThis__18(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
                                                                          >> 0xcU)))))) 
                                           << 9U)) | 
                           (0x1ffU & vlTOPp->top_sim__DOT__processor__DOT__ex_cont_mux_out));
-        __Vtemp233[1U] = __Vtemp229[1U];
-        __Vtemp233[2U] = __Vtemp231[2U];
-        __Vtemp233[3U] = ((0x3ffU & ((IData)((((QData)((IData)(vlTOPp->top_sim__DOT__processor__DOT__wb_fwd2_mux_out)) 
+        __Vtemp143[1U] = __Vtemp139[1U];
+        __Vtemp143[2U] = __Vtemp141[2U];
+        __Vtemp143[3U] = ((0x3ffU & ((IData)((((QData)((IData)(vlTOPp->top_sim__DOT__processor__DOT__wb_fwd2_mux_out)) 
                                                << 0x20U) 
                                               | (QData)((IData)(vlTOPp->top_sim__DOT__processor__DOT__lui_result)))) 
                                      >> 0x16U)) | (0xfffffc00U 
@@ -1086,7 +1009,7 @@ void Vtop_sim::traceChgThis__18(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
                                                                 | (QData)((IData)(vlTOPp->top_sim__DOT__processor__DOT__lui_result))) 
                                                                >> 0x20U)) 
                                                       << 0xaU)));
-        __Vtemp233[4U] = ((0x7ff8000U & (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[5U] 
+        __Vtemp143[4U] = ((0x7ff8000U & (vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[5U] 
                                          << 9U)) | 
                           ((0x7c00U & ((vlTOPp->top_sim__DOT__processor__DOT__id_ex_out[5U] 
                                         << 0x13U) | 
@@ -1098,54 +1021,101 @@ void Vtop_sim::traceChgThis__18(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
                                                   | (QData)((IData)(vlTOPp->top_sim__DOT__processor__DOT__lui_result))) 
                                                  >> 0x20U)) 
                                         >> 0x16U))));
-        vcdp->chgArray(c+1609,(__Vtemp233),155);
+        vcdp->chgArray(c+1497,(__Vtemp143),155);
     }
 }
 
-void Vtop_sim::traceChgThis__19(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
+void Vtop_sim::traceChgThis__15(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
     Vtop_sim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     int c = code;
     if (0 && vcdp && c) {}  // Prevent unused
     // Body
     {
-        vcdp->chgBus(c+1649,((0x3fffU & vlTOPp->top_sim__DOT__processor__DOT__lui_result)),14);
-        vcdp->chgBus(c+1657,(vlTOPp->top_sim__DOT__processor__DOT__wb_fwd2_mux_out),32);
-        vcdp->chgBus(c+1665,(vlTOPp->top_sim__DOT__processor__DOT__lui_result),32);
-        vcdp->chgBus(c+1673,(vlTOPp->top_sim__DOT__processor__DOT__alu_mux_out),32);
-        vcdp->chgBit(c+1681,(vlTOPp->top_sim__DOT__processor__DOT__alu_branch_enable));
-        vcdp->chgBus(c+1689,(vlTOPp->top_sim__DOT__processor__DOT__alu_result),32);
-        vcdp->chgBus(c+1697,(vlTOPp->top_sim__DOT__processor__DOT__reg_dat_mux_out),32);
-        vcdp->chgBus(c+1705,(vlTOPp->top_sim__DOT__processor__DOT__wb_fwd1_mux_out),32);
-    }
-}
-
-void Vtop_sim::traceChgThis__20(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
-    Vtop_sim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    int c = code;
-    if (0 && vcdp && c) {}  // Prevent unused
-    // Body
-    {
-        vcdp->chgBus(c+1713,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_sign_mask),4);
-        vcdp->chgBit(c+1721,((1U & ((~ ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_sign_mask) 
-                                        >> 2U)) & ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_sign_mask) 
-                                                   >> 1U)))));
-        vcdp->chgBit(c+1729,((1U & ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_sign_mask) 
-                                    >> 2U))));
-        vcdp->chgBit(c+1737,((1U & ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_sign_mask) 
-                                    >> 1U))));
-    }
-}
-
-void Vtop_sim::traceChgThis__21(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
-    Vtop_sim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    int c = code;
-    if (0 && vcdp && c) {}  // Prevent unused
-    // Body
-    {
-        vcdp->chgBus(c+1745,(((4U & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_sign_mask))
+        vcdp->chgBus(c+1537,((0x3fffU & vlTOPp->top_sim__DOT__processor__DOT__lui_result)),14);
+        vcdp->chgBus(c+1545,(vlTOPp->top_sim__DOT__processor__DOT__wb_fwd2_mux_out),32);
+        vcdp->chgBus(c+1553,(vlTOPp->top_sim__DOT__processor__DOT__lui_result),32);
+        vcdp->chgBus(c+1561,(vlTOPp->top_sim__DOT__processor__DOT__alu_mux_out),32);
+        vcdp->chgBit(c+1569,(vlTOPp->top_sim__DOT__processor__DOT__alu_branch_enable));
+        vcdp->chgBus(c+1577,(vlTOPp->top_sim__DOT__processor__DOT__alu_result),32);
+        vcdp->chgBus(c+1585,(vlTOPp->top_sim__DOT__processor__DOT__reg_dat_mux_out),32);
+        vcdp->chgBus(c+1593,(vlTOPp->top_sim__DOT__processor__DOT__dataMemOut_fwd_mux_out),32);
+        vcdp->chgBus(c+1601,(vlTOPp->top_sim__DOT__processor__DOT__wb_fwd1_mux_out),32);
+        vcdp->chgBus(c+1609,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__accessed_line_data_unpacked
+                             [0U]),32);
+        vcdp->chgBus(c+1617,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word),32);
+        vcdp->chgBus(c+1625,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__read_buf),32);
+        vcdp->chgBus(c+1633,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_write_data),32);
+        vcdp->chgBus(c+1641,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address),14);
+        vcdp->chgBus(c+1649,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_sign_mask),4);
+        vcdp->chgBus(c+1657,((0x3ffU & ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
+                                        >> 2U))),10);
+        vcdp->chgBus(c+1665,((3U & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address))),2);
+        vcdp->chgBus(c+1673,(((4U & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_sign_mask))
                                ? vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_write_data
                                : vlTOPp->top_sim__DOT__data_mem_inst__DOT__write_out1)),32);
-        vcdp->chgBus(c+1753,(((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__select0)
+        vcdp->chgBit(c+1681,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_write));
+        vcdp->chgBit(c+1689,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_read));
+        vcdp->chgBit(c+1697,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_addr_match));
+        vcdp->chgBus(c+1705,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__accessed_line_data),32);
+        vcdp->chgBus(c+1713,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__accessed_line_stored_addr),12);
+        vcdp->chgBus(c+1721,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__accessed_line_data_unpacked[0]),32);
+        vcdp->chgBit(c+1729,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_selection));
+        vcdp->chgBus(c+1737,((0xffU & vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word)),8);
+        vcdp->chgBus(c+1745,((0xffU & (vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word 
+                                       >> 8U))),8);
+        vcdp->chgBus(c+1753,((0xffU & (vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word 
+                                       >> 0x10U))),8);
+        vcdp->chgBus(c+1761,((0xffU & (vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word 
+                                       >> 0x18U))),8);
+        vcdp->chgBit(c+1769,((1U & ((~ ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
+                                        >> 1U)) & (~ (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address))))));
+        vcdp->chgBit(c+1777,((1U & ((~ ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
+                                        >> 1U)) & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address)))));
+        vcdp->chgBit(c+1785,((1U & (((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
+                                     >> 1U) & (~ (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address))))));
+        vcdp->chgBit(c+1793,((1U & (((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
+                                     >> 1U) & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address)))));
+        vcdp->chgBus(c+1801,((0xffU & ((1U & ((~ ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
+                                                  >> 1U)) 
+                                              & (~ (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address))))
+                                        ? vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_write_data
+                                        : vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word))),8);
+        vcdp->chgBus(c+1809,((0xffU & ((1U & ((~ ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
+                                                  >> 1U)) 
+                                              & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address)))
+                                        ? vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_write_data
+                                        : (vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word 
+                                           >> 8U)))),8);
+        vcdp->chgBus(c+1817,((0xffU & ((1U & (((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
+                                               >> 1U) 
+                                              & (~ (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address))))
+                                        ? vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_write_data
+                                        : (vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word 
+                                           >> 0x10U)))),8);
+        vcdp->chgBus(c+1825,((0xffU & ((1U & (((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
+                                               >> 1U) 
+                                              & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address)))
+                                        ? vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_write_data
+                                        : (vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word 
+                                           >> 0x18U)))),8);
+        vcdp->chgBus(c+1833,((0xffffU & ((2U & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address))
+                                          ? vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word
+                                          : vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_write_data))),16);
+        vcdp->chgBus(c+1841,((0xffffU & ((2U & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address))
+                                          ? vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_write_data
+                                          : (vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word 
+                                             >> 0x10U)))),16);
+        vcdp->chgBit(c+1849,((1U & ((~ ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_sign_mask) 
+                                        >> 2U)) & ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_sign_mask) 
+                                                   >> 1U)))));
+        vcdp->chgBit(c+1857,((1U & ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_sign_mask) 
+                                    >> 2U))));
+        vcdp->chgBus(c+1865,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__write_out1),32);
+        vcdp->chgBit(c+1873,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__select0));
+        vcdp->chgBit(c+1881,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__select1));
+        vcdp->chgBit(c+1889,((1U & ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_sign_mask) 
+                                    >> 1U))));
+        vcdp->chgBus(c+1897,(((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__select0)
                                ? ((8U & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_sign_mask))
                                    ? ((0xffffff00U 
                                        & (VL_NEGATE_I((IData)(
@@ -1166,7 +1136,7 @@ void Vtop_sim::traceChgThis__21(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
                                           << 8U)) | 
                                       (0xffU & vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word))
                                    : (0xffU & vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word)))),32);
-        vcdp->chgBus(c+1761,(((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__select0)
+        vcdp->chgBus(c+1905,(((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__select0)
                                ? ((8U & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_sign_mask))
                                    ? ((0xffffff00U 
                                        & (VL_NEGATE_I((IData)(
@@ -1189,7 +1159,7 @@ void Vtop_sim::traceChgThis__21(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
                                                 >> 0x10U)))
                                    : (0xffU & (vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word 
                                                >> 0x10U))))),32);
-        vcdp->chgBus(c+1769,(((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__select0)
+        vcdp->chgBus(c+1913,(((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__select0)
                                ? ((8U & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_sign_mask))
                                    ? ((0xffff0000U 
                                        & (VL_NEGATE_I((IData)(
@@ -1213,7 +1183,7 @@ void Vtop_sim::traceChgThis__21(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
                                           << 0x10U)) 
                                       | (0xffffU & vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word))
                                    : (0xffffU & vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word)))),32);
-        vcdp->chgBus(c+1777,(((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__select1)
+        vcdp->chgBus(c+1921,(((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__select1)
                                ? ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__select0)
                                    ? ((8U & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_sign_mask))
                                        ? ((0xffffff00U 
@@ -1262,7 +1232,7 @@ void Vtop_sim::traceChgThis__21(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
                                           | (0xffU 
                                              & vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word))
                                        : (0xffU & vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word))))),32);
-        vcdp->chgBus(c+1785,(((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__select1)
+        vcdp->chgBus(c+1929,(((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__select1)
                                ? vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word
                                : ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__select0)
                                    ? ((8U & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_sign_mask))
@@ -1294,169 +1264,81 @@ void Vtop_sim::traceChgThis__21(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd
     }
 }
 
-void Vtop_sim::traceChgThis__22(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
+void Vtop_sim::traceChgThis__16(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
     Vtop_sim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     int c = code;
     if (0 && vcdp && c) {}  // Prevent unused
     // Body
     {
-        vcdp->chgBus(c+1793,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__accessed_line_data_unpacked
-                             [0U]),32);
-        vcdp->chgBus(c+1801,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word),32);
-        vcdp->chgBus(c+1809,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__read_buf),32);
-        vcdp->chgBus(c+1817,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_write_data),32);
-        vcdp->chgBus(c+1825,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address),14);
-        vcdp->chgBus(c+1833,((0x3ffU & ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
-                                        >> 2U))),10);
-        vcdp->chgBus(c+1841,((3U & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address))),2);
-        vcdp->chgBus(c+1849,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_write_data),32);
-        vcdp->chgBit(c+1857,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_write));
-        vcdp->chgBit(c+1865,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_read));
-        vcdp->chgBus(c+1873,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_addr_match),2);
-        vcdp->chgBit(c+1881,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__accessed_line_age));
-        vcdp->chgBus(c+1889,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__accessed_line_data),32);
-        vcdp->chgBus(c+1897,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__accessed_line_stored_addr),12);
-        vcdp->chgBus(c+1905,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__accessed_line_data_unpacked[0]),32);
-        vcdp->chgBus(c+1913,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_selection),2);
-        vcdp->chgBus(c+1921,((0xffU & vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word)),8);
-        vcdp->chgBus(c+1929,((0xffU & (vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word 
-                                       >> 8U))),8);
-        vcdp->chgBus(c+1937,((0xffU & (vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word 
-                                       >> 0x10U))),8);
-        vcdp->chgBus(c+1945,((0xffU & (vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word 
-                                       >> 0x18U))),8);
-        vcdp->chgBit(c+1953,((1U & ((~ ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
-                                        >> 1U)) & (~ (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address))))));
-        vcdp->chgBit(c+1961,((1U & ((~ ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
-                                        >> 1U)) & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address)))));
-        vcdp->chgBit(c+1969,((1U & (((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
-                                     >> 1U) & (~ (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address))))));
-        vcdp->chgBit(c+1977,((1U & (((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
-                                     >> 1U) & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address)))));
-        vcdp->chgBus(c+1985,((0xffU & ((1U & ((~ ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
-                                                  >> 1U)) 
-                                              & (~ (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address))))
-                                        ? vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_write_data
-                                        : vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word))),8);
-        vcdp->chgBus(c+1993,((0xffU & ((1U & ((~ ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
-                                                  >> 1U)) 
-                                              & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address)))
-                                        ? vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_write_data
-                                        : (vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word 
-                                           >> 8U)))),8);
-        vcdp->chgBus(c+2001,((0xffU & ((1U & (((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
-                                               >> 1U) 
-                                              & (~ (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address))))
-                                        ? vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_write_data
-                                        : (vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word 
-                                           >> 0x10U)))),8);
-        vcdp->chgBus(c+2009,((0xffU & ((1U & (((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
-                                               >> 1U) 
-                                              & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address)))
-                                        ? vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_write_data
-                                        : (vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word 
-                                           >> 0x18U)))),8);
-        vcdp->chgBus(c+2017,((0xffffU & ((2U & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address))
-                                          ? vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word
-                                          : vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_write_data))),16);
-        vcdp->chgBus(c+2025,((0xffffU & ((2U & (IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address))
-                                          ? vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_write_data
-                                          : (vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_read_word 
-                                             >> 0x10U)))),16);
-        vcdp->chgBus(c+2033,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__write_out1),32);
-        vcdp->chgBit(c+2041,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__select0));
-        vcdp->chgBit(c+2049,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__select1));
-        vcdp->chgBus(c+2057,((0x3ffU & ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
-                                        >> 2U))),14);
-        vcdp->chgBus(c+2065,((0x3fffU & ((0x3ffU & 
-                                          ((IData)(vlTOPp->top_sim__DOT__data_mem_inst__DOT__current_address) 
-                                           >> 2U)) 
-                                         - (IData)(0x1000U)))),14);
-        vcdp->chgBit(c+2073,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__0__KET____DOT__cache_line_instance__addr_match));
-        vcdp->chgBit(c+2081,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__genblk1__BRA__0__KET____DOT__cache_line_instance__DOT__addr_match_dirty_flush));
-        vcdp->chgBit(c+2089,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__1__KET____DOT__cache_line_instance__addr_match));
-        vcdp->chgBit(c+2097,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__genblk1__BRA__1__KET____DOT__cache_line_instance__DOT__addr_match_dirty_flush));
-    }
-}
-
-void Vtop_sim::traceChgThis__23(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
-    Vtop_sim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    int c = code;
-    if (0 && vcdp && c) {}  // Prevent unused
-    // Body
-    {
-        vcdp->chgBus(c+2105,(((((vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__wrAddr_buf 
+        vcdp->chgBus(c+1937,(((((vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__wrAddr_buf 
                                  == (IData)(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__rdAddrA_buf)) 
                                 & (IData)(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__write_buf)) 
                                & (0U != vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__wrAddr_buf))
                                ? vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__wrData_buf
                                : vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__regDatA)),32);
-        vcdp->chgBus(c+2113,(((((vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__wrAddr_buf 
+        vcdp->chgBus(c+1945,(((((vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__wrAddr_buf 
                                  == (IData)(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__rdAddrB_buf)) 
                                 & (IData)(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__write_buf)) 
                                & (0U != vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__wrAddr_buf))
                                ? vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__wrData_buf
                                : vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__regDatB)),32);
-        vcdp->chgBus(c+2121,(vlTOPp->top_sim__DOT__processor__DOT__rdValOut_CSR),32);
-        vcdp->chgBus(c+2129,(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__rdAddrA_buf),5);
-        vcdp->chgBus(c+2137,(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__rdAddrB_buf),5);
-        vcdp->chgBus(c+2145,(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__regDatA),32);
-        vcdp->chgBus(c+2153,(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__regDatB),32);
-        vcdp->chgBus(c+2161,(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__wrAddr_buf),32);
-        vcdp->chgBus(c+2169,(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__wrData_buf),32);
-        vcdp->chgBit(c+2177,(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__write_buf));
+        vcdp->chgBus(c+1953,(vlTOPp->top_sim__DOT__processor__DOT__rdValOut_CSR),32);
+        vcdp->chgBus(c+1961,(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__rdAddrA_buf),5);
+        vcdp->chgBus(c+1969,(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__rdAddrB_buf),5);
+        vcdp->chgBus(c+1977,(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__regDatA),32);
+        vcdp->chgBus(c+1985,(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__regDatB),32);
+        vcdp->chgBus(c+1993,(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__wrAddr_buf),32);
+        vcdp->chgBus(c+2001,(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__wrData_buf),32);
+        vcdp->chgBit(c+2009,(vlTOPp->top_sim__DOT__processor__DOT__register_files__DOT__write_buf));
     }
 }
 
-void Vtop_sim::traceChgThis__24(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
+void Vtop_sim::traceChgThis__17(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
     Vtop_sim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     int c = code;
     if (0 && vcdp && c) {}  // Prevent unused
     // Body
     {
-        vcdp->chgBit(c+2185,(vlTOPp->top_sim__DOT__clk_delayed));
+        vcdp->chgBit(c+2017,(vlTOPp->top_sim__DOT__clkdivider__DOT__divider_regs_0));
     }
 }
 
-void Vtop_sim::traceChgThis__25(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
+void Vtop_sim::traceChgThis__18(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
     Vtop_sim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     int c = code;
     if (0 && vcdp && c) {}  // Prevent unused
     // Body
     {
-        vcdp->chgBus(c+2193,(vlTOPp->top_sim__DOT__data_out),32);
+        vcdp->chgBit(c+2025,(vlTOPp->top_sim__DOT__clkdivider__DOT__divider_regs_1));
     }
 }
 
-void Vtop_sim::traceChgThis__26(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
+void Vtop_sim::traceChgThis__19(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
     Vtop_sim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     int c = code;
     if (0 && vcdp && c) {}  // Prevent unused
     // Body
     {
-        vcdp->chgBus(c+2201,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__read_data_before_delay),32);
-        vcdp->chgBus(c+2209,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__led_reg),32);
-        vcdp->chgBit(c+2217,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__memread_buf));
-        vcdp->chgBit(c+2225,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__memwrite_buf));
-        vcdp->chgBus(c+2233,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__write_data_buffer),32);
-        vcdp->chgBus(c+2241,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__addr_buf),14);
-        vcdp->chgBus(c+2249,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__sign_mask_buf),4);
-        vcdp->chgBus(c+2257,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_from_memory),32);
-        vcdp->chgBus(c+2265,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_from_memory_extra),32);
-        vcdp->chgBus(c+2273,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__0__KET____DOT__cache_line_instance__data),32);
-        vcdp->chgBus(c+2281,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__0__KET____DOT__cache_line_instance__stored_addr),12);
-        vcdp->chgBus(c+2289,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__1__KET____DOT__cache_line_instance__data),32);
-        vcdp->chgBus(c+2297,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__1__KET____DOT__cache_line_instance__stored_addr),12);
+        vcdp->chgBus(c+2033,(vlTOPp->top_sim__DOT__data_out),32);
+        vcdp->chgBus(c+2041,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__led_reg),32);
+        vcdp->chgBit(c+2049,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__memread_buf));
+        vcdp->chgBit(c+2057,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__memwrite_buf));
+        vcdp->chgBus(c+2065,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__write_data_buffer),32);
+        vcdp->chgBus(c+2073,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__addr_buf),14);
+        vcdp->chgBus(c+2081,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__sign_mask_buf),4);
+        vcdp->chgBus(c+2089,(vlTOPp->top_sim__DOT__data_mem_inst__DOT__cache_line_from_memory),32);
+        vcdp->chgBus(c+2097,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__0__KET____DOT__cache_line_instance__data),32);
+        vcdp->chgBus(c+2105,(vlTOPp->top_sim__DOT__data_mem_inst__DOT____Vcellout__genblk1__BRA__0__KET____DOT__cache_line_instance__stored_addr),12);
     }
 }
 
-void Vtop_sim::traceChgThis__27(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
+void Vtop_sim::traceChgThis__20(Vtop_sim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
     Vtop_sim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     int c = code;
     if (0 && vcdp && c) {}  // Prevent unused
     // Body
     {
-        vcdp->chgBit(c+2305,(vlTOPp->clk));
-        vcdp->chgBus(c+2313,(vlTOPp->led),8);
+        vcdp->chgBit(c+2113,(vlTOPp->clk));
+        vcdp->chgBus(c+2121,(vlTOPp->led),8);
     }
 }

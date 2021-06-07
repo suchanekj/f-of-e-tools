@@ -100,6 +100,23 @@ module top (led);
 	`else
 		assign clk = clk_pre_div;
 	`endif
+	
+	/*reg		ENCLKHF		= 1'b1;	// Plock enable
+	reg		CLKHF_POWERUP	= 1'b1;	// Power up the HFOSC circuit
+	
+	SB_HFOSC #(.CLKHF_DIV("0b00")) OSCInst0 (
+		.CLKHFEN(ENCLKHF),
+		.CLKHFPU(CLKHF_POWERUP),
+		.CLKHF(clk_pre_div)
+	);
+	
+	clk_divisor clkdivider(
+		.clk_hf(clk_pre_div),
+		`ifdef CACHE_READ_BUFFER_AT_DOUBLE_CLOCK
+			.clk_double(clk_double),
+		`endif
+		.clk(clk)
+	);*/
 
 	/*
 	 *	Memory interface
@@ -132,7 +149,7 @@ module top (led);
 	);
 
 	instruction_memory inst_mem( 
-		.addr(inst_in), 
+		.addr(inst_in),
 		.out(inst_out)
 	);
 

@@ -1,16 +1,23 @@
 //Fully associative cache, write to memory only at rejection
 
-
+`ifdef MULTIPLE_CACHE_LINES
 module cache_line (clk, addr, write_data, memwrite, memread, age_of_accessed, data, stored_addr, age, addr_match, dirty, old);
+`else
+module cache_line (clk, addr, write_data, memwrite, memread, data, stored_addr, addr_match, dirty, old);
+`endif
 	input 			clk;
 	input [13:0]	addr;
 	input [`CACHE_LINE_MAX_BIT:0]	write_data;
 	input			memwrite;
 	input			memread;
+	`ifdef MULTIPLE_CACHE_LINES
 		input [`CACHE_LINE_NUMBER_LOG - 1:0]	age_of_accessed;
+	`endif
 	output reg [`CACHE_LINE_MAX_BIT:0]	data;
 	output reg [13 - `CACHE_LINE_SIZE_BYTES_LOG:0] stored_addr;
+	`ifdef MULTIPLE_CACHE_LINES
 		output reg [`CACHE_LINE_NUMBER_LOG - 1:0] age;
+	`endif
 	output			addr_match;
 	output reg		dirty;
 	output			old;
@@ -21,11 +28,18 @@ module cache_line (clk, addr, write_data, memwrite, memread, age_of_accessed, da
 	wire addr_match_dirty_flush;
 	
 	assign addr_match = (addr[13:`CACHE_LINE_SIZE_BYTES_LOG] == stored_addr) && !dirty;
+	`ifdef MULTIPLE_CACHE_LINES
 		assign old = age == 0;
 		assign addr_match_dirty_flush = addr_match | ((dirty | (age_of_accessed == 0)) & old);
+	`else
+		assign old = 1'b1;
+		assign addr_match_dirty_flush = 1'b1;
+	`endif
 	
 	initial begin
+		`ifdef MULTIPLE_CACHE_LINES
 			age = initial_age;
+		`endif
 		
 		dirty = 1;
 	end
@@ -38,19 +52,33 @@ module cache_line (clk, addr, write_data, memwrite, memread, age_of_accessed, da
 					stored_addr <= addr[13:`CACHE_LINE_SIZE_BYTES_LOG];
 					dirty <= 0;
 				end
+				`ifdef MULTIPLE_CACHE_LINES
 					age <= `CACHE_LINE_NUMBER - 1;
+				`endif
 			end
+			`ifdef MULTIPLE_CACHE_LINES
 				else if (age > age_of_accessed)
 					age <= age - 1;
+			`endif
 		end
 	end
 endmodule
 
-
-module data_mem_cached (clk, clk_delayed, clk_double, addr, write_data, memwrite, memread, sign_mask, read_data, led, clk_stall);
+module data_mem_cached (clk,
+`ifdef CACHE_DELAY_OUTPUT
+		clk_delayed,
+`endif
+`ifdef CACHE_READ_BUFFER_AT_DOUBLE_CLOCK
+		clk_double,
+`endif
+		addr, write_data, memwrite, memread, sign_mask, read_data, led, clk_stall);
 	input			clk;
-	input			clk_delayed;
-	input			clk_double;
+	`ifdef CACHE_DELAY_OUTPUT
+		input			clk_delayed;
+	`endif
+	`ifdef CACHE_READ_BUFFER_AT_DOUBLE_CLOCK
+		input			clk_double;
+	`endif
 	/* 
 	addr is used only to assign bits to addr_buff, which in turn assigns bits to addr_buf_block_addr and addr_buf_byte_offset
 	which require bits 11 to 0 only. Instruction memory substraction in FSM is unaffected by reducing address size bus.
@@ -63,8 +91,6 @@ module data_mem_cached (clk, clk_delayed, clk_double, addr, write_data, memwrite
 	output reg [31:0]	read_data;
 	output [7:0]		led;
 	output reg		clk_stall;	//Sets the clock high
-	
-	reg [31:0]	read_data_before_delay;
 
 	/*
 	 *	Current state
@@ -77,7 +103,6 @@ module data_mem_cached (clk, clk_delayed, clk_double, addr, write_data, memwrite
 	parameter		IN_CACHE = 0;
 	parameter		ACCESS_MEMORY = 1;
 	parameter		UPDATE_CACHE = 2;
-	parameter		DEBUG_DELAY = 3;
 
 	/*
 	 *	led register
@@ -92,7 +117,7 @@ module data_mem_cached (clk, clk_delayed, clk_double, addr, write_data, memwrite
 	reg [31:0]		read_word_from_memory;
 	wire [31:0]		current_read_word;
 	
-	assign current_read_word = (state == IN_CACHE || state == DEBUG_DELAY) ? cache_word : read_word_from_memory;
+	assign current_read_word = (state == IN_CACHE) ? cache_word : read_word_from_memory;
 
 	/*
 	 *	Read buffer
@@ -145,11 +170,18 @@ module data_mem_cached (clk, clk_delayed, clk_double, addr, write_data, memwrite
 	 *	wire assignments
 	 */
 	
-	wire [9:0]		addr_buf_block_addr;
-	assign			addr_buf_block_addr	= current_address[11:2];
+	`ifdef MULTIPLE_WORDS_PER_LINE
+		wire [8:0]		addr_buf_block_addr;
+
+		assign			addr_buf_block_addr	= current_address[11:3];
+	`else
+		wire [9:0]		addr_buf_block_addr;
+
+		assign			addr_buf_block_addr	= current_address[11:2];
+	`endif
 	
 	wire [1:0]		addr_buf_byte_offset;
-	assign			addr_buf_byte_offset = current_address[1:0];
+	assign			addr_buf_byte_offset	= current_address[1:0];
 		
 	wire [31:0]		replacement_word;
 	
@@ -165,8 +197,10 @@ module data_mem_cached (clk, clk_delayed, clk_double, addr, write_data, memwrite
 	wire[`CACHE_LINE_NUMBER - 1: 0]	cache_line_addr_match;
 	wire[`CACHE_LINE_NUMBER - 1: 0]	cache_line_dirty;
 	wire[`CACHE_LINE_NUMBER - 1: 0]	cache_line_old;
+	`ifdef MULTIPLE_CACHE_LINES
 		reg[`CACHE_LINE_NUMBER_LOG - 1:0]	accessed_line_age;
 		wire[`CACHE_LINE_NUMBER_LOG - 1:0]	cache_line_age [`CACHE_LINE_NUMBER - 1: 0];
+	`endif
 	
 	reg [`CACHE_LINE_MAX_BIT:0]	cache_line_from_memory;
 	
@@ -174,6 +208,7 @@ module data_mem_cached (clk, clk_delayed, clk_double, addr, write_data, memwrite
 		genvar i;
 		for(i = 0; i < `CACHE_LINE_NUMBER; i = i + 1) begin
 	
+			`ifdef MULTIPLE_CACHE_LINES
 				cache_line cache_line_instance(
 					.clk(clk),
 					.addr(current_address),
@@ -188,6 +223,20 @@ module data_mem_cached (clk, clk_delayed, clk_double, addr, write_data, memwrite
 					.dirty(cache_line_dirty[i]),
 					.old(cache_line_old[i])
 				);
+			`else
+				cache_line cache_line_instance(
+					.clk(clk),
+					.addr(current_address),
+					.write_data(cache_write_data),
+					.memwrite(cache_write),
+					.memread(cache_read),
+					.data(cache_line_data[i]),
+					.stored_addr(cache_line_stored_addr[i]),
+					.addr_match(cache_line_addr_match[i]),
+					.dirty(cache_line_dirty[i]),
+					.old(cache_line_old[i])
+				);
+			`endif
 			defparam cache_line_instance.initial_age = i;
 		end
 	endgenerate
@@ -209,6 +258,7 @@ module data_mem_cached (clk, clk_delayed, clk_double, addr, write_data, memwrite
 	generate 
 		genvar m;
 		integer l;
+		`ifdef MULTIPLE_CACHE_LINES
 			for (m = 0; m < `CACHE_LINE_NUMBER_LOG; m = m + 1) begin
 				always @ (*) begin
 					// if none is a match will set age = 0, which is the oldest one
@@ -217,6 +267,7 @@ module data_mem_cached (clk, clk_delayed, clk_double, addr, write_data, memwrite
 						accessed_line_age[m] = accessed_line_age[m] | (cache_line_age[l][m] & cache_line_selection[l]);
 				end
 			end
+		`endif
 		
 		for (m = 0; m <= 13 - `CACHE_LINE_SIZE_BYTES_LOG; m = m + 1) begin
 			always @ (*) begin
@@ -237,14 +288,18 @@ module data_mem_cached (clk, clk_delayed, clk_double, addr, write_data, memwrite
 			assign accessed_line_data_unpacked[m] = accessed_line_data[m * 32 + 31:m * 32];
 		
 		always @ (*) begin
+			`ifdef MULTIPLE_WORDS_PER_LINE
+				cache_word = accessed_line_data_unpacked[current_address[`CACHE_LINE_SIZE_BYTES_LOG - 1:2]];
+			`else
 				cache_word = accessed_line_data_unpacked[0];
+			`endif
 		end
 	endgenerate
 	
 	assign accessed_line_dirty = (cache_line_selection & cache_line_dirty) != 0;
 	
-	assign cache_read = memread & (cache_line_addr_match != 0) & (state == IN_CACHE || state == DEBUG_DELAY);
-	assign cache_write = ((state == IN_CACHE || state == DEBUG_DELAY) & memwrite & (cache_line_addr_match != 0)) | (state == UPDATE_CACHE);
+	assign cache_read = memread & (cache_line_addr_match != 0) & (state == IN_CACHE);
+	assign cache_write = ((state == IN_CACHE) & memwrite & (cache_line_addr_match != 0)) | (state == UPDATE_CACHE);
 
 	/*
 	 *	Regs for multiplexer output
@@ -324,21 +379,32 @@ module data_mem_cached (clk, clk_delayed, clk_double, addr, write_data, memwrite
 	wire[`CACHE_LINE_MAX_BIT:0] cache_write_data_original;
 	reg[`CACHE_LINE_MAX_BIT:0] cache_write_data_updated;
 	
-	assign cache_write_data_original = (state == IN_CACHE || state == DEBUG_DELAY) ? accessed_line_data : cache_line_from_memory;
+	assign cache_write_data_original = (state == IN_CACHE) ? accessed_line_data : cache_line_from_memory;
 	
 	wire [31:0] cache_line_from_memory_unpacked[`CACHE_LINE_SIZE_WORDS - 1:0];
 	
 	generate
 		for (m = 0; m < `CACHE_LINE_SIZE_WORDS; m = m + 1) begin
 			always @ (*) begin
+				`ifdef MULTIPLE_WORDS_PER_LINE
+					if (current_address[`CACHE_LINE_SIZE_BYTES_LOG - 1:2] == m)
+						cache_write_data_updated[m * 32 + 31:m * 32] = replacement_word;
+					else
+						cache_write_data_updated[m * 32 + 31:m * 32] = cache_write_data_original[m * 32 + 31:m * 32];
+				`else
 					cache_write_data_updated[m * 32 + 31:m * 32] = replacement_word;
+				`endif
 			end
 		end
 		
 		for (m = 0; m < `CACHE_LINE_SIZE_WORDS; m = m + 1)
 			assign cache_line_from_memory_unpacked[m] = cache_line_from_memory[m * 32 + 31:m * 32];
 		always @ (*) begin
+			`ifdef MULTIPLE_WORDS_PER_LINE
+				read_word_from_memory = cache_line_from_memory_unpacked[current_address[`CACHE_LINE_SIZE_BYTES_LOG - 1:2]];
+			`else
 				read_word_from_memory = cache_line_from_memory_unpacked[0];
+			`endif
 		end
 	endgenerate
 	
@@ -405,16 +471,9 @@ module data_mem_cached (clk, clk_delayed, clk_double, addr, write_data, memwrite
 		end
 	end
 	
-	reg [31:0] cache_line_from_memory_extra;
-	wire [13:0] cache_line_adress_0;
-	wire [13:0] cache_line_adress_1;
-	wire [13:0] cache_line_adress_2;
-	wire [13:0] cache_line_adress_3;
-
-	assign cache_line_adress_0 =  current_address[11:`CACHE_LINE_SIZE_BYTES_LOG];
-	assign cache_line_adress_1 =  current_address[11:`CACHE_LINE_SIZE_BYTES_LOG] - 32'h1000;
-	assign cache_line_adress_2 =  addr_buf_block_addr;
-	assign cache_line_adress_3 =  addr_buf_block_addr - 32'h1000;
+	`ifdef CACHE_DELAY_OUTPUT
+		reg [31:0] read_data_before_delay;
+	`endif
 
 	/*
 	 *	State machine
@@ -430,52 +489,69 @@ module data_mem_cached (clk, clk_delayed, clk_double, addr, write_data, memwrite
 				sign_mask_buf <= sign_mask;
 				if (memwrite == 1'b1 || memread == 1'b1) begin
 					if (cache_line_addr_match != 0) begin
-						read_data_before_delay <= read_buf;
+						`ifdef CACHE_DELAY_OUTPUT
+							read_data_before_delay <= read_buf;
+						`else
+							read_data <= read_buf;
+						`endif
 					end
 					else begin
-						state <= ACCESS_MEMORY;
+						`ifndef CACHE_READ_IN_ONE_CYCLE
+							state <= ACCESS_MEMORY;
+						`else
+							state <= UPDATE_CACHE;
+						`endif
 						clk_stall <= 1;
 					end
 				end
 			end
+			`ifndef CACHE_READ_IN_ONE_CYCLE
 			ACCESS_MEMORY: begin
-				/*
 				if (!accessed_line_dirty) begin
 					data_block[accessed_line_stored_addr[9:`CACHE_LINE_SIZE_BYTES_LOG - 2] - 32'h1000] <= accessed_line_data;
 				end
-				*/
 				cache_line_from_memory <= data_block[current_address[11:`CACHE_LINE_SIZE_BYTES_LOG] - 32'h1000];
-				cache_line_from_memory_extra <= data_block[addr_buf_block_addr - 32'h1000];
 				state <= UPDATE_CACHE;
 			end
+			`endif
 			UPDATE_CACHE: begin
 				clk_stall <= 0;
 				state <= IN_CACHE;
-				read_data_before_delay <= read_buf;
+				`ifdef CACHE_DELAY_OUTPUT
+					read_data_before_delay <= read_buf;
+				`else
+					read_data <= read_buf;
+				`endif
 			end
 		endcase
 	end
 	
-	always @(posedge clk_double) begin
-		if (state == ACCESS_MEMORY && clk_delayed == 1'b1) begin
-			if (!accessed_line_dirty) begin
-				data_block[accessed_line_stored_addr[9:`CACHE_LINE_SIZE_BYTES_LOG - 2] - 32'h1000] <= accessed_line_data;
+	`ifdef CACHE_READ_IN_ONE_CYCLE
+		`ifdef CACHE_READ_BUFFER_AT_NEGEDGE
+		always @(posedge clk_double) begin
+			`ifdef CACHE_DELAY_OUTPUT
+			if (state == UPDATE_CACHE && clk_delayed == 1'b1) begin
+			`else
+			if (state == UPDATE_CACHE && clk == 1'b1) begin
+			`endif
+		`elsif CACHE_READ_BUFFER_AT_DOUBLE_CLOCK
+		always @(negedge clk) begin
+			if (state == UPDATE_CACHE) begin
+		`endif
+				if (!accessed_line_dirty) begin
+					data_block[accessed_line_stored_addr[9:`CACHE_LINE_SIZE_BYTES_LOG - 2] - 32'h1000] <= accessed_line_data;
+				end
+				cache_line_from_memory <= data_block[current_address[11:`CACHE_LINE_SIZE_BYTES_LOG] - 32'h1000];
+				cache_line_from_memory_extra <= data_block[addr_buf_block_addr - 32'h1000];
 			end
 		end
-		/*
-		if (state == UPDATE_CACHE && clk_delayed == 1'b1) begin
-			if (!accessed_line_dirty) begin
-				data_block[accessed_line_stored_addr[9:`CACHE_LINE_SIZE_BYTES_LOG - 2] - 32'h1000] <= accessed_line_data;
-			end
-			cache_line_from_memory <= data_block[current_address[11:`CACHE_LINE_SIZE_BYTES_LOG] - 32'h1000];
-			cache_line_from_memory_extra <= data_block[addr_buf_block_addr - 32'h1000];
-		end
-		*/
-	end
+	`endif
 	
-	always @(posedge clk_delayed) begin
-		read_data <= read_data_before_delay;
-	end
+	`ifdef CACHE_DELAY_OUTPUT
+		always @(posedge clk_delayed) begin
+			read_data <= read_data_before_delay;
+		end
+	`endif
 
 	/*
 	 *	Test led

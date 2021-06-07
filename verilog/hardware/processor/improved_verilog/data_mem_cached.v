@@ -472,7 +472,7 @@ module data_mem_cached (clk,
 	end
 	
 	`ifdef CACHE_DELAY_OUTPUT
-		reg [31:0] cache_line_from_memory_extra;
+		reg [31:0] read_data_before_delay;
 	`endif
 
 	/*

@@ -1,5 +1,4 @@
 toplevel_sim.v
-improved_verilog/config.v 
 improved_verilog/adder.v
 improved_verilog/cpu.v 
 improved_verilog/mux2to1.v 
@@ -16,7 +15,8 @@ improved_verilog/instruction_mem.v
 improved_verilog/data_mem.v 
 improved_verilog/register_file.v 
 improved_verilog/CSR.v 
-improved_verilog/dataMem_mask_gen.v 
+improved_verilog/dataMem_mask_gen.v
+improved_verilog/config.v 
 improved_verilog/two_bit_branch_predictor.v
 improved_verilog/one_bit_branch_predictor.v
 improved_verilog/static_branch_predictor.v

@@ -81,7 +81,6 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 	`endif 
 
 	`ifdef USE_ANDXOR_DSP
-
 		`ifndef USE_ADDER_DSP
 			adder_dsp alu_andxor1(
 				.input1(inputA1),

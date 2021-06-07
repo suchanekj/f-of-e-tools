@@ -77,11 +77,6 @@ module cpu(
 	output			data_mem_memwrite;
 	output			data_mem_memread;
 	output [3:0]		data_mem_sign_mask;
-	/*
-	output [1:0]		check0;
-	output [1:0]		check1;
-	output [1:0]		check2;
-	*/
 
 
 	/*
@@ -523,10 +518,7 @@ module cpu(
         .in_addr(if_id_out[31:0]),
         .offset(imm_out),
         .branch_addr(branch_predictor_addr),
-        .prediction(predict),
-		.check0(check0),
-		.check1(check1),
-		.check2(check2)
+        .prediction(predict)
 
     );
     `elsif USE_ONE_BIT

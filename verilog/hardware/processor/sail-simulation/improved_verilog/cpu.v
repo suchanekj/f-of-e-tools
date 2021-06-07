@@ -176,10 +176,6 @@ module cpu(
 	wire			mistake_trigger;
 	wire			decode_ctrl_mux_sel;
 	wire			inst_mux_sel;
-	wire[1:0] 			check0;
-	wire[1:0] 			check1;
-	wire[1:0] 			check2;
-
 
     
 

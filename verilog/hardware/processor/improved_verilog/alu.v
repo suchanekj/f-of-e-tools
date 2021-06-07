@@ -69,8 +69,8 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 	reg [31:0] inputB2;
 	
 	wire addsub_in;
-	wire [31:0] add_inputA;
-	wire [31:0] add_inputB;
+	wire [31:0] add_input1;
+	wire [31:0] add_input2;
 	
 	reg [31:0] add_output;
 	reg [31:0] sub_output;
@@ -102,8 +102,8 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 
 	`ifdef USE_ADDER_DSP
 		adder_dsp alu_adder(
-			.input1(add_inputA),
-			.input2(add_inputB),
+			.input1(add_input1),
+			.input2(add_input2),
 			.addsub(addsub_in),
 			.out(add_output)
 		);
@@ -139,12 +139,12 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 	assign addsub_in = ALUctl[3:0] == `kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SUB;
 	
 	`ifdef USE_ANDXOR_DSP
-		assign add_inputA = (ALUctl[3:0] == `kSAIL_MICROARCHITECTURE_ALUCTL_3to0_AND || ALUctl[3:0] == `kSAIL_MICROARCHITECTURE_ALUCTL_3to0_XOR) ? inputA1 : inputA;
+		assign add_input1 = (ALUctl[3:0] == `kSAIL_MICROARCHITECTURE_ALUCTL_3to0_AND || ALUctl[3:0] == `kSAIL_MICROARCHITECTURE_ALUCTL_3to0_XOR) ? inputA1 : inputB;
 		
-		assign add_inputB = (ALUctl[3:0] == `kSAIL_MICROARCHITECTURE_ALUCTL_3to0_AND || ALUctl[3:0] == `kSAIL_MICROARCHITECTURE_ALUCTL_3to0_XOR) ? inputB1 : inputB;
+		assign add_input2 = (ALUctl[3:0] == `kSAIL_MICROARCHITECTURE_ALUCTL_3to0_AND || ALUctl[3:0] == `kSAIL_MICROARCHITECTURE_ALUCTL_3to0_XOR) ? inputB1 : inputA;
 	`else
-		assign add_inputA = inputA;
-		assign add_inputB = inputB;
+		assign add_input1 = inputB;
+		assign add_input2 = inputA;
 	`endif
 	
 	always @(ALUctl, A, B) begin

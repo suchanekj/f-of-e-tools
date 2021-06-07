@@ -549,7 +549,6 @@ module data_mem_cached (clk,
 						data_block[accessed_line_stored_addr[9:`CACHE_LINE_SIZE_BYTES_LOG - 2] - 32'h1000] <= accessed_line_data;
 					end
 					cache_line_from_memory <= data_block[current_address[11:`CACHE_LINE_SIZE_BYTES_LOG] - 32'h1000];
-					cache_line_from_memory_extra <= data_block[addr_buf_block_addr - 32'h1000];
 				end
 			end
 		`endif

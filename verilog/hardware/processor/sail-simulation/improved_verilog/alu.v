@@ -115,19 +115,19 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 		`ifdef USE_ANDXOR_DSP
 
 			for (i=0; i < 16; i = i + 1) begin
-				inputA1[2*i] <= A[i];
-				inputB1[2*i] <= B[i];
+				inputA1[2*i] = A[i];
+				inputB1[2*i] = B[i];
 			end
 
 			for (i=0; i < 16; i = i + 1) begin
-				inputA2[2*i] <= A[i+16];
-				inputB2[2*i] <= B[i+16];
+				inputA2[2*i] = A[i+16];
+				inputB2[2*i] = B[i+16];
 			end
 
 		`endif
 
-		inputA <= A;
-		inputB <= B;
+		inputA = A;
+		inputB = B;
 
 		case (ALUctl[3:0])
 			/*

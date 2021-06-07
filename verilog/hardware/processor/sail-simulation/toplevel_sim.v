@@ -64,43 +64,38 @@ module top_sim (clk, led);
 	
 	wire clk_actual;
 	
-	clk_divisor clkdivider(
-		.clk_hf(clk),
-		.clk(clk_actual)
-	);
-	
-	/*
 	reg			divider_reg_0;
 	reg			divider_reg_1;
-	reg			divider_reg_2;
-	wire[1:0]	clk_mf;
-	wire		clk_actual;
-	reg			clk_delayed;
+	//reg			divider_reg_2;
+	wire[0:0]	clk_mf;
 	
 	assign clk_mf[0] = divider_reg_0;
 			
 	always @(posedge clk) begin
 		divider_reg_0 <= !divider_reg_0;
-		clk_delayed <= clk_actual;
 	end
 	
-	assign clk_mf[1] = divider_reg_1;
+	assign clk_actual = divider_reg_1;
 			
 	always @(posedge clk_mf[0]) begin
 		divider_reg_1 <= !divider_reg_1;
 	end
 	
-	assign clk_actual = divider_reg_2;
+	//assign clk_actual = divider_reg_2;
 			
-	always @(posedge clk_mf[1]) begin
+	/*always @(posedge clk_mf[1]) begin
 		divider_reg_2 <= !divider_reg_2;
-	end
+	end*/
 	
 	initial begin
 		divider_reg_0 = 0;
 		divider_reg_1 = 0;
-		divider_reg_2 = 0;
-	end */
+		//divider_reg_2 = 0;
+	end
+	
+	`ifdef CACHE_READ_BUFFER_AT_DOUBLE_CLOCK
+		assign clk_double = clk_mf[1];
+	`endif
 
 	cpu processor(
 		.clk(clk_proc),
@@ -119,17 +114,46 @@ module top_sim (clk, led);
 		.out(inst_out)
 	);
 
-	data_mem_cached data_mem_inst(
-		.clk(clk_actual),
-		.addr(data_addr),
-		.write_data(data_WrData),
-		.memwrite(data_memwrite),
-		.memread(data_memread),
-		.read_data(data_out),
-		.sign_mask(data_sign_mask),
-		.led(led),
-		.clk_stall(data_clk_stall)
-	);
+	`ifdef USE_CACHE_MEMORY
+		`ifdef CACHE_DELAY_OUTPUT
+			reg clk_delayed;
+		
+			always @(posedge clk) begin
+				clk_delayed <= clk_actual;
+			end
+		`endif
+		
+		data_mem_cached data_mem_inst(
+			.clk(clk_actual),
+			`ifdef CACHE_DELAY_OUTPUT
+				.clk_delayed(clk_delayed),
+			`endif
+			`ifdef CACHE_READ_BUFFER_AT_DOUBLE_CLOCK
+				.clk_double(clk_double),
+			`endif
+			.addr(data_addr),
+			.write_data(data_WrData),
+			.memwrite(data_memwrite), 
+			.memread(data_memread), 
+			.read_data(data_out),
+			.sign_mask(data_sign_mask),
+			.led(led),
+			.clk_stall(data_clk_stall)
+		);
+
+	`else
+		data_mem data_mem_inst(
+			.clk(clk_actual),
+			.addr(data_addr),
+			.write_data(data_WrData),
+			.memwrite(data_memwrite), 
+			.memread(data_memread), 
+			.read_data(data_out),
+			.sign_mask(data_sign_mask),
+			.led(led),
+			.clk_stall(data_clk_stall)
+		);
+	`endif
 
 	assign clk_proc = (data_clk_stall) ? 1'b1 : clk_actual;
 endmodule

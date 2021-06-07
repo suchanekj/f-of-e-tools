@@ -1,20 +1,25 @@
 /*
 	Authored 2018-2019, Ryan Voo.
+
 	All rights reserved.
 	Redistribution and use in source and binary forms, with or without
 	modification, are permitted provided that the following conditions
 	are met:
+
 	*	Redistributions of source code must retain the above
 		copyright notice, this list of conditions and the following
 		disclaimer.
+
 	*	Redistributions in binary form must reproduce the above
 		copyright notice, this list of conditions and the following
 		disclaimer in the documentation and/or other materials
 		provided with the distribution.
+
 	*	Neither the name of the author nor the names of its
 		contributors may be used to endorse or promote products
 		derived from this software without specific prior written
 		permission.
+
 	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 	"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 	LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
@@ -30,67 +35,85 @@
 */
 
 
+module instruction_RAM_mem_tb();
+
+reg 			clk;
+reg [31:0]		addr;
+wire [31:0]	out;
 /*
- *	top.v
- *
- *	Top level entity, linking cpu with data and instruction memory.
- */
-
-module top_sim (clk, led);
-	input 			clk;
-	output [7:0]	led;
-
-	wire		clk_proc;
-	wire		data_clk_stall;
-	//wire 		clk_f;
-	
-	/* Clock division 
-	clk_divisor net_clk(
-		.clk_hf(clk),
-		.clk(clk_f)
-	); */
-	
+wire [1:0] check0;
+wire [1:0] check1;
+wire [1:0] check2;
+wire [1:0] check3;
+wire [1:0] check4;
+*/
+instruction_RAM_mem irm(
+	.din(32'b0),
+	.write_en(1'b0), 
+	.waddr(32'b0), 
+	.wclk(1'b0), 
+	.raddr(addr), 
+	.rclk(clk), 
+	.dout(out)
 	/*
-	 *	Memory interface
-	 */
-	wire[31:0]	inst_in;
-	wire[31:0]	inst_out;
-	wire[31:0]	data_out;
-	wire[13:0]	data_addr;
-	wire[31:0]	data_WrData;
-	wire		data_memwrite;
-	wire		data_memread;
-	wire[3:0]	data_sign_mask;
+	.check0(check0),
+	.check1(check1),
+	.check2(check2),
+	.check3(check3),
+	.check4(check4)
+	*/
+);
+localparam period = 2;  //2s
 
+//simulation
+always begin
+	#1 clk = ~clk;
+end
+initial begin
+	clk = 1;
+	addr = 32'b0;
+end	
+always @(posedge clk) 
+begin
+	$dumpfile ("instruction_RAM_mem.vcd");
+	$dumpvars;
 
-	cpu processor(
-		.clk(clk_proc),
-		.inst_mem_in(inst_in),
-		.inst_mem_out(inst_out),
-		.data_mem_out(data_out),
-		.data_mem_addr(data_addr),
-		.data_mem_WrData(data_WrData),
-		.data_mem_memwrite(data_memwrite),
-		.data_mem_memread(data_memread),
-		.data_mem_sign_mask(data_sign_mask)
-	);
+	//write bytes
+	addr = 32'h08; 
 
-	instruction_memory inst_mem( 
-		.addr(inst_in), 
-		.out(inst_out)
-	);
+	#period;
+	addr = 32'h0C;
 
-	data_mem data_mem_inst(
-		.clk(clk),
-		.addr(data_addr),
-		.write_data(data_WrData),
-		.memwrite(data_memwrite), 
-		.memread(data_memread), 
-		.read_data(data_out),
-		.sign_mask(data_sign_mask),
-		.led(led),
-		.clk_stall(data_clk_stall)
-	);
+	#period;
+	addr = 32'h10;
 
-	assign clk_proc = (data_clk_stall) ? 1'b1 : clk;
+	#period;
+	addr = 32'h14;
+
+	#period;
+	addr = 32'h3DC;
+	#period;
+
+	addr = 32'h3E0;
+	#period;
+	
+	addr = 32'h3E4;
+	#period;
+
+	addr = 32'h3E8;
+	#period;
+	
+	addr = 32'h3EC;
+	#period;
+	addr = 32'h3F0;
+	#period;
+
+	addr = 32'h3F4;
+	#period;
+	$finish;
+
+end
+
 endmodule
+
+

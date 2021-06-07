@@ -40,7 +40,7 @@
 
 module data_mem (clk, addr, write_data, memwrite, memread, sign_mask, read_data, led, clk_stall);
 	input			clk;
-	`ifdef `USE_SMALL_DATA_ADDR
+	`ifdef USE_SMALL_DATA_ADDR
 		/* 
 		addr is used only to assign bits to addr_buff, which in turn assigns bits to addr_buf_block_addr and addr_buf_byte_offset
 		which require bits 11 to 0 only. Instruction memory substraction in FSM is unaffected by reducing address size bus. 
@@ -99,7 +99,7 @@ module data_mem (clk, addr, write_data, memwrite, memread, sign_mask, read_data,
 	/*
 	 *	Buffer to store address
 	 */
-	`ifdef `USE_SMALL_DATA_ADDR
+	`ifdef USE_SMALL_DATA_ADDR
 		// Reflect changes in addr size
 		reg [13:0]			addr_buf;
 	`else
@@ -196,7 +196,7 @@ module data_mem (clk, addr, write_data, memwrite, memread, sign_mask, read_data,
 	
 	wire[31:0] write_out1;
 	// Replace write_out2 directly with the write_data_buffer to reduce wiring -> reduce power ?
-	`ifndef `USE_MEMORY_OPTIMIZATIONS
+	`ifndef USE_MEMORY_OPTIMIZATIONS
 		wire[31:0] write_out2;
 	`endif
 	
@@ -204,12 +204,12 @@ module data_mem (clk, addr, write_data, memwrite, memread, sign_mask, read_data,
 	assign write_select1 = sign_mask_buf[2];
 	
 	assign write_out1 = (write_select0) ? {halfword_r1, halfword_r0} : {byte_r3, byte_r2, byte_r1, byte_r0};
-	`ifndef `USE_MEMORY_OPTIMIZATIONS
+	`ifndef USE_MEMORY_OPTIMIZATIONS
 		assign write_out2 = (write_select0) ? 32'b0 : write_data_buffer;
 	`endif
 	
 	// Replacement word is write_out2 if we selected to write entire word
-	`ifdef `USE_MEMORY_OPTIMIZATIONS
+	`ifdef USE_MEMORY_OPTIMIZATIONS
 		assign replacement_word = (write_select1) ? write_data_buffer : write_out1;
 	`else
 		assign replacement_word = (write_select1) ? write_out2 : write_out1;
@@ -226,7 +226,7 @@ module data_mem (clk, addr, write_data, memwrite, memread, sign_mask, read_data,
 	wire[31:0] out1;
 	wire[31:0] out2;
 	wire[31:0] out3;
-	`ifndef `USE_MEMORY_OPTIMIZATIONS
+	`ifndef USE_MEMORY_OPTIMIZATIONS
 		// Same as above, out4 seems to just hold {buf3, buf2, buf1, buf0} or else be 0; remove to reduce wiring -> reduce power?
 		wire[31:0] out4;
 	`endif
@@ -237,7 +237,7 @@ module data_mem (clk, addr, write_data, memwrite, memread, sign_mask, read_data,
 	 * d is addr_buf_byte_offset[1], e is addr_buf_byte_offset[0]
 	 */
 	
-	`ifdef `USE_MEMORY_OPTIMIZATIONS
+	`ifdef USE_MEMORY_OPTIMIZATIONS
 		//~a~b~de + ~ade + ~abd
 		assign select0 = (~sign_mask_buf[2] & ~sign_mask_buf[1] & ~addr_buf_byte_offset[1] & addr_buf_byte_offset[0]) | (~sign_mask_buf[2] & addr_buf_byte_offset[1] & addr_buf_byte_offset[0]) | (~sign_mask_buf[2] & sign_mask_buf[1] & addr_buf_byte_offset[1]);
 		
@@ -256,12 +256,12 @@ module data_mem (clk, addr, write_data, memwrite, memread, sign_mask, read_data,
 	assign out1 = (select0) ? ((sign_mask_buf[3]==1'b1) ? {{24{buf1[7]}}, buf1} : {24'b0, buf1}) : ((sign_mask_buf[3]==1'b1) ? {{24{buf0[7]}}, buf0} : {24'b0, buf0});
 	assign out2 = (select0) ? ((sign_mask_buf[3]==1'b1) ? {{24{buf3[7]}}, buf3} : {24'b0, buf3}) : ((sign_mask_buf[3]==1'b1) ? {{24{buf2[7]}}, buf2} : {24'b0, buf2}); 
 	assign out3 = (select0) ? ((sign_mask_buf[3]==1'b1) ? {{16{buf3[7]}}, buf3, buf2} : {16'b0, buf3, buf2}) : ((sign_mask_buf[3]==1'b1) ? {{16{buf1[7]}}, buf1, buf0} : {16'b0, buf1, buf0});
-	`ifndef `USE_MEMORY_OPTIMIZATIONS
+	`ifndef USE_MEMORY_OPTIMIZATIONS
 		assign out4 = (select0) ? 32'b0 : {buf3, buf2, buf1, buf0};
 	`endif
 	
 	assign out5 = (select1) ? out2 : out1;
-	`ifdef `USE_MEMORY_OPTIMIZATIONS
+	`ifdef USE_MEMORY_OPTIMIZATIONS
 		// If out4 = 0, and select0 = select1 = 1, then out6 is 0 -> effectively OFF -> out4 only has an effect when it is non-zero
 		assign out6 = (select1) ? {buf3, buf2, buf1, buf0} : out3;
 	`else

@@ -1,20 +1,25 @@
 /*
 	Authored 2018-2019, Ryan Voo.
+
 	All rights reserved.
 	Redistribution and use in source and binary forms, with or without
 	modification, are permitted provided that the following conditions
 	are met:
+
 	*	Redistributions of source code must retain the above
 		copyright notice, this list of conditions and the following
 		disclaimer.
+
 	*	Redistributions in binary form must reproduce the above
 		copyright notice, this list of conditions and the following
 		disclaimer in the documentation and/or other materials
 		provided with the distribution.
+
 	*	Neither the name of the author nor the names of its
 		contributors may be used to endorse or promote products
 		derived from this software without specific prior written
 		permission.
+
 	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 	"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 	LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
@@ -30,67 +35,31 @@
 */
 
 
+
 /*
- *	top.v
- *
- *	Top level entity, linking cpu with data and instruction memory.
+ *	RISC-V instruction memory
  */
 
-module top_sim (clk, led);
-	input 			clk;
-	output [7:0]	led;
-
-	wire		clk_proc;
-	wire		data_clk_stall;
-	//wire 		clk_f;
-	
-	/* Clock division 
-	clk_divisor net_clk(
-		.clk_hf(clk),
-		.clk(clk_f)
-	); */
-	
-	/*
-	 *	Memory interface
-	 */
-	wire[31:0]	inst_in;
-	wire[31:0]	inst_out;
-	wire[31:0]	data_out;
-	wire[13:0]	data_addr;
-	wire[31:0]	data_WrData;
-	wire		data_memwrite;
-	wire		data_memread;
-	wire[3:0]	data_sign_mask;
 
 
-	cpu processor(
-		.clk(clk_proc),
-		.inst_mem_in(inst_in),
-		.inst_mem_out(inst_out),
-		.data_mem_out(data_out),
-		.data_mem_addr(data_addr),
-		.data_mem_WrData(data_WrData),
-		.data_mem_memwrite(data_memwrite),
-		.data_mem_memread(data_memread),
-		.data_mem_sign_mask(data_sign_mask)
-	);
+module instruction_RAM2_mem (raddr, rclk, dout); 
+		parameter addr_width = 32;
+		parameter data_width = 32;
+		input rclk;
+		input [addr_width-1:0] raddr;
+		output reg [data_width-1:0] dout;
 
-	instruction_memory inst_mem( 
-		.addr(inst_in), 
-		.out(inst_out)
-	);
+		reg [data_width-1:0] instruction_memory [0:2**10 -1];
+		/* synthesis syn_ramstyle = "no_rw_check" */ ;
+		initial begin
+		/*
+		*	read from "program.hex" and store the instructions in instruction memory
+		*/
+			$readmemh("programs/program.hex",instruction_memory);
+		end
 
-	data_mem data_mem_inst(
-		.clk(clk),
-		.addr(data_addr),
-		.write_data(data_WrData),
-		.memwrite(data_memwrite), 
-		.memread(data_memread), 
-		.read_data(data_out),
-		.sign_mask(data_sign_mask),
-		.led(led),
-		.clk_stall(data_clk_stall)
-	);
-
-	assign clk_proc = (data_clk_stall) ? 1'b1 : clk;
+		// Never write to instruction memory
+		always @(posedge rclk) begin // Read memory. 
+				dout <= instruction_memory[raddr >> 2]; // Using read address bus.
+		end 
 endmodule

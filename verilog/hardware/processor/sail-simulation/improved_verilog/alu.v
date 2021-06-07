@@ -1,40 +1,3 @@
-/*
-	Authored 2018-2019, Ryan Voo.
-
-	All rights reserved.
-	Redistribution and use in source and binary forms, with or without
-	modification, are permitted provided that the following conditions
-	are met:
-
-	*	Redistributions of source code must retain the above
-		copyright notice, this list of conditions and the following
-		disclaimer.
-
-	*	Redistributions in binary form must reproduce the above
-		copyright notice, this list of conditions and the following
-		disclaimer in the documentation and/or other materials
-		provided with the distribution.
-
-	*	Neither the name of the author nor the names of its
-		contributors may be used to endorse or promote products
-		derived from this software without specific prior written
-		permission.
-
-	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-	"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-	LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
-	FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
-	COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
-	INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
-	BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-	LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-	CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-	LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
-	ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-	POSSIBILITY OF SUCH DAMAGE.
-*/
-
-
 
 `include "../include/rv32i-defines.v"
 `include "../include/sail-core-defines.v"
@@ -67,16 +30,10 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 	reg [31:0] inputB1;
 	reg [31:0] inputA2;
 	reg [31:0] inputB2;
-	reg [31:0] A_reverse;
-	reg [15:0] shift_input1;
-	reg [15:0] shift_input2;
-	reg [15:0] shift_mul;
-	reg [31:0] shift_output1;
-	reg [31:0] shift_output2;
 	
 	wire addsub_in;
-	wire [31:0] add_inputA;
-	wire [31:0] add_inputB;
+	wire [31:0] add_input1;
+	wire [31:0] add_input2;
 	
 	reg [31:0] add_output;
 	reg [31:0] sub_output;
@@ -84,19 +41,6 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 	reg [31:0] andxor_output1;
 	reg [31:0] andxor_output2;
 	integer i;
-
-	//Function for reversing the number of bits in a parallel bus.
-	function [31:0] bitOrder (
-		input [31:0] data
-	);
-	integer u;
-	begin
-		for (u=0; u < 32; u=u+1) begin : reverse
-			bitOrder[31-u] = data[u]; //Note how the vectors get swapped around here by the index. For i=0, i_out=16, and vice versa.
-		end
-	end
-	endfunction
-
 	/*
 	 *	This uses Yosys's support for nonzero initial values:
 	 *
@@ -121,8 +65,8 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 
 	`ifdef USE_ADDER_DSP
 		adder_dsp alu_adder(
-			.input1(add_inputA),
-			.input2(add_inputB),
+			.input1(add_input1),
+			.input2(add_input2),
 			.addsub(addsub_in),
 			.out(add_output)
 		);
@@ -155,30 +99,16 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 		);
 	`endif 
 	
-	`ifdef USE_SHIFT_DSP
-		shift_dsp alu_shift1(
-			.input1(shift_input1),
-			.input2(shift_mul),
-			.out(shift_output1)
-		);
-		shift_dsp alu_shift2(
-			.input1(shift_input2),
-			.input2(shift_mul),
-			.out(shift_output2)
-		);
-	`endif
-
 	assign addsub_in = ALUctl[3:0] == `kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SUB;
 	
 	`ifdef USE_ANDXOR_DSP
-		assign add_inputA = (ALUctl[3:0] == `kSAIL_MICROARCHITECTURE_ALUCTL_3to0_AND || ALUctl[3:0] == `kSAIL_MICROARCHITECTURE_ALUCTL_3to0_XOR) ? inputA1 : inputA;
+		assign add_input1 = (ALUctl[3:0] == `kSAIL_MICROARCHITECTURE_ALUCTL_3to0_AND || ALUctl[3:0] == `kSAIL_MICROARCHITECTURE_ALUCTL_3to0_XOR) ? inputA1 : inputB;
 		
-		assign add_inputB = (ALUctl[3:0] == `kSAIL_MICROARCHITECTURE_ALUCTL_3to0_AND || ALUctl[3:0] == `kSAIL_MICROARCHITECTURE_ALUCTL_3to0_XOR) ? inputB1 : inputB;
+		assign add_input2 = (ALUctl[3:0] == `kSAIL_MICROARCHITECTURE_ALUCTL_3to0_AND || ALUctl[3:0] == `kSAIL_MICROARCHITECTURE_ALUCTL_3to0_XOR) ? inputB1 : inputA;
 	`else
-		assign add_inputA = inputA;
-		assign add_inputB = inputB;
+		assign add_input1 = inputB;
+		assign add_input2 = inputA;
 	`endif
-
 	
 	always @(ALUctl, A, B) begin
 		
@@ -195,19 +125,9 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 			end
 
 		`endif
-		`ifdef USE_SHIFT_DSP
-			A_reverse = bitOrder(inputA);
-			shift_mul = 16'b1 << B[4:0];
-			shift_input1 = (ALUctl[3:0] ==`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SRA) ? A_reverse[31:16]
-								: (ALUctl[3:0] ==`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SLL) ? inputA[31:16]
-								: 0;
-			shift_input2 = (ALUctl[3:0] ==`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SRA) ? A_reverse[15:0]
-								: (ALUctl[3:0] ==`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SLL) ? inputA[15:0]
-								: 0;
-		`endif
 
-		inputA = A;
-		inputB = B;
+		inputA <= A;
+		inputB <= B;
 
 		case (ALUctl[3:0])
 			/*
@@ -277,28 +197,16 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 			 *	SRL (the fields also matches the other SRL variants)
 			 */
 			`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SRL:	ALUOut = A >> B[4:0];
+
 			/*
 			 *	SRA (the fields also matches the other SRA variants)
 			 */
-			`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SRA:	begin
-				`ifdef USE_SHIFT_DSP
-					ALUOut[31:16] 	= shift_output2[15:0];
-					ALUOut[15:0] 	= shift_output1[15:0];
-				`else
-					ALUOut = A >>> B[4:0];
-				`endif
-			end
+			`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SRA:	ALUOut = A >>> B[4:0];
+
 			/*
 			 *	SLL (the fields also match the other SLL variants)
 			 */
-			`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SLL:	begin
-				`ifdef USE_SHIFT_DSP
-					ALUOut[31:16] 	= shift_output1[15:0];
-					ALUOut[15:0] 	= shift_output2[15:0];
-				`else
-					ALUOut = A << B[4:0];
-				`endif
-			end
+			`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SLL:	ALUOut = A << B[4:0];
 
 			/*
 			 *	XOR (the fields also match other XOR variants)

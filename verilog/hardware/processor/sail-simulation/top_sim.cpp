@@ -9,7 +9,7 @@
 #include <cstdio>
 enum
 {
-    kSimulationCycles = 3000000,
+    kSimulationCycles = 10000,
 };
 
 vluint64_t vtime = 0;

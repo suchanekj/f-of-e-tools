@@ -68,12 +68,6 @@ module branch_predictor(
 	output [31:0]	branch_addr;
 	output		prediction;
     
-	output [1:0]	check0;
-	
-	output [1:0]	check1;
-	output [1:0]	check2;
-
-
 	/*
 	 *	internal state (2,2) branch predictor
 	 */

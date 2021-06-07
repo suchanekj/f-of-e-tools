@@ -78,7 +78,7 @@ module instruction_RAM3_mem(addr, out, clk);
 	end
 
 	always @(posedge clk) begin
-    	out <= instruction_memory[addr>>2]; // Make synchronous read to infer RAM
+    	out = instruction_memory[addr>>2]; // Make synchronous read to infer RAM
   	end
 
 endmodule

@@ -17,7 +17,7 @@
 
 `define CLK_BASE_DIV "0b00"
 //`define CLK_DIV_REG_2
-`define CLK_DIV_REG_3
+`define CLK_DIV_REG 2
 
 // branch prediction
 

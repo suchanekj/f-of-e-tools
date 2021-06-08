@@ -28,4 +28,3 @@ improved_verilog/subtractor_dsp.v
 improved_verilog/clk_divisor.v
 improved_verilog/shift_dsp.v
 ice40_cells_sim.v
-improved_verilog/instruction_RAM_mem_3.v

@@ -1,10 +1,10 @@
 // DSP blocks
 
-`define USE_ADDER_DSP
-`define USE_SUBTRACTOR_DSP
-`define USE_ANDXOR_DSP
-`define USE_COMBIADDER_DSP
-`define USE_SHIFT_DSP
+//`define USE_ADDER_DSP
+//`define USE_SUBTRACTOR_DSP
+//`define USE_ANDXOR_DSP
+//`define USE_COMBIADDER_DSP
+//`define USE_SHIFT_DSP
  
 // Clock
 
@@ -30,16 +30,16 @@
 `define USE_SMALL_DATA_ADDR // Suspect it has no effect -> "WARNING resizing ..." when running yosys
 `define USE_MEMORY_OPTIMIZATIONS
 
-//`define USE_CACHE_MEMORY
+`define USE_CACHE_MEMORY
 
 //`define MULTIPLE_CACHE_LINES
 //`define MULTIPLE_WORDS_PER_LINE
 //`define CACHE_DELAY_OUTPUT
 
-//`define CACHE_READ_IN_ONE_CYCLE  // needs to be defined iff either is defined below
+`define CACHE_READ_IN_ONE_CYCLE  // needs to be defined iff either is defined below
 //`define CACHE_READ_BUFFER_AT_NEGEDGE
 //`define CACHE_READ_BUFFER_AT_DOUBLE_CLOCK
-//`define CACHE_READ_BUFFER_AT_INITIAL_STATE
+`define CACHE_READ_BUFFER_AT_INITIAL_STATE
 
 `define CACHE_LINE_MAX_BIT 31
 `define CACHE_LINE_SIZE_WORDS 1

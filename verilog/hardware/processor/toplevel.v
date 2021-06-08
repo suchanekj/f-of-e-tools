@@ -56,8 +56,8 @@ module top (led);
 	/*
 	 *	Use the iCE40's hard primitive for the clock source.
 	 */
+	wire clk_hf;
 	`ifdef USE_PLL_CLK
-		wire clk_hf;
 		SB_HFOSC #(.CLKHF_DIV("0b00")) OSCInst0 (
 			.CLKHFEN(ENCLKHF),
 			.CLKHFPU(CLKHF_POWERUP),
@@ -72,7 +72,7 @@ module top (led);
 		SB_HFOSC #(.CLKHF_DIV(`CLK_NOPLL_DIV)) OSCInst0 (
 			.CLKHFEN(ENCLKHF),
 			.CLKHFPU(CLKHF_POWERUP),
-			.CLKHF(clk)
+			.CLKHF(clk_hf)
 		);
 	`else
 		SB_LFOSC OSCInst0 (
@@ -81,6 +81,27 @@ module top (led);
 			.CLKLF(clk)
 		);
 	`endif
+	
+	reg			divider_reg_0;
+	reg			divider_reg_1;
+	wire[0:0]	clk_mf;
+	
+	assign clk_mf[0] = divider_reg_0;
+			
+	always @(posedge clk_hf) begin
+		divider_reg_0 <= !divider_reg_0;
+	end
+	
+	assign clk = divider_reg_1;
+			
+	always @(posedge clk_mf[0]) begin
+		divider_reg_1 <= !divider_reg_1;
+	end
+	
+	initial begin
+		divider_reg_0 = 0;
+		divider_reg_1 = 0;
+	end
 
 	/*
 	 *	Memory interface

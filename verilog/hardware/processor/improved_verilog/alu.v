@@ -30,6 +30,10 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 	reg [31:0] inputB1;
 	reg [31:0] inputA2;
 	reg [31:0] inputB2;
+	reg [15:0] shift_input1;
+	reg [15:0] shift_input2;
+	reg [4:0] shift_mul;
+	reg [31:0] A_reverse;
 	
 	wire addsub_in;
 	wire [31:0] add_input1;
@@ -40,6 +44,9 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 	reg [31:0] andxor_output;
 	reg [31:0] andxor_output1;
 	reg [31:0] andxor_output2;
+	reg [31:0] shift_output1;
+	reg [31:0] shift_output2;
+	
 	integer i;
 	/*
 	 *	This uses Yosys's support for nonzero initial values:
@@ -231,19 +238,19 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 			/*
 			 *	SRL (the fields also matches the other SRL variants)
 			 */
-			`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SRL:	ALUOut = A >> B[4:0];
-
-			/*
-			 *	SRA (the fields also matches the other SRA variants)
-			 */
-			`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SRA:	begin
+			`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SRL:	begin
 				`ifdef USE_SHIFT_DSP
 					ALUOut[31:16] 	= shift_output2[15:0];
 					ALUOut[15:0] 	= shift_output1[15:0];
 				`else
-					ALUOut = A >>> B[4:0];
+					ALUOut = A >> B[4:0];
 				`endif
 			end
+			/*
+			 *	SRA (the fields also matches the other SRA variants)
+			 */
+			`kSAIL_MICROARCHITECTURE_ALUCTL_3to0_SRA:  ALUOut = $signed(A) >>> B[4:0];
+
 			/*
 			 *	SLL (the fields also match the other SLL variants)
 			 */

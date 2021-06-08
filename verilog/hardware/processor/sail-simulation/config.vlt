@@ -4,3 +4,4 @@ lint_off -rule UNUSED
 lint_off -rule DECLFILENAME
 lint_off -rule DEFPARAM
 lint_off -rule PINCONNECTEMPTY
+lint_off -rule COMBDLY

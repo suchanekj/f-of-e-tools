@@ -30,6 +30,10 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 	reg [31:0] inputB1;
 	reg [31:0] inputA2;
 	reg [31:0] inputB2;
+	reg [15:0] shift_input1;
+	reg [15:0] shift_input2;
+	reg [4:0] shift_mul;
+	reg [31:0] A_reverse;
 	
 	wire addsub_in;
 	wire [31:0] add_input1;
@@ -40,6 +44,9 @@ module alu(ALUctl, A, B, ALUOut, Branch_Enable);
 	reg [31:0] andxor_output;
 	reg [31:0] andxor_output1;
 	reg [31:0] andxor_output2;
+	reg [31:0] shift_output1;
+	reg [31:0] shift_output2;
+	
 	integer i;
 	/*
 	 *	This uses Yosys's support for nonzero initial values:

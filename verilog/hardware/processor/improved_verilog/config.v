@@ -4,7 +4,7 @@
 `define USE_SUBTRACTOR_DSP
 `define USE_ANDXOR_DSP
 `define USE_COMBIADDER_DSP
-`define USE_SHIFT_DSP
+//`define USE_SHIFT_DSP
  
 // Clock
 
